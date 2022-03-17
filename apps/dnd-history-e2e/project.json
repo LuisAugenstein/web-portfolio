@@ -1,0 +1,28 @@
+{
+  "root": "apps/dnd-history-e2e",
+  "sourceRoot": "apps/dnd-history-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/dnd-history-e2e/cypress.json",
+        "devServerTarget": "dnd-history:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "dnd-history:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/dnd-history-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["dnd-history"]
+}

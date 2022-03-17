@@ -1,0 +1,97 @@
+{
+  "projectType": "application",
+  "root": "apps/dnd-history",
+  "sourceRoot": "apps/dnd-history/src",
+  "prefix": "web-portfolio",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/dnd-history",
+        "index": "apps/dnd-history/src/index.html",
+        "main": "apps/dnd-history/src/main.ts",
+        "polyfills": "apps/dnd-history/src/polyfills.ts",
+        "tsConfig": "apps/dnd-history/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/dnd-history/src/favicon.ico",
+          "apps/dnd-history/src/assets"
+        ],
+        "styles": ["apps/dnd-history/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/dnd-history/src/environments/environment.ts",
+              "with": "apps/dnd-history/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "dnd-history:build:production"
+        },
+        "development": {
+          "browserTarget": "dnd-history:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4201
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "dnd-history:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/dnd-history/src/**/*.ts",
+          "apps/dnd-history/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/dnd-history"],
+      "options": {
+        "jestConfig": "apps/dnd-history/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
