@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'web-portfolio-root',
+  selector: 'dnd-history-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
