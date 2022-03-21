@@ -7,15 +7,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  adventures = ['Avernus', 'Marlon/Michi', 'Noah Oneshot'];
+  adventures: string[] = [];
 
   selectedAdventure?: string;
 
-  constructor(private router: Router) {
-    this.adventures = ['Avernus', 'Marlon/Michi', 'Noah Oneshot'];
-  }
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
+    this.adventures = ['Avernus', 'Marlon/Michi', 'Noah Oneshot'];
     console.log('access database and get possible adventures');
   }
 }
