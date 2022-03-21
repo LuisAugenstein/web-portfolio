@@ -1,2 +1,17 @@
-<p-dropdown [options]="adventures" [(ngModel)]="selectedAdventure" placeholder="Select an Adventure"></p-dropdown>
-<a [routerLink]="selectedAdventure ? ['/home', selectedAdventure] : []">Login</a>
+<form #loginForm="ngForm" (ngSubmit)="submit(loginForm.value)">
+  <p-dropdown
+    [options]="sessionService.getSessions()"
+    name="session"
+    [(ngModel)]="selectedSession"
+    placeholder="Select a Session"
+    [editable]="true"
+    [required]="true"
+    [maxlength]="30"
+    pattern=".{3,}"
+  >
+  </p-dropdown>
+
+  <p-button type="submit" [disabled]="!loginForm.valid">
+    {{ sessionService.sessionExists(selectedSession) ? 'Login' : 'Create' }}
+  </p-button>
+</form>
