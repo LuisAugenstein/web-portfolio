@@ -1,3 +1,2 @@
-<p>{{ adventure }}</p>
-<a [routerLink]="['/home', adventure]">go to home</a>
-<button (click)="setAdventure()">set Adventure</button>
+<p-dropdown [options]="adventures" [(ngModel)]="selectedAdventure" placeholder="Select an Adventure"></p-dropdown>
+<a [routerLink]="selectedAdventure ? ['/home', selectedAdventure] : []">Login</a>
