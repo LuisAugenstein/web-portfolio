@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/dnd-history/login",
+  "sourceRoot": "libs/dnd-history/login/src",
+  "prefix": "web-portfolio",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/dnd-history/login"],
+      "options": {
+        "jestConfig": "libs/dnd-history/login/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/dnd-history/login/src/**/*.ts",
+          "libs/dnd-history/login/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

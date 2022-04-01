@@ -14,7 +14,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@web-portfolio/dnd-history/login": [
+        "libs/dnd-history/login/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
