@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@web-portfolio/dnd-history/home": ["libs/dnd-history/home/src/index.ts"],
       "@web-portfolio/dnd-history/login": [
         "libs/dnd-history/login/src/index.ts"
       ]

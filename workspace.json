@@ -3,6 +3,7 @@
   "projects": {
     "dnd-history": "apps/dnd-history",
     "dnd-history-e2e": "apps/dnd-history-e2e",
+    "dnd-history-home": "libs/dnd-history/home",
     "dnd-history-login": "libs/dnd-history/login"
   }
 }

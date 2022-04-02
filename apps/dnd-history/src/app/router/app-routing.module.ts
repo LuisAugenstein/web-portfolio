@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from '../home/home.component';
+import { HomeComponent } from '@web-portfolio/dnd-history/home';
 import { LoginComponent } from '@web-portfolio/dnd-history/login';
 
 const routes: Routes = [
