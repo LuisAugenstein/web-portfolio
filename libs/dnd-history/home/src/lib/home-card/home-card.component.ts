@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-card.component.scss'],
 })
 export class HomeCardComponent implements OnInit {
+
   constructor() {
     console.log('constructor')
   }

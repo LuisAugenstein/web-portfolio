@@ -5,8 +5,10 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { HomeCardComponent } from './home-card/home-card.component';
 
+import {CardModule} from 'primeng/card';
+
 @NgModule({
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, CardModule],
   declarations: [
     HomeComponent,
     HomeCardComponent

@@ -6,18 +6,19 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { DropdownModule } from 'primeng/dropdown';
-import {ButtonModule} from 'primeng/button';
+import { ButtonModule } from 'primeng/button';
 import { SessionService } from './services/session.service';
 
-
 @NgModule({
-  declarations: [
-    LoginComponent
+  declarations: [LoginComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    DropdownModule,
+    ButtonModule,
   ],
-  imports: [CommonModule, FormsModule, BrowserAnimationsModule, DropdownModule, ButtonModule],
-  providers: [
-    SessionService
-  ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  providers: [SessionService],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class LoginModule {}

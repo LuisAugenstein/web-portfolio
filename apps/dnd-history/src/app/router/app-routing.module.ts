@@ -5,7 +5,7 @@ import { LoginComponent } from '@web-portfolio/dnd-history/login';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'home/:adventure', component: HomeComponent },
+  { path: 'home/:session', component: HomeComponent },
   { path: '**', redirectTo: 'login' },
 ];
 

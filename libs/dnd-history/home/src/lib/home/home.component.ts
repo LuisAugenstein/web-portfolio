@@ -7,16 +7,16 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
-  adventure = '';
+  session = '';
 
   constructor(private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    console.log(this.route.snapshot.params['adventure']);
-    this.route.queryParams.subscribe(params => {
-      this.adventure = params['adventure'];
-    });
+    this.session = this.route.snapshot.params['session']
+  }
+
+  routeTo(name: string){
+    console.log(name);
   }
 }
