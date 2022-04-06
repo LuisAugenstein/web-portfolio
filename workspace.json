@@ -5,6 +5,7 @@
     "dnd-history-adventure": "libs/dnd-history/adventure",
     "dnd-history-characters": "libs/dnd-history/characters",
     "dnd-history-e2e": "apps/dnd-history-e2e",
+    "dnd-history-header": "libs/dnd-history/header",
     "dnd-history-home": "libs/dnd-history/home",
     "dnd-history-login": "libs/dnd-history/login",
     "dnd-history-map": "libs/dnd-history/map"

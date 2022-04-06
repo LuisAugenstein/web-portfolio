@@ -21,6 +21,9 @@
       "@web-portfolio/dnd-history/characters": [
         "libs/dnd-history/characters/src/index.ts"
       ],
+      "@web-portfolio/dnd-history/header": [
+        "libs/dnd-history/header/src/index.ts"
+      ],
       "@web-portfolio/dnd-history/home": ["libs/dnd-history/home/src/index.ts"],
       "@web-portfolio/dnd-history/login": [
         "libs/dnd-history/login/src/index.ts"

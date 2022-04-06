@@ -1,17 +1,10 @@
-<header class="flex align-items-center justify-content-between">
-  <a class="ml-4" routerLink="/login">zurück</a>
-  <div>
-    <h1>{{ 'DND' | titlecase }} {{ 'HISTORY' | titlecase }}</h1>
-    <h3>{{ session }}</h3>
-  </div>
-  <img class="mr-4 w-3rem pb-2" src="assets/d20_small.svg" alt="d20" />
-</header>
+<dnd-history-header></dnd-history-header>
 
 <div class="flex justify-content-center" style="margin-top: 10rem">
   <div
     *ngFor="let name of ['adventure', 'characters', 'map']"
     class="relative card-container transition-duration-150"
-    (click)="routeTo(name)"
+    [routerLink]="'/' + name"
   >
     <img
       [src]="'assets/home/' + name + '.png'"

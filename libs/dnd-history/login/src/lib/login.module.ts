@@ -7,7 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
-import { SessionService } from './services/session.service';
+
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [LoginComponent],
@@ -18,7 +19,7 @@ import { SessionService } from './services/session.service';
     DropdownModule,
     ButtonModule,
   ],
-  providers: [SessionService],
+  providers: [CookieService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class LoginModule {}

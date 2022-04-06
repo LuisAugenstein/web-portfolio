@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/dnd-history/header",
+  "sourceRoot": "libs/dnd-history/header/src",
+  "prefix": "web-portfolio",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/dnd-history/header"],
+      "options": {
+        "jestConfig": "libs/dnd-history/header/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/dnd-history/header/src/**/*.ts",
+          "libs/dnd-history/header/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
