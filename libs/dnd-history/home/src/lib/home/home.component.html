@@ -2,7 +2,7 @@
   <a class="ml-4" routerLink="/login">zurück</a>
   <div>
     <h1>{{ 'DND' | titlecase }} {{ 'HISTORY' | titlecase }}</h1>
-    <h3>{{session}}</h3>
+    <h3>{{ session }}</h3>
   </div>
   <img class="mr-4 w-3rem pb-2" src="assets/d20_small.svg" alt="d20" />
 </header>
@@ -13,7 +13,11 @@
     class="relative card-container transition-duration-150"
     (click)="routeTo(name)"
   >
-    <img [src]="'assets/home/' + name + '.png'" alt="Card" class="w-full h-full" />
+    <img
+      [src]="'assets/home/' + name + '.png'"
+      alt="Card"
+      class="w-full h-full"
+    />
     <label class="select-none">{{ name | titlecase }}</label>
     <div class="overlay w-full h-full"></div>
   </div>

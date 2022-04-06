@@ -2,8 +2,11 @@
   "version": 2,
   "projects": {
     "dnd-history": "apps/dnd-history",
+    "dnd-history-adventure": "libs/dnd-history/adventure",
+    "dnd-history-characters": "libs/dnd-history/characters",
     "dnd-history-e2e": "apps/dnd-history-e2e",
     "dnd-history-home": "libs/dnd-history/home",
-    "dnd-history-login": "libs/dnd-history/login"
+    "dnd-history-login": "libs/dnd-history/login",
+    "dnd-history-map": "libs/dnd-history/map"
   }
 }

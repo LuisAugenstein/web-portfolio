@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'dnd-history-home',
@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 export class HomeComponent implements OnInit {
   session = '';
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -17,6 +17,6 @@ export class HomeComponent implements OnInit {
   }
 
   routeTo(name: string){
-    console.log(name);
+    this.router.navigate([name, this.session]) 
   }
 }
