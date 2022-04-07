@@ -1,35 +1,37 @@
-<header class="flex align-items-center justify-content-center pt-8">
-  <h1 class="w-5rem" style="text-align: right">DND</h1>
-  <img class="m-4 w-10rem" src="assets/d20.svg" alt="d20" />
-  <h1 class="w-5rem">HISTORY</h1>
-</header>
+<div class="h-screen" id="login-content">
+  <header class="flex align-items-center justify-content-center pt-8">
+    <h1 class="w-5rem" style="text-align: right">DND</h1>
+    <img class="m-4 w-10rem" src="assets/d20.svg" alt="d20" />
+    <h1 class="w-5rem">HISTORY</h1>
+  </header>
 
-<div class="flex justify-content-center">
-  <form
-    #loginForm="ngForm"
-    (ngSubmit)="submit(loginForm.value)"
-    class="flex flex-column align-items-center"
-  >
-    <p-dropdown
-      [options]="sessionService.getSessions()"
-      name="session"
-      [(ngModel)]="sessionName"
-      placeholder="Select or create a session"
-      [editable]="true"
-      [required]="true"
-      [maxlength]="30"
-      pattern=".{3,}"
-      [style]="{ width: '20rem' }"
+  <div class="flex justify-content-center">
+    <form
+      #loginForm="ngForm"
+      (ngSubmit)="submit(loginForm.value)"
+      class="flex flex-column align-items-center"
     >
-    </p-dropdown>
+      <p-dropdown
+        [options]="sessionService.getSessions()"
+        name="session"
+        [(ngModel)]="sessionName"
+        placeholder="Select or create a session"
+        [editable]="true"
+        [required]="true"
+        [maxlength]="30"
+        pattern=".{3,}"
+        [style]="{ width: '20rem' }"
+      >
+      </p-dropdown>
 
-    <button
-      pButton
-      type="submit"
-      [disabled]="!loginForm.valid"
-      [style]="{ 'margin-top': '1rem' }"
-    >
-      {{ sessionService.sessionExists(sessionName) ? 'Login' : 'Create' }}
-    </button>
-  </form>
+      <button
+        pButton
+        type="submit"
+        [disabled]="!loginForm.valid"
+        [style]="{ 'margin-top': '1rem' }"
+      >
+        {{ sessionService.sessionExists(sessionName) ? 'Login' : 'Create' }}
+      </button>
+    </form>
+  </div>
 </div>

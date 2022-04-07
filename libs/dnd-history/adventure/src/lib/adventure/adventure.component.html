@@ -1,1 +1,37 @@
-<dnd-history-header backLink="/home"></dnd-history-header>
+<div class="h-screen" id="adventure-content">
+  <dnd-history-header backLink="/home"></dnd-history-header>
+
+  <div class="flex justify-content-center">
+    <div id="grid" style="max-width: 80rem">
+      <p-card
+        *ngFor="let data of adventureData;"
+        [subheader]="data.date"
+        [style]="{ 'border-radius': '15px' }"
+        (click)="showLargeCard(data)"
+      >
+        <ng-template pTemplate="title">
+          <div *ngIf="data.title; else titlePlaceholder">
+            {{ data.title }}
+          </div>
+          <ng-template #titlePlaceholder>
+            <div style="color: gray">Title</div></ng-template
+          >
+        </ng-template>
+        <ng-template pTemplate="content">
+          <p
+            *ngIf="data.content; else contentPlaceholder"
+            style="white-space: pre-wrap"
+          >
+            {{ data.content }}
+          </p>
+          <ng-template #contentPlaceholder>
+            <p style="color: gray">My awesome adventure ...</p>
+          </ng-template>
+        </ng-template>
+      </p-card>
+      <div class="flex justify-content-center align-items-center w-24rem h-15rem">
+        <button pButton #submitButton (click)="[createAdventureCard(), submitButton.blur()]">Add New</button>
+      </div>
+    </div>
+  </div>
+</div>

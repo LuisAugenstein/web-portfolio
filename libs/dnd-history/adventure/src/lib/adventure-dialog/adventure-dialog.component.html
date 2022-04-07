@@ -1,0 +1,25 @@
+<form #adventureForm="ngForm" (ngSubmit)="submit(adventureForm.value)">
+  <span class="p-float-label my-3">
+    <input
+      type="text"
+      id="inputtext"
+      name="title"
+      pInputText
+      [(ngModel)]="title"
+      style="width: 100%; max-width: 20rem"
+    />
+    <label for="inputtext">Give your adventure a title</label>
+  </span>
+  <span class="p-float-label">
+    <textarea
+      inputId="textarea"
+      name="content"
+      rows="13"
+      style="resize: none; width: 100%"
+      [(ngModel)]="content"
+      pInputTextarea
+    ></textarea>
+    <label for="textarea">What did you experience on you adventure?</label>
+  </span>
+  <p-button class="mt-2 flex" type="submit">Save</p-button>
+</form>

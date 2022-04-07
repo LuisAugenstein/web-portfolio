@@ -1,17 +1,19 @@
-<dnd-history-header></dnd-history-header>
+<div class="h-screen" id="home-content">
+  <dnd-history-header></dnd-history-header>
 
-<div class="flex justify-content-center" style="margin-top: 10rem">
-  <div
-    *ngFor="let name of ['adventure', 'characters', 'map']"
-    class="relative card-container transition-duration-150"
-    [routerLink]="'/' + name"
-  >
-    <img
-      [src]="'assets/home/' + name + '.png'"
-      alt="Card"
-      class="w-full h-full"
-    />
-    <label class="select-none">{{ name | titlecase }}</label>
-    <div class="overlay w-full h-full"></div>
+  <div class="flex justify-content-center" style="margin-top: 10rem">
+    <div
+      *ngFor="let name of ['adventure', 'characters', 'map']"
+      class="relative card-container transition-duration-150"
+      [routerLink]="'/' + name"
+    >
+      <img
+        [src]="'assets/home/' + name + '.png'"
+        alt="Card"
+        class="w-full h-full"
+      />
+      <label class="select-none">{{ name | titlecase }}</label>
+      <div class="overlay w-full h-full"></div>
+    </div>
   </div>
 </div>

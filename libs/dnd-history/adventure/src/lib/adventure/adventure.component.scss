@@ -1,0 +1,66 @@
+#adventure-content {
+  background-image: url('/assets/background-desktop.svg');
+  background-size: cover;
+  background-position: center;
+  max-height: 100vh;
+  overflow: auto;
+}
+
+#grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 24rem);
+  grid-gap: 1rem;
+  width: 24rem;
+}
+
+@media (min-width: 825px) {
+  #grid {
+    width: 49rem;
+  }
+}
+@media (min-width: 1230px) {
+  #grid {
+    width: 74rem;
+  }
+}
+
+p {
+  padding: 1px;
+  margin: 8px 0;
+  line-height: 1.2rem;
+  overflow: auto;
+  max-height: 11rem;
+  scrollbar-width: thin;
+  :first-of-type {
+    text-indent: -3px;
+  }
+}
+
+::ng-deep {
+  .p-card-title {
+    margin: 0 !important;
+    height: 1.8rem;
+    white-space: nowrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scrollbar-width: none;
+  }
+
+  .p-card-subtitle {
+    margin: 0 !important;
+    font-size: small;
+  }
+
+  .p-card-body {
+    padding: 8px !important;
+    width: 24rem;
+    height: 15rem;
+    border-radius: 15px;
+    cursor: pointer;
+    scrollbar-color: gray white;
+  }
+
+  .p-card-content {
+    padding: 0 !important;
+  }
+}

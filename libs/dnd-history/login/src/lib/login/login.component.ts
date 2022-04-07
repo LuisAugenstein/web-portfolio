@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('access database and get possible adventures');
+    this.sessionName = this.currentSessionService.session;
   }
 
   submit({ session }: { session: string }): void {
