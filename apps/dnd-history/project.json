@@ -6,9 +6,11 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
-        "outputPath": "dist/apps/dnd-history",
+        "outputPath": "dist/dnd-history/browser",
         "index": "apps/dnd-history/src/index.html",
         "main": "apps/dnd-history/src/main.ts",
         "polyfills": "apps/dnd-history/src/polyfills.ts",
@@ -93,11 +95,72 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/dnd-history"],
+      "outputs": [
+        "coverage/apps/dnd-history"
+      ],
       "options": {
         "jestConfig": "apps/dnd-history/jest.config.js",
         "passWithNoTests": true
       }
+    },
+    "server": {
+      "executor": "@angular-devkit/build-angular:server",
+      "options": {
+        "outputPath": "dist/dnd-history/server",
+        "main": "apps/dnd-history/server.ts",
+        "tsConfig": "apps/dnd-history/tsconfig.server.json",
+        "inlineStyleLanguage": "scss"
+      },
+      "configurations": {
+        "production": {
+          "outputHashing": "media",
+          "fileReplacements": [
+            {
+              "replace": "apps/dnd-history/src/environments/environment.ts",
+              "with": "apps/dnd-history/src/environments/environment.prod.ts"
+            }
+          ]
+        },
+        "development": {
+          "optimization": false,
+          "sourceMap": true,
+          "extractLicenses": false
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve-ssr": {
+      "executor": "@nguniversal/builders:ssr-dev-server",
+      "configurations": {
+        "development": {
+          "browserTarget": "dnd-history:build:development",
+          "serverTarget": "dnd-history:server:development"
+        },
+        "production": {
+          "browserTarget": "dnd-history:build:production",
+          "serverTarget": "dnd-history:server:production"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "prerender": {
+      "executor": "@nguniversal/builders:prerender",
+      "options": {
+        "routes": [
+          "/"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "dnd-history:build:production",
+          "serverTarget": "dnd-history:server:production"
+        },
+        "development": {
+          "browserTarget": "dnd-history:build:development",
+          "serverTarget": "dnd-history:server:development"
+        }
+      },
+      "defaultConfiguration": "production"
     }
   },
   "tags": []

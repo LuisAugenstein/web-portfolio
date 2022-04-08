@@ -6,7 +6,9 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/dnd-history/map"],
+      "outputs": [
+        "coverage/libs/dnd-history/map"
+      ],
       "options": {
         "jestConfig": "libs/dnd-history/map/jest.config.js",
         "passWithNoTests": true

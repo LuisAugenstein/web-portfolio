@@ -6,7 +6,9 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/dnd-history/adventure"],
+      "outputs": [
+        "coverage/libs/dnd-history/adventure"
+      ],
       "options": {
         "jestConfig": "libs/dnd-history/adventure/jest.config.js",
         "passWithNoTests": true

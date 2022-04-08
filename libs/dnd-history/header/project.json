@@ -6,7 +6,9 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/dnd-history/header"],
+      "outputs": [
+        "coverage/libs/dnd-history/header"
+      ],
       "options": {
         "jestConfig": "libs/dnd-history/header/jest.config.js",
         "passWithNoTests": true
