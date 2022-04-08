@@ -1,1 +1,5 @@
-/login /
+/login /login
+/home /home
+/characters /characters
+/map /map
+/* /
