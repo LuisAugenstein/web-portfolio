@@ -3,6 +3,7 @@
   "projects": {
     "dnd-history": "apps/dnd-history",
     "dnd-history-adventure": "libs/dnd-history/adventure",
+    "dnd-history-backend": "apps/dnd-history-backend",
     "dnd-history-characters": "libs/dnd-history/characters",
     "dnd-history-e2e": "apps/dnd-history-e2e",
     "dnd-history-header": "libs/dnd-history/header",

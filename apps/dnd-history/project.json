@@ -1,14 +1,11 @@
 {
   "projectType": "application",
-  "root": "apps/dnd-history",
   "sourceRoot": "apps/dnd-history/src",
   "prefix": "web-portfolio",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/dnd-history/browser",
         "index": "apps/dnd-history/src/index.html",
@@ -74,7 +71,8 @@
       },
       "defaultConfiguration": "development",
       "options": {
-        "port": 4201
+        "port": 4201,
+        "proxyConfig": "apps/dnd-history/proxy.conf.json"
       }
     },
     "extract-i18n": {
@@ -94,9 +92,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/apps/dnd-history"
-      ],
+      "outputs": ["coverage/apps/dnd-history"],
       "options": {
         "jestConfig": "apps/dnd-history/jest.config.js",
         "passWithNoTests": true
@@ -145,9 +141,7 @@
     "prerender": {
       "executor": "@nguniversal/builders:prerender",
       "options": {
-        "routes": [
-          "/"
-        ]
+        "routes": ["/"]
       },
       "configurations": {
         "production": {
