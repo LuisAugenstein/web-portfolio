@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 
 import { CardModule } from 'primeng/card';
-import { HeaderModule } from '@web-portfolio/dnd-history-feature-header';
+import { HeaderModule } from '@web-portfolio/dnd-history-header';
 
 @NgModule({
   imports: [CommonModule, RouterModule, CardModule, HeaderModule],

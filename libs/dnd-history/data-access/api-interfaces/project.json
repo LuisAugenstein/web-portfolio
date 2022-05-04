@@ -1,5 +1,6 @@
 {
   "sourceRoot": "libs/dnd-history/data-access/api-interfaces/src",
+  "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",

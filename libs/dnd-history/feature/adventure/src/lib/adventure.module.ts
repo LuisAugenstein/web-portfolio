@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { AdventureComponent } from './adventure/adventure.component';
-import { HeaderModule } from '@web-portfolio/dnd-history-feature-header';
+import { HeaderModule } from '@web-portfolio/dnd-history-header';
 
 import { CardModule } from 'primeng/card';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';

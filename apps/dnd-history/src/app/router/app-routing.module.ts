@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from '@web-portfolio/dnd-history-feature-home';
-import { LoginComponent } from '@web-portfolio/dnd-history-feature-login';
-import { AdventureComponent } from '@web-portfolio/dnd-history-feature-adventure';
-import { CharactersComponent } from '@web-portfolio/dnd-history-feature-characters';
-import { MapComponent } from '@web-portfolio/dnd-history-feature-map';
+import { HomeComponent } from '@web-portfolio/dnd-history-home';
+import { LoginComponent } from '@web-portfolio/dnd-history-login';
+import { AdventureComponent } from '@web-portfolio/dnd-history-adventure';
+import { CharactersComponent } from '@web-portfolio/dnd-history-characters';
+import { MapComponent } from '@web-portfolio/dnd-history-map';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },

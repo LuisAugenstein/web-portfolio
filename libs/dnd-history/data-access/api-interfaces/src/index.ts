@@ -1,1 +1,1 @@
-export * from './lib/dnd-history-data-access-api-interfaces.module';
+export * from './lib/dnd-history-api-interfaces';

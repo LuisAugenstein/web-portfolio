@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CurrentSessionService } from '@web-portfolio/dnd-history-feature-login';
+import { CurrentSessionService } from '@web-portfolio/dnd-history-login';
 
 @Component({
   selector: 'dnd-history-header',
