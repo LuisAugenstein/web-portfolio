@@ -1,0 +1,23 @@
+{
+  "sourceRoot": "libs/dnd-history/data-access/api-interfaces/src",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/dnd-history/data-access/api-interfaces/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/dnd-history/data-access/api-interfaces"],
+      "options": {
+        "jestConfig": "libs/dnd-history/data-access/api-interfaces/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

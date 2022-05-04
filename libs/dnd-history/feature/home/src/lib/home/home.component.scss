@@ -1,0 +1,40 @@
+#home-content {
+  background-image: url('/assets/background-desktop.svg');
+  background-size: cover;
+  background-position: center center;
+}
+
+.card-container {
+  margin: 0.4rem 0.8rem;
+  width: 20rem;
+  height: 12rem;
+  &:hover {
+    margin: 0;
+    width: 21.6rem;
+    height: 12.8rem;
+  }
+}
+
+img {
+  border-radius: 30px;
+}
+
+.overlay {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  border-radius: 30px;
+  &:hover {
+    background-color: rgba($color: #000000, $alpha: 0.25);
+    cursor: pointer;
+  }
+}
+
+label {
+  font-family: 'Vollkorn';
+  font-size: 1.5rem;
+  color: white;
+  position: absolute;
+  bottom: 8px;
+  left: 16px;
+}

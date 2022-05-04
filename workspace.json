@@ -2,13 +2,14 @@
   "version": 2,
   "projects": {
     "dnd-history": "apps/dnd-history",
-    "dnd-history-adventure": "libs/dnd-history/adventure",
     "dnd-history-backend": "apps/dnd-history-backend",
-    "dnd-history-characters": "libs/dnd-history/characters",
+    "dnd-history-data-access-api-interfaces": "libs/dnd-history/data-access/api-interfaces",
     "dnd-history-e2e": "apps/dnd-history-e2e",
-    "dnd-history-header": "libs/dnd-history/header",
-    "dnd-history-home": "libs/dnd-history/home",
-    "dnd-history-login": "libs/dnd-history/login",
-    "dnd-history-map": "libs/dnd-history/map"
+    "dnd-history-feature-adventure": "libs/dnd-history/feature/adventure",
+    "dnd-history-feature-characters": "libs/dnd-history/feature/characters",
+    "dnd-history-feature-header": "libs/dnd-history/feature/header",
+    "dnd-history-feature-home": "libs/dnd-history/feature/home",
+    "dnd-history-feature-login": "libs/dnd-history/feature/login",
+    "dnd-history-feature-map": "libs/dnd-history/feature/map"
   }
 }
