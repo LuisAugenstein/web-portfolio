@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CurrentSessionService } from '@web-portfolio/dnd-history-login';
+import { SessionService } from '@web-portfolio/dnd-history-login';
 
 @Component({
   selector: 'dnd-history-header',
@@ -7,13 +7,13 @@ import { CurrentSessionService } from '@web-portfolio/dnd-history-login';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  session = '';
+  sessionName = '';
 
   @Input() backLink = '/login';
 
-  constructor(private currentSessionService: CurrentSessionService) {}
+  constructor(private sessionService: SessionService) {}
 
   ngOnInit(): void {
-    this.session = this.currentSessionService.session;
+    this.sessionName = this.sessionService.getCurrentSession().name;
   }
 }

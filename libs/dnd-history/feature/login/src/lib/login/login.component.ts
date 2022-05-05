@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CurrentSessionService } from '../services/current-session.service';
+import { Session } from '@web-portfolio/dnd-history/data-access/api-interfaces';
 
 import { SessionService } from '../services/session.service';
 
@@ -10,24 +10,25 @@ import { SessionService } from '../services/session.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  sessionName?: string;
+  sessionName = '';
+  sessionNames: string[] = [];
 
   constructor(
     private router: Router,
-    public sessionService: SessionService,
-    private currentSessionService: CurrentSessionService
+    private sessionService: SessionService
   ) {}
 
   ngOnInit(): void {
-    console.log('access database and get possible adventures');
-    this.sessionName = this.currentSessionService.session;
+    this.sessionName = this.sessionService.getCurrentSession().name;
+    this.sessionNames = this.sessionService.getSessions().map(s => s.name);
   }
 
-  submit({ session }: { session: string }): void {
-    if (!this.sessionService.sessionExists(session)) {
+  submit({ sessionName }: { sessionName: string }): void {
+    const session: Session = { name: sessionName };
+    if (!this.sessionService.doesSessionExis(session)) {
       this.sessionService.createNewSession(session);
     }
-    this.currentSessionService.session = session;
+    this.sessionService.setCurrentSession(session);
     this.router.navigate(['/home']);
   }
 }
