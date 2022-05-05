@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { SessionService } from './session.service';
 
 describe('AppController', () => {
   let app: TestingModule;
@@ -9,14 +9,14 @@ describe('AppController', () => {
   beforeAll(async () => {
     app = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [AppService],
+      providers: [SessionService],
     }).compile();
   });
 
   describe('getData', () => {
     it('should return "Welcome to dnd-history-backend!"', () => {
       const appController = app.get<AppController>(AppController);
-      expect(appController.getData()).toEqual({
+      expect(appController.getSessions()).toEqual({
         message: 'Welcome to dnd-history-backend!',
       });
     });

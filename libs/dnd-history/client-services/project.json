@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/dnd-history/client-services/src",
+  "prefix": "web-portfolio",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/dnd-history/client-services"],
+      "options": {
+        "jestConfig": "libs/dnd-history/client-services/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/dnd-history/client-services/**/*.ts",
+          "libs/dnd-history/client-services/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

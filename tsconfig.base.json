@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@dnd-history/environment": [
+        "apps/dnd-history/src/environments/environment.ts"
+      ],
       "@web-portfolio/dnd-history-adventure": [
         "libs/dnd-history/feature/adventure/src/index.ts"
       ],
@@ -32,6 +35,9 @@
       ],
       "@web-portfolio/dnd-history-map": [
         "libs/dnd-history/feature/map/src/index.ts"
+      ],
+      "@web-portfolio/dnd-history/client-services": [
+        "libs/dnd-history/client-services/src/index.ts"
       ],
       "@web-portfolio/dnd-history/data-access/api-interfaces": [
         "libs/dnd-history/data-access/api-interfaces/src/index.ts"

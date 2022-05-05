@@ -9,6 +9,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
 
 import { CookieService } from 'ngx-cookie-service';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [LoginComponent],
@@ -18,6 +20,7 @@ import { CookieService } from 'ngx-cookie-service';
     BrowserAnimationsModule,
     DropdownModule,
     ButtonModule,
+    HttpClientModule
   ],
   providers: [CookieService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

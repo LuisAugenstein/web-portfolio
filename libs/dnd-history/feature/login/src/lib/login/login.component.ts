@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Session } from '@web-portfolio/dnd-history/data-access/api-interfaces';
-
-import { SessionService } from '../services/session.service';
+import { SessionService } from '@web-portfolio/dnd-history/client-services';
+import { pluck } from 'rxjs';
 
 @Component({
   selector: 'dnd-history-login',
@@ -20,12 +20,12 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.sessionName = this.sessionService.getCurrentSession().name;
-    this.sessionNames = this.sessionService.getSessions().map(s => s.name);
+    this.sessionService.sessions$.subscribe((sessions) => this.sessionNames = sessions.map(s => s.name))
   }
 
   submit({ sessionName }: { sessionName: string }): void {
     const session: Session = { name: sessionName };
-    if (!this.sessionService.doesSessionExis(session)) {
+    if (!this.sessionNames.includes(sessionName)) {
       this.sessionService.createNewSession(session);
     }
     this.sessionService.setCurrentSession(session);

@@ -1,21 +1,21 @@
 import { Test } from '@nestjs/testing';
 
-import { AppService } from './app.service';
+import { SessionService } from './session.service';
 
-describe('AppService', () => {
-  let service: AppService;
+describe('SessionService', () => {
+  let service: SessionService;
 
   beforeAll(async () => {
     const app = await Test.createTestingModule({
-      providers: [AppService],
+      providers: [SessionService],
     }).compile();
 
-    service = app.get<AppService>(AppService);
+    service = app.get<SessionService>(SessionService);
   });
 
   describe('getData', () => {
     it('should return "Welcome to dnd-history-backend!"', () => {
-      expect(service.getData()).toEqual({
+      expect(service.getSessions()).toEqual({
         message: 'Welcome to dnd-history-backend!',
       });
     });

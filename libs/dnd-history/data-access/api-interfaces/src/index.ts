@@ -1,1 +1,1 @@
-export * from './lib/dnd-history-api-interfaces';
+export * from './lib/api-interfaces';
