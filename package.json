@@ -4,7 +4,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "heroku-postbuild": "nx run $BUILD_SUBDIR:build:production"
+    "build": "echo $PROJECT:build:production",
+    "heroku-postbuild": "nx run $PROJECT:build:production"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~13.3.4",
