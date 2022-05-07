@@ -1,0 +1,1 @@
+web: node dist/apps/$PROJECT/main.js
