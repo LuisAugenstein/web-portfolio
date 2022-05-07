@@ -3,9 +3,6 @@
   "version": "0.0.0",
   "license": "MIT",
   "private": true,
-  "scripts": {
-    "heroku-postbuild": "nx run dnd-history-backend:build:production"
-  },
   "devDependencies": {
     "@angular-devkit/build-angular": "~13.3.4",
     "@angular-eslint/eslint-plugin": "~13.2.1",
