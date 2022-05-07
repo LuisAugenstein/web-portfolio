@@ -45,6 +45,9 @@
         "jestConfig": "apps/dnd-history-backend/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "deploy": {
+      "executor": "heroku login & git push heroku main"
     }
   },
   "tags": []
