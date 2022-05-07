@@ -4,7 +4,6 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "echo $PROJECT:build:production",
     "heroku-postbuild": "nx run $PROJECT:build:production"
   },
   "devDependencies": {
