@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/dnd-history/frontend/feature/characters/src",
+  "prefix": "web-portfolio",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/dnd-history/frontend/feature/characters"],
+      "options": {
+        "jestConfig": "libs/dnd-history/frontend/feature/characters/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/dnd-history/frontend/feature/characters/src/**/*.ts",
+          "libs/dnd-history/frontend/feature/characters/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

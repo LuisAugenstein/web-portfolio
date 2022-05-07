@@ -3,11 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './router/app-routing.module';
 
-import { LoginModule } from '@web-portfolio/dnd-history-login';
-import { HomeModule } from '@web-portfolio/dnd-history-home';
-import { AdventureModule } from '@web-portfolio/dnd-history-adventure';
-import { CharactersModule } from '@web-portfolio/dnd-history-characters';
-import { MapModule } from '@web-portfolio/dnd-history-map';
+import { LoginModule } from '@dnd-history/frontend-login';
+import { HomeModule } from '@dnd-history/frontend-home';
+import { AdventureModule } from '@dnd-history/frontend-adventure';
+import { CharactersModule } from '@dnd-history/frontend-characters';
+import { MapModule } from '@dnd-history/frontend-map';
 
 import { AppComponent } from './app.component';
 

@@ -1,11 +1,18 @@
 import { Module } from '@nestjs/common';
-
-import { AppController } from './app.controller';
-import { SessionService } from './session.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { environment } from '../environments/environment';
+import { Session, SessionModule } from '@dnd-history/backend-session';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [SessionService],
+  imports: [
+    TypeOrmModule.forRoot({
+      ...environment.typeOrmModuleOptions,
+      entities: [Session],
+      synchronize: true
+    }),
+    SessionModule
+  ],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

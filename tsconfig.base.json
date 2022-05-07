@@ -18,29 +18,32 @@
       "@dnd-history/environment": [
         "apps/dnd-history/src/environments/environment.ts"
       ],
-      "@web-portfolio/dnd-history-adventure": [
-        "libs/dnd-history/feature/adventure/src/index.ts"
+      "@dnd-history/frontend-adventure": [
+        "libs/dnd-history/frontend/feature/adventure/src/index.ts"
       ],
-      "@web-portfolio/dnd-history-characters": [
-        "libs/dnd-history/feature/characters/src/index.ts"
+      "@dnd-history/frontend-characters": [
+        "libs/dnd-history/frontend/feature/characters/src/index.ts"
       ],
-      "@web-portfolio/dnd-history-header": [
-        "libs/dnd-history/feature/header/src/index.ts"
+      "@dnd-history/frontend-header": [
+        "libs/dnd-history/frontend/feature/header/src/index.ts"
       ],
-      "@web-portfolio/dnd-history-home": [
-        "libs/dnd-history/feature/home/src/index.ts"
+      "@dnd-history/frontend-home": [
+        "libs/dnd-history/frontend/feature/home/src/index.ts"
       ],
-      "@web-portfolio/dnd-history-login": [
-        "libs/dnd-history/feature/login/src/index.ts"
+      "@dnd-history/frontend-login": [
+        "libs/dnd-history/frontend/feature/login/src/index.ts"
       ],
-      "@web-portfolio/dnd-history-map": [
-        "libs/dnd-history/feature/map/src/index.ts"
+      "@dnd-history/frontend-map": [
+        "libs/dnd-history/frontend/feature/map/src/index.ts"
       ],
-      "@web-portfolio/dnd-history/client-services": [
-        "libs/dnd-history/client-services/src/index.ts"
+      "@dnd-history/frontend-services": [
+        "libs/dnd-history/frontend/services/src/index.ts"
       ],
-      "@web-portfolio/dnd-history/data-access/api-interfaces": [
-        "libs/dnd-history/data-access/api-interfaces/src/index.ts"
+      "@dnd-history/shared-interfaces": [
+        "libs/dnd-history/shared/api-interfaces/src/index.ts"
+      ],
+      "@dnd-history/backend-session": [
+        "libs/dnd-history/backend/session/src/index.ts"
       ]
     }
   },

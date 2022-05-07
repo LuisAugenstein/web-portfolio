@@ -2,7 +2,7 @@ import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
-import { environment } from '@web-portfolio/dnd-history/client-services';
+import { environment } from '@dnd-history/frontend-services';
 
 if (environment.production) {
   enableProdMode();
@@ -10,14 +10,12 @@ if (environment.production) {
 
 function bootstrap() {
   platformBrowserDynamic()
-  .bootstrapModule(AppModule)
-  .catch((err) => console.error(err));
-};
-
+    .bootstrapModule(AppModule)
+    .catch((err) => console.error(err));
+}
 
 if (document.readyState === 'complete') {
   bootstrap();
 } else {
   document.addEventListener('DOMContentLoaded', bootstrap);
 }
-
