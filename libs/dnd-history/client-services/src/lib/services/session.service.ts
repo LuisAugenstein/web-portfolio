@@ -1,16 +1,17 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Session } from '@web-portfolio/dnd-history/data-access/api-interfaces';
 import { CookieService } from 'ngx-cookie-service';
-import { HttpClientService } from './http-client.service';
+import { environment } from '../../environment/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SessionService {
-  sessions$ = this.httpClientService.get<Session[]>('sessions');
+  sessions$ = this.http.get<Session[]>(`${environment.backendUrl}/sessions`);
   private currentSession: Session;
 
-  constructor(private cookieService: CookieService, private httpClientService: HttpClientService) {
+  constructor(private cookieService: CookieService, private http: HttpClient) {
     this.currentSession = this.loadCurrentSession();
   }
 
@@ -24,7 +25,7 @@ export class SessionService {
   }
 
   createNewSession(session: Session) {
-    this.httpClientService.post('session', session).subscribe({error: console.log })
+    this.http.post(`${environment.backendUrl}/session`, session).subscribe({error: console.log })
   }
 
   private loadCurrentSession(): Session {
