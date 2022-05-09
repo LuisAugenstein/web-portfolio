@@ -20,11 +20,9 @@ export class AdventureComponent implements OnInit {
 
   constructor(private dialogService: DialogService) {}
 
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {
     //todo: load adventure data from backend
-    if (this.adventureData.length === 0) {
-      this.createAdventureCard();
-    }
   }
 
   createAdventureCard() {
@@ -35,6 +33,8 @@ export class AdventureComponent implements OnInit {
       content: '',
     };
     this.adventureData.push(newAdventureData);
+    // TODO: post new adventurecard to server
+    this.showLargeCard(newAdventureData);
   }
 
   showLargeCard(selectedAdventureData: AdventureData) {

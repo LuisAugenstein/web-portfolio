@@ -7,7 +7,7 @@
         *ngFor="let data of adventureData"
         [subheader]="data.date"
         [style]="{ 'border-radius': '15px' }"
-        (click)="showLargeCard(data)"
+        (click)="showLargeCard(data)" 
       >
         <ng-template pTemplate="title">
           <div *ngIf="data.title; else titlePlaceholder">
@@ -32,13 +32,11 @@
       <div
         class="flex justify-content-center align-items-center w-24rem h-15rem"
       >
-        <button
-          pButton
-          #submitButton
-          (click)="[createAdventureCard(), submitButton.blur()]"
+        <p-button
+          (click)="createAdventureCard()"
         >
           Add New
-        </button>
+        </p-button>
       </div>
     </div>
   </div>
