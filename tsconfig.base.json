@@ -15,9 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@dnd-history/environment": [
-        "apps/dnd-history/src/environments/environment.ts"
-      ],
       "@dnd-history/frontend-adventure": [
         "libs/dnd-history/frontend/feature/adventure/src/index.ts"
       ],
