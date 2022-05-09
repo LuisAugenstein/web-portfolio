@@ -1,8 +1,12 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import {
-  Adventure,
-  AdventureDTO
-} from '@dnd-history/shared-interfaces';
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
+import { Adventure, AdventureDTO } from '@dnd-history/shared-interfaces';
 import { AdventureService } from './adventure.service';
 
 import { UpdateResult } from 'typeorm';
@@ -16,24 +20,22 @@ export class AdventureController {
   ) {}
 
   @Get('session/:sessionId/adventure')
-  getAdventures(
+  async getAdventures(
     @Param('sessionId') sessionId: number
   ): Promise<Adventure[]> {
-    return this.sessionService
-      .findSession(sessionId)
-      .then((session) => session.adventures);
+    const session = await this.sessionService.findSession(sessionId, [
+      'adventures',
+    ]);
+    return session.adventures;
   }
 
-  @Post('session/:sessiondId/adventure')
-  create(
+  @Post('session/:sessionId/adventure')
+  async create(
     @Param('sessionId') sessionId: number,
     @Body() adventureDTO: AdventureDTO
   ): Promise<Adventure> {
-    return this.sessionService
-      .findSession(sessionId)
-      .then((session) =>
-        this.adventureService.createAdventure(session, adventureDTO)
-      );
+    const session = await this.sessionService.findSession(sessionId);
+    return this.adventureService.createAdventure(session, adventureDTO);
   }
 
   @Put('adventure/:adventureId')

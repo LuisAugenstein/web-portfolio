@@ -9,12 +9,6 @@ import {
 
 @Entity()
 export class AdventureEntity {
-  constructor(params: { title: string, text: string, session: SessionEntity }) {
-    this.title = params.title;
-    this.text = params.text;
-    this.session = params.session;
-  }
-
   @PrimaryGeneratedColumn()
   id: number;
 

@@ -8,6 +8,7 @@ import { SessionEntity } from '@dnd-history/backend-entities';
   imports: [TypeOrmModule.forFeature([SessionEntity])],
   providers: [SessionService],
   controllers: [SessionController],
+  exports: [SessionService]
 })
 export class SessionModule {}
 

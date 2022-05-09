@@ -3,9 +3,8 @@ import { Injectable } from '@angular/core';
 import { Session, SessionDTO } from '@dnd-history/shared-interfaces';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable} from 'rxjs';
+import { environment } from '../../environment/environment';
 
-
-const BACKEND_URL = 'https://dndhistory.herokuapp.com/api';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +12,7 @@ const BACKEND_URL = 'https://dndhistory.herokuapp.com/api';
 export class SessionService {
 
   private sessions: Session[] = [];
-  sessions$: Observable<Session[]> = this.http.get<Session[]>(`${BACKEND_URL}/session`);
+  sessions$: Observable<Session[]> = this.http.get<Session[]>(`${environment.backendUrl}/session`);
   private currentSession: Session;
 
   constructor(private cookieService: CookieService, private http: HttpClient) {
@@ -31,7 +30,7 @@ export class SessionService {
 
   createSession(sessionDTO: SessionDTO): Observable<Session> {
     return this.http.post(
-      `${BACKEND_URL}/session`,
+      `${environment.backendUrl}/session`,
       sessionDTO
     ) as Observable<Session>;
   }

@@ -2,14 +2,14 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { environment } from '../environments/environment';
 import { SessionModule } from '@dnd-history/backend-session';
-import { AdventureModule } from '@dnd-history/frontend-adventure';
+import { AdventureEntity, SessionEntity } from '@dnd-history/backend-entities';
+import { AdventureModule } from '@dnd-history/backend-adventure';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       ...environment.typeOrmModuleOptions,
-      autoLoadEntities: true,
-      synchronize: true
+      entities: [SessionEntity, AdventureEntity],
     }),
     SessionModule,
     AdventureModule

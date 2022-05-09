@@ -12,7 +12,11 @@ export class AdventureService {
   ) {}
 
   createAdventure(session: SessionEntity, adventureDTO: AdventureDTO): Promise<AdventureEntity> {
-    return this.adventureRepository.save(new AdventureEntity({...adventureDTO, session}));
+    const adventureEntity = new AdventureEntity();
+    adventureEntity.title = adventureDTO.title;
+    adventureEntity.text = adventureDTO.text;
+    adventureEntity.session = session; 
+    return this.adventureRepository.save(adventureEntity);
   }
 
   updateAdventure(adventureId: number, adventureDTO: AdventureDTO): Promise<UpdateResult> {
