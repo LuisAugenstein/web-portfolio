@@ -1,24 +1,25 @@
+import { Session, SessionDTO } from '@dnd-history/shared-interfaces';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { InsertResult, Repository } from 'typeorm';
-import { Session } from './session.entity';
+import { Repository, UpdateResult } from 'typeorm';
+import { SessionEntity } from './session.entity';
 
 @Injectable()
 export class SessionService {
   constructor(
-    @InjectRepository(Session)
-    private sessionRepository: Repository<Session>
+    @InjectRepository(SessionEntity)
+    private sessionRepository: Repository<SessionEntity>
   ) {}
 
-  findAll(): Promise<Session[]> {
+  findAllSessions(): Promise<Session[]> {
     return this.sessionRepository.find();
   }
 
-  findOne(session: Session): Promise<Session> {
-    return this.sessionRepository.findOne(session);
+  createSession(sessionDTO: SessionDTO): Promise<Session> {
+    return this.sessionRepository.save(sessionDTO);
   }
 
-  save(session: Session): Promise<Session> {
-    return this.sessionRepository.save(session);
+  updateSession(id: number, sessionDTO: SessionDTO): Promise<UpdateResult> {
+    return this.sessionRepository.update(id, sessionDTO);
   }
 }

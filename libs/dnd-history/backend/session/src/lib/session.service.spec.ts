@@ -15,7 +15,7 @@ describe('SessionService', () => {
 
   describe('getData', () => {
     it('should return "Welcome to dnd-history-backend!"', () => {
-      expect(service.getSessions()).toEqual({
+      expect(service.findAllSessions()).toEqual({
         message: 'Welcome to dnd-history-backend!',
       });
     });

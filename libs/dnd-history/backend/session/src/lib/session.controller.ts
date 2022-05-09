@@ -1,22 +1,28 @@
-import { Body, ConflictException, Controller, Get, Post } from '@nestjs/common';
-import { Session } from '@dnd-history/shared-interfaces';
+import { Body, ConflictException, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Session, SessionDTO } from '@dnd-history/shared-interfaces';
 
 import { SessionService } from './session.service';
+import { UpdateResult } from 'typeorm';
 
 @Controller()
 export class SessionController {
   constructor(private readonly sessionService: SessionService) {}
 
-  @Get('sessions')
+  @Get('session')
   getSessions() {
-    return this.sessionService.findAll();
+    return this.sessionService.findAllSessions();
   }
 
   @Post('session')
-  postSession(@Body() session: Session) {
-    if (!this.sessionService.findOne(session)) {
-      return new ConflictException();
-    }
-    this.sessionService.save(session)
+  create(@Body() sessionDTO: SessionDTO): Promise<Session> {
+    return this.sessionService.createSession(sessionDTO);
+  }
+
+  @Put('session/:id')
+  update(
+    @Param('id') id: number,
+    @Body() sessionDTO: SessionDTO,
+  ): Promise<UpdateResult> {
+    return this.sessionService.updateSession(id, sessionDTO);
   }
 }

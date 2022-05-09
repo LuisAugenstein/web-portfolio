@@ -10,6 +10,19 @@ This project was generated using [Nx](https://nx.dev).
 - error handling in backend api controllers and in frontent components
 - write unit and end-to-end-tests
 
+# Api Documentation
+GET  /session       (returned alle sessions)
+POST /session       (erstellung einer session. anfrage enthält keine id. response enthält komplette session mit id)
+PUT  /session/:id   (Änderung einer session z.B. Name ändern)
+
+GET  session/:id/adventure     (returned alle adventures der gewählten session)
+POST session/:id/adventure     (erstellt neues adventure)
+PUT  session/:id/adventure/:id (Änderung eines adventures)
+
+GET  session/:id/character
+POST session/:id/character
+PUT  session/:id/character/:id
+
 🔎 **Smart, Fast and Extensible Build System**
 
 ## Adding capabilities to your workspace

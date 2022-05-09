@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { environment } from '../environments/environment';
-import { Session, SessionModule } from '@dnd-history/backend-session';
+import { SessionEntity, SessionModule } from '@dnd-history/backend-session';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       ...environment.typeOrmModuleOptions,
-      entities: [Session],
+      entities: [SessionEntity],
       synchronize: true
     }),
     SessionModule

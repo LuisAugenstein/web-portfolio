@@ -12,9 +12,11 @@
       class="flex flex-column align-items-center"
     >
       <p-dropdown
-        [options]="sessionNames"
-        name="sessionName"
+        [options]="sessions"
         [(ngModel)]="sessionName"
+        optionLabel="name"
+        optionValue="name"
+        name="name"
         placeholder="Select or create a session"
         [editable]="true"
         [required]="true"
@@ -30,7 +32,7 @@
         [disabled]="!loginForm.valid"
         [style]="{ 'margin-top': '1rem' }"
       >
-        {{ sessionNames.includes(sessionName) ? 'Login' : 'Create' }}
+        {{ loginOrCreate() }}
       </button>
     </form>
   </div>

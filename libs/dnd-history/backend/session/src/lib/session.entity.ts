@@ -1,8 +1,10 @@
-
-import { Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Session {
-  @PrimaryColumn()
+export class SessionEntity {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ unique: true, nullable: false })
   name: string;
 }
