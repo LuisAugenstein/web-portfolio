@@ -1,4 +1,4 @@
-import { Body, ConflictException, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { Session, SessionDTO } from '@dnd-history/shared-interfaces';
 
 import { SessionService } from './session.service';
@@ -18,11 +18,11 @@ export class SessionController {
     return this.sessionService.createSession(sessionDTO);
   }
 
-  @Put('session/:id')
+  @Put('session/:sessionId')
   update(
-    @Param('id') id: number,
+    @Param('sessionId') sessionId: number,
     @Body() sessionDTO: SessionDTO,
   ): Promise<UpdateResult> {
-    return this.sessionService.updateSession(id, sessionDTO);
+    return this.sessionService.updateSession(sessionId, sessionDTO);
   }
 }

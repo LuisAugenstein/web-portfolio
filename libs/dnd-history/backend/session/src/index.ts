@@ -1,2 +1,2 @@
 export * from './lib/session.module';
-export * from './lib/session.entity';
+export * from './lib/session.service';

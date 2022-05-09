@@ -1,0 +1,22 @@
+{
+  "sourceRoot": "libs/dnd-history/backend/adventure/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/dnd-history/backend/adventure/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/dnd-history/backend/adventure"],
+      "options": {
+        "jestConfig": "libs/dnd-history/backend/adventure/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
