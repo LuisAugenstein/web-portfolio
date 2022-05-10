@@ -29,7 +29,6 @@ export class AdventureService {
   }
 
   updateAdventure(updatedAdventure: Adventure) {
-    console.log(updatedAdventure);
     return this.http.put(
       `${environment.backendUrl}/adventure/${updatedAdventure.id}`,
       {
