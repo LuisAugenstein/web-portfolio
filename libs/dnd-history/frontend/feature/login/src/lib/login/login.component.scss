@@ -3,6 +3,8 @@
   background-color: var(--surface-ground);
   background-size: cover;
   background-position: center;
+  max-height: 100vh;
+  overflow: auto;
 }
 
 #header2 {
