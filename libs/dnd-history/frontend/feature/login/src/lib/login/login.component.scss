@@ -1,5 +1,20 @@
 #login-content {
   background-image: url('/assets/background-desktop.svg');
+  background-color: var(--surface-ground);
   background-size: cover;
-  background-position: center center;
+  background-position: center;
+}
+
+#header2 {
+  display: none !important;
+}
+
+
+@media (max-width: 700px) {
+  #header1 {
+    display: none !important;
+  }
+  #header2 {
+    display: flex !important;
+  }
 }

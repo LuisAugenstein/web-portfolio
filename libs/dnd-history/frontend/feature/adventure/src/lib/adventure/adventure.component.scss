@@ -1,7 +1,8 @@
 #adventure-content {
   background-image: url('/assets/background-desktop.svg');
   background-size: cover;
-  background-position: center;
+  background-position: left center;
+  background-color: var(--surface-ground);
   max-height: 100vh;
   overflow: auto;
 }
