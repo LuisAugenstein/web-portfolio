@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Adventure } from '@dnd-history/shared-interfaces';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { AdventureData } from '../adventure/adventure.component';
 
 @Component({
   selector: 'dnd-history-adventure-dialog',
@@ -22,9 +22,9 @@ export class AdventureDialogComponent implements OnInit {
   }
 
   submit(formData: { title: string; content: string }) {
-    const newAdventureData: AdventureData = {
+    const newAdventureData: Adventure = {
       id: this.config.data.id,
-      date: this.config.data.date,
+      lastChangedAt: this.config.data.lastChangedAt,
       ...formData,
     };
     this.ref.close(newAdventureData);

@@ -10,9 +10,6 @@ import { environment } from '../../environment/environment';
   providedIn: 'root',
 })
 export class SessionService {
-
-  private sessions: Session[] = [];
-  sessions$: Observable<Session[]> = this.http.get<Session[]>(`${environment.backendUrl}/session`);
   private currentSession: Session;
 
   constructor(private cookieService: CookieService, private http: HttpClient) {
@@ -26,6 +23,10 @@ export class SessionService {
   setCurrentSession(session: Session) {
     this.cookieService.set('dnd-history-session', JSON.stringify(session));
     this.currentSession = session;
+  }
+
+  readSessions(): Observable<Session[]> {
+    return this.http.get<Session[]>(`${environment.backendUrl}/session`);
   }
 
   createSession(sessionDTO: SessionDTO): Observable<Session> {

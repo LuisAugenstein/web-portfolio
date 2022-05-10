@@ -1,6 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AdventureComponent } from './adventure/adventure.component';
 import { HeaderModule } from '@dnd-history/frontend-header';
@@ -17,6 +18,7 @@ import { AdventureDialogComponent } from './adventure-dialog/adventure-dialog.co
   imports: [
     CommonModule,
     FormsModule,
+    HttpClientModule,
     InputTextareaModule,
     ButtonModule,
     HeaderModule,
@@ -25,6 +27,7 @@ import { AdventureDialogComponent } from './adventure-dialog/adventure-dialog.co
     InputTextModule,
   ],
   declarations: [AdventureComponent, AdventureDialogComponent],
+  providers: [DatePipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AdventureModule {}

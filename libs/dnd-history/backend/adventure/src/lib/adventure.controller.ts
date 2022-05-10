@@ -43,6 +43,8 @@ export class AdventureController {
     @Param('adventureId') adventureId: number,
     @Body() adventureDTO: AdventureDTO
   ): Promise<UpdateResult> {
+    console.log('adventureId: ', adventureId);
+    console.log('adventureDTO: ', adventureDTO);
     return this.adventureService.updateAdventure(adventureId, adventureDTO);
   }
 }

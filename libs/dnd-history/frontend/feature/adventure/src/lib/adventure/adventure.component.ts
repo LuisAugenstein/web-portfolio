@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Adventure } from '@dnd-history/shared-interfaces';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AdventureDialogComponent } from '../adventure-dialog/adventure-dialog.component';
-
-export interface AdventureData {
-  id: string;
-  date: string;
-  title: string;
-  content: string;
-}
+import { AdventureService } from '../services/adventure.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'dnd-history-adventure',
@@ -16,39 +12,45 @@ export interface AdventureData {
   providers: [DialogService],
 })
 export class AdventureComponent implements OnInit {
-  adventureData: AdventureData[] = [];
+  adventures: Adventure[] = [];
 
-  constructor(private dialogService: DialogService) {}
+  constructor(
+    private readonly adventureService: AdventureService,
+    private readonly dialogService: DialogService,
+    public datePipe: DatePipe
+  ) {}
 
-  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {
-    //todo: load adventure data from backend
-  }
-
-  createAdventureCard() {
-    const newAdventureData: AdventureData = {
-      id: `${this.adventureData.length + 1}`,
-      date: '15/10/2020 10:30',
-      title: '',
-      content: '',
-    };
-    this.adventureData.push(newAdventureData);
-    // TODO: post new adventurecard to server
-    this.showLargeCard(newAdventureData);
-  }
-
-  showLargeCard(selectedAdventureData: AdventureData) {
-    const reference = this.dialogService.open(AdventureDialogComponent, {
-      data: selectedAdventureData,
+    this.adventureService.readAdventures().subscribe((adventures) => {
+      this.adventures = adventures.sort((a,b) => a.id - b.id);
     });
-    reference.onClose.subscribe((newDataEntry: AdventureData) => {
-      if (newDataEntry) {
-        // TODO: this.adventureDataService.updateEntry(newDataEntry)
-        this.adventureData = this.adventureData.map((dataEntry) => {
-          if (dataEntry.id === newDataEntry.id) {
-            return newDataEntry;
-          }
-          return dataEntry;
+  }
+
+  async createAdventureCard() {
+    this.adventureService
+      .createAdventure({
+        title: '',
+        content: '',
+      })
+      .subscribe((newAdventure) => {
+        this.adventures.push(newAdventure);
+        this.showLargeCard(newAdventure);
+      });
+  }
+
+  showLargeCard(selectedAdventure: Adventure) {
+    const reference = this.dialogService.open(AdventureDialogComponent, {
+      data: selectedAdventure,
+    });
+    reference.onClose.subscribe((updatedAdventure: Adventure) => {
+      if (updatedAdventure) {
+        this.adventureService
+          .updateAdventure(updatedAdventure)
+          .subscribe();
+        this.adventures = this.adventures.map((adventure) => {
+          return adventure.id === updatedAdventure.id
+            ? updatedAdventure
+            : adventure;
         });
       }
     });

@@ -16,8 +16,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.sessionName = this.sessionService.getCurrentSession().name;
-    this.sessionService.sessions$.subscribe((sessions) => {
-      this.sessions = sessions;
+    this.sessionService.readSessions().subscribe((sessions) => {
+      this.sessions = sessions.sort((a,b) => a.id - b.id);
     });
   }
 

@@ -16,7 +16,7 @@ export class AdventureEntity {
   title: string;
 
   @Column()
-  text: string;
+  content: string;
 
   @UpdateDateColumn()
   lastChangedAt: Date;
