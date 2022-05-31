@@ -15,6 +15,12 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@dnd-history/backend-adventure": [
+        "libs/dnd-history/backend/adventure/src/index.ts"
+      ],
+      "@dnd-history/backend-entities": [
+        "libs/dnd-history/backend/entities/src/index.ts"
+      ],
       "@dnd-history/backend-session": [
         "libs/dnd-history/backend/session/src/index.ts"
       ],
@@ -41,12 +47,6 @@
       ],
       "@dnd-history/shared-interfaces": [
         "libs/dnd-history/shared/api-interfaces/src/index.ts"
-      ],
-      "@dnd-history/backend-adventure": [
-        "libs/dnd-history/backend/adventure/src/index.ts"
-      ],
-      "@dnd-history/backend-entities": [
-        "libs/dnd-history/backend/entities/src/index.ts"
       ]
     }
   },
