@@ -42,7 +42,11 @@ PUT  connection/:id            (Änderung einer connection)
 
 
 
-
+responsiveness:
+header: 80px;
+mobile: 370px - 825px;
+medium: 825px - 1230px;
+desktop: 1230px - open;
 
 
 

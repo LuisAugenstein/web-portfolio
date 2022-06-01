@@ -1,13 +1,12 @@
-<p>carousel works!</p>
 <div id="carousel">
   <div *ngFor="let map of maps" class="carousel-item">
-    <img class="w-full h-full" [src]="map.src" [alt]="map.id" />
-    <div class="overlay w-full h-full"></div>
+    <img class="w-full h-full" [src]="map.src" [alt]="map.id"/>
+    <div class="overlay w-full h-full" (click)="selectMap(map)"></div>
   </div>
   <div class="carousel-item flex justify-content-center align-items-center">
     <p-fileUpload
       mode="basic"
-      [files]="filesToUpload"
+      [files]="chosenFilesToUpload"
       accept="image/*"
       [maxFileSize]="32000000"
       [auto]="true"

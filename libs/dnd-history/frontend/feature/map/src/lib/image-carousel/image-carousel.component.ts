@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FileUploadService } from '@dnd-history/frontend-services';
 import { Map } from '@dnd-history/shared-interfaces';
 import { MapService } from '../services/map.service';
@@ -9,8 +9,11 @@ import { MapService } from '../services/map.service';
   styleUrls: ['./image-carousel.component.scss'],
 })
 export class ImageCarouselComponent implements OnInit {
-  filesToUpload: File[] = [];
+  @Input() selectedMap!: Map;
+  @Output() selectedMapChange = new EventEmitter<Map>();
+
   maps: Map[] = [];
+  chosenFilesToUpload: File[] = [];
 
   constructor(
     private readonly fileUploadService: FileUploadService,
@@ -33,6 +36,11 @@ export class ImageCarouselComponent implements OnInit {
         this.maps.push(newMap);
         //maybe directly select the new map?
       });
-    this.filesToUpload = [];
+    this.chosenFilesToUpload = [];
+  }
+
+  selectMap(map: Map) {
+    this.selectedMap = map;
+    this.selectedMapChange.emit(this.selectedMap);
   }
 }

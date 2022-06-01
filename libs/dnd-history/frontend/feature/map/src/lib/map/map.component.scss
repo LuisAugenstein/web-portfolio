@@ -1,8 +1,15 @@
 #map-content {
-    background-image: url('/assets/background-desktop.svg');
-    background-size: cover;
-    background-position: left center;
-    background-color: var(--surface-ground);
-    max-height: 100vh;
-    overflow: auto;
-  }
+  background-image: url('/assets/background-desktop.svg');
+  background-size: cover;
+  background-position: left center;
+  background-color: var(--surface-ground);
+  max-height: 100vh;
+  overflow: auto;
+}
+
+main {
+  height: calc(100vh - 100px);
+  width: 1230px;
+  display: grid;
+  grid-template-columns: 155px auto 155px;
+}

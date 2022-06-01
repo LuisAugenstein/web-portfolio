@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Map } from '@dnd-history/shared-interfaces';
 
 @Component({
   selector: 'dnd-history-main-content',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main-content.component.scss'],
 })
 export class MainContentComponent implements OnInit {
+  @Input()
+  selectedMap!: Map;
+
   constructor() {}
 
   ngOnInit(): void {}

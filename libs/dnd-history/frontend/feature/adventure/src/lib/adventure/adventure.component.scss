@@ -9,9 +9,9 @@
 
 #grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 24rem);
+  grid-template-columns: repeat(auto-fit, 370px);
   grid-gap: 1rem;
-  width: 24rem;
+  width: 370px;
 }
 
 @media (min-width: 825px) {
@@ -54,7 +54,7 @@ p {
 
   .p-card-body {
     padding: 8px !important;
-    width: 24rem;
+    width: 370px;
     height: 15rem;
     border-radius: 15px;
     cursor: pointer;
