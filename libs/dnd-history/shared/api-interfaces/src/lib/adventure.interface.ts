@@ -1,7 +1,5 @@
-export interface Adventure {
+export interface Adventure extends AdventureDTO {
     id: number;
-    title: string;
-    content: string;
     lastChangedAt: Date;
 }
 

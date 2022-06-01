@@ -1,5 +1,6 @@
-import { AdventureEntity } from './adventure.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { AdventureEntity } from './adventure.entity';
+import { MapEntity } from './map.entity';
 
 @Entity()
 export class SessionEntity {
@@ -11,4 +12,7 @@ export class SessionEntity {
 
   @OneToMany(() => AdventureEntity, adventure => adventure.session)
   adventures: AdventureEntity[]
+
+  @OneToMany(() => MapEntity, map => map.session)
+  maps: MapEntity[]
 }

@@ -6,8 +6,12 @@ import { ImageCarouselComponent } from './image-carousel/image-carousel.componen
 import { PinpointSidebarComponent } from './pinpoint-sidebar/pinpoint-sidebar.component';
 import { MainContentComponent } from './main-content/main-content.component';
 
+import {OverlayPanelModule} from 'primeng/overlaypanel';
+import { ButtonModule } from 'primeng/button';
+import {FileUploadModule} from 'primeng/fileupload';
+
 @NgModule({
-  imports: [CommonModule, HeaderModule],
+  imports: [CommonModule, HeaderModule, FileUploadModule],
   declarations: [
     MapComponent,
     ImageCarouselComponent,

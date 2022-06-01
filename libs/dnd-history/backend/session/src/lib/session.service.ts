@@ -23,7 +23,7 @@ export class SessionService {
     return this.sessionRepository.update(id, sessionDTO);
   }
 
-  findSession(id: number, relations?: string[]): Promise<SessionEntity> {
+  find(id: number, relations?: string[]): Promise<SessionEntity> {
     return this.sessionRepository.findOne(id, { relations });
   }
 }

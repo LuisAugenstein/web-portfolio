@@ -21,6 +21,7 @@
       "@dnd-history/backend-entities": [
         "libs/dnd-history/backend/entities/src/index.ts"
       ],
+      "@dnd-history/backend-map": ["libs/dnd-history/backend/map/src/index.ts"],
       "@dnd-history/backend-session": [
         "libs/dnd-history/backend/session/src/index.ts"
       ],
@@ -47,6 +48,12 @@
       ],
       "@dnd-history/shared-interfaces": [
         "libs/dnd-history/shared/api-interfaces/src/index.ts"
+      ],
+      "@dnd-history/backend-pin-connection": [
+        "libs/dnd-history/backend/pin-connection/src/index.ts"
+      ],
+      "@dnd-history/backend-pin-point": [
+        "libs/dnd-history/backend/pin-point/src/index.ts"
       ]
     }
   },

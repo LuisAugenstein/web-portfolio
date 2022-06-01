@@ -20,10 +20,10 @@ export class AdventureController {
   ) {}
 
   @Get('session/:sessionId/adventure')
-  async getAdventures(
+  async read(
     @Param('sessionId') sessionId: number
   ): Promise<Adventure[]> {
-    const session = await this.sessionService.findSession(sessionId, [
+    const session = await this.sessionService.find(sessionId, [
       'adventures',
     ]);
     return session.adventures;
@@ -34,8 +34,8 @@ export class AdventureController {
     @Param('sessionId') sessionId: number,
     @Body() adventureDTO: AdventureDTO
   ): Promise<Adventure> {
-    const session = await this.sessionService.findSession(sessionId);
-    return this.adventureService.createAdventure(session, adventureDTO);
+    const session = await this.sessionService.find(sessionId);
+    return this.adventureService.create(session, adventureDTO);
   }
 
   @Put('adventure/:adventureId')
@@ -43,6 +43,6 @@ export class AdventureController {
     @Param('adventureId') adventureId: number,
     @Body() adventureDTO: AdventureDTO
   ): Promise<UpdateResult> {
-    return this.adventureService.updateAdventure(adventureId, adventureDTO);
+    return this.adventureService.update(adventureId, adventureDTO);
   }
 }

@@ -2,6 +2,11 @@
 
 # WebPortfolio
 
+Map <--> PinGraph________
+            |           |
+         PinPoints   PinConnections
+
+
 This project was generated using [Nx](https://nx.dev).
 
 <p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
@@ -17,11 +22,29 @@ PUT  /session/:id   (Änderung einer session z.B. Name ändern)
 
 GET  session/:id/adventure     (returned alle adventures der gewählten session)
 POST session/:id/adventure     (erstellt neues adventure)
-PUT  session/:id/adventure/:id (Änderung eines adventures)
+PUT  adventure/:id             (Änderung eines adventures)
 
 GET  session/:id/character
 POST session/:id/character
-PUT  session/:id/character/:id
+PUT  character/:id
+
+GET  session/:id/map           (returned alle maps der gewählten session)
+POST session/:id/map           (erstellt neue map)
+
+GET  map/:id/pinPoint          (returned alle pinPoints der gewählten map)
+POST map/:id/pinPoint          (erstellt neuen pinPoint)
+PUT  pinPoint/:id              (Änderung eines pinPoints)
+
+GET  map/:id/connection        (returned alle connections der gewählten map. client kann connections selbst in layer    
+                               sortieren, falls nötig. Connection: | id | sourcePinId | dstPinId | layer |)
+POST map/:id/connection        (erstellt neue connection)
+PUT  connection/:id            (Änderung einer connection)
+
+
+
+
+
+
 
 🔎 **Smart, Fast and Extensible Build System**
 

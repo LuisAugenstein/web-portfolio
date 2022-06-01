@@ -1,0 +1,22 @@
+{
+  "sourceRoot": "libs/dnd-history/backend/map/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/dnd-history/backend/map/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/dnd-history/backend/map"],
+      "options": {
+        "jestConfig": "libs/dnd-history/backend/map/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
