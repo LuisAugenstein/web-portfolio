@@ -1,15 +1,5 @@
 <div class="flex flex-column h-full">
-  <p-toolbar class="flex-none">
-    <div class="p-toolbar-group-left">
-      <i class="i i-marker"></i>
-      <i class="i i-move mx-2"></i>
-      <i class="i i-connect ml-1"></i>
-    </div>
-  
-    <div class="p-toolbar-group-right">
-      <i class="i i-eye-open mx-2"></i>
-    </div>
-  </p-toolbar>
+  <dnd-history-toolbar class="flex-none"></dnd-history-toolbar>
   <div class="flex-grow-1">
     <canvas #mapCanvas width="1280" height="720"></canvas>
   </div>

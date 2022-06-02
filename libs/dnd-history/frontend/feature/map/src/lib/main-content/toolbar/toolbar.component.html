@@ -1,0 +1,40 @@
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+    <p-toggleButton
+      (onChange)="handleChange($event)"
+      [(ngModel)]="toggleState['placePinPoint']"
+      onIcon="i i-marker"
+      offIcon="i i-marker"
+    ></p-toggleButton>
+    <p-toggleButton
+      class="p-toolbar-separator"
+      (onChange)="handleChange($event)"
+      [(ngModel)]="toggleState['movePinPoint']"
+      onIcon="i i-move"
+      offIcon="i i-move"
+    ></p-toggleButton>
+    <p-toggleButton
+      (onChange)="handleChange($event)"
+      [(ngModel)]="toggleState['connectPinPoints']"
+      onIcon="i i-connect"
+      offIcon="i i-connect"
+    ></p-toggleButton>
+  </div>
+
+  <div class="p-toolbar-group-right">
+    <dnd-history-layer-checkbox
+    *ngFor="let key of getCheckBoxKeyList(); index as i"
+      [check]="checkBoxState[key]"
+      (checkChange)="checkBoxToggled($event, i+1)"
+      [layer]="i+1"
+    ></dnd-history-layer-checkbox>
+    <p-toggleButton
+      (onChange)="toggleAllCheckBoxes($event)"
+      [(ngModel)]="toggleState['toggleAllCheckBoxes']"
+      onIcon="i i-eye-closed"
+      offIcon="i i-eye-open"
+      pTooltip="toggle on/off all layers"
+      [showDelay]="1000"
+    ></p-toggleButton>
+  </div>
+</p-toolbar>

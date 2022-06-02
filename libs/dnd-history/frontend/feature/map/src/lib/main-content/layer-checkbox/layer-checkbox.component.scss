@@ -1,0 +1,15 @@
+label{
+    position: relative;
+    right: 15px;
+    top: 5px;
+    cursor: pointer;
+    user-select: none;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.7rem;
+}
+
+.active {
+    color: white;
+    right: 14px;
+    top: 6px;
+}

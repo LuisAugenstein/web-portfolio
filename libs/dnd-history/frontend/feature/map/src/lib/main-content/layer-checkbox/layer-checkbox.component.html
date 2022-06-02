@@ -1,0 +1,13 @@
+<p-checkbox
+  [id]="'checkbox-' + layer"
+  [binary]="true"
+  [ngModel]="check"
+  (ngModelChange)="emit($event)"
+></p-checkbox>
+<label
+  [class]="check ? 'active' : ''"
+  [for]="'checkbox-' + layer"
+  (click)="toggle()"
+>
+  {{ layer }}</label
+>

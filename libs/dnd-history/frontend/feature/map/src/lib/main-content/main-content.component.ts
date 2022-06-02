@@ -13,7 +13,6 @@ import { CanvasMapService } from '../services/canvas-map.service';
   styleUrls: ['./main-content.component.scss'],
 })
 export class MainContentComponent implements OnInit, AfterViewInit {
-
   @ViewChild('mapCanvas')
   mapCanvas!: ElementRef<HTMLCanvasElement>;
   selectedTool!: any;

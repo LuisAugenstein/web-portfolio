@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Spectral+SC:wght@600&family=Vollkorn&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Spectral+SC:wght@600&family=Vollkorn&display=swap');
 
 body {
   margin: 0;
@@ -32,8 +32,8 @@ input {
 
 // Icon class definitions
 .i {
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   background-size: cover;
   display: block;
 }
@@ -51,9 +51,9 @@ input {
 }
 
 .i-eye-open {
-  background-image: url(assets/icons/open-eye.svg);
+  background-image: url(assets/icons/eye-open.svg);
 }
 
 .i-eye-closed {
-  background-image: url(assets/icons/closed-eye.svg);
+  background-image: url(assets/icons/eye-closed.svg);
 }
