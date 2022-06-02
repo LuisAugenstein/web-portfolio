@@ -10,11 +10,13 @@ import { CharactersModule } from '@dnd-history/frontend-characters';
 import { MapModule } from '@dnd-history/frontend-map';
 
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserAnimationsModule,
     AppRoutingModule,
     LoginModule,
     HomeModule,

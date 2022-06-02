@@ -8,7 +8,12 @@ body {
   min-width: 370px;
 }
 
-h1, h2, h3, h4, h5, .p-card-title {
+h1,
+h2,
+h3,
+h4,
+h5,
+.p-card-title {
   font-family: 'Spectral SC', serif;
 }
 
@@ -16,10 +21,39 @@ img {
   user-select: none;
 }
 
-.p-component, .p-inputtext {
+.p-component,
+.p-inputtext {
   font-family: 'Vollkorn', serif;
 }
 
 input {
   cursor: text !important;
+}
+
+// Icon class definitions
+.i {
+  width: 32px;
+  height: 32px;
+  background-size: cover;
+  display: block;
+}
+
+.i-marker {
+  background-image: url(assets/icons/Marker.svg);
+}
+
+.i-move {
+  background-image: url(assets/icons/move.svg);
+}
+
+.i-connect {
+  background-image: url(assets/icons/connect.svg);
+}
+
+.i-eye-open {
+  background-image: url(assets/icons/open-eye.svg);
+}
+
+.i-eye-closed {
+  background-image: url(assets/icons/closed-eye.svg);
 }

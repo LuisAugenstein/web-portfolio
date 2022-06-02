@@ -10,6 +10,16 @@ export class MainContentComponent implements OnInit {
   @Input()
   selectedMap!: Map;
 
+  selectedTool!: any;
+
+  tools = [{
+    name: 'create marker',
+  }, {
+    name: 'move marker',
+  }, {
+    name: 'connect marker'
+  }];
+
   constructor() {}
 
   ngOnInit(): void {}
