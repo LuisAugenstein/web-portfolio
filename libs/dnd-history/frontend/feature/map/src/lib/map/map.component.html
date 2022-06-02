@@ -1,33 +1,11 @@
-<!-- <div class="h-screen" id="map-content">
+<div class="h-screen flex flex-column" id="map-content">
   <dnd-history-header backLink="/home"></dnd-history-header>
 
-  <div class="flex justify-content-center">
+  <div class="flex-grow-1 flex justify-content-center">
     <main>
-      <dnd-history-image-carousel
-        class=""
-        [(selectedMap)]="selectedMap"
-      ></dnd-history-image-carousel>
-      <dnd-history-main-content
-        [selectedMap]="selectedMap"
-      ></dnd-history-main-content>
-      <dnd-history-pinpoint-sidebar
-        class="surface-500"
-      ></dnd-history-pinpoint-sidebar>
+      <dnd-history-image-carousel></dnd-history-image-carousel>
+      <dnd-history-main-content></dnd-history-main-content>
+      <dnd-history-pinpoint-sidebar></dnd-history-pinpoint-sidebar>
     </main>
   </div>
-</div> -->
-<p-toolbar>
-  <div class="p-toolbar-group-left">
-      <p-button label="GeeksforGeeks" 
-          styleClass="p-button-warning">
-      </p-button>
-
-      <p-button label="GeeksforGeeks" 
-          styleClass="p-button-danger">
-      </p-button>
-        
-      <p-button label="GeeksforGeeks" 
-          styleClass="p-button-success">
-      </p-button>
-  </div>
-</p-toolbar>
+</div>

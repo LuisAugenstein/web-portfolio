@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FileUploadService } from '@dnd-history/frontend-services';
 import { Map } from '@dnd-history/shared-interfaces';
-import { MapService } from '../services/map.service';
+import { HTTPMapService } from '../services/http-map.service';
+import { SelectionService } from '../services/selection.service';
 
 @Component({
   selector: 'dnd-history-image-carousel',
@@ -9,26 +10,24 @@ import { MapService } from '../services/map.service';
   styleUrls: ['./image-carousel.component.scss'],
 })
 export class ImageCarouselComponent implements OnInit {
-  @Input() selectedMap!: Map;
-  @Output() selectedMapChange = new EventEmitter<Map>();
-
   maps: Map[] = [];
   chosenFilesToUpload: File[] = [];
 
   constructor(
     private readonly fileUploadService: FileUploadService,
-    private readonly mapService: MapService
+    private readonly httpMapService: HTTPMapService,
+    private readonly selectionService: SelectionService
   ) {}
 
   ngOnInit(): void {
-    this.mapService.read().subscribe((maps) => {
+    this.httpMapService.read().subscribe((maps) => {
       this.maps = maps.sort((a, b) => a.id - b.id);
     });
   }
 
   async createMap(event: { files: File[] }) {
     const url = await this.fileUploadService.upload(event.files[0]);
-    this.mapService
+    this.httpMapService
       .create({
         src: url,
       })
@@ -40,7 +39,6 @@ export class ImageCarouselComponent implements OnInit {
   }
 
   selectMap(map: Map) {
-    this.selectedMap = map;
-    this.selectedMapChange.emit(this.selectedMap);
+    this.selectionService.setMap(map);
   }
 }

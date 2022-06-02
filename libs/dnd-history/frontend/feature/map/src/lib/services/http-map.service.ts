@@ -5,7 +5,7 @@ import { environment, SessionService } from '@dnd-history/frontend-services';
 import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
-export class MapService {
+export class HTTPMapService {
   constructor(
     private readonly http: HttpClient,
     private readonly sessionService: SessionService

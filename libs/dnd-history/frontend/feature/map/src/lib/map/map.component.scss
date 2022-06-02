@@ -8,8 +8,8 @@
 }
 
 main {
-  height: calc(100vh - 100px);
   width: 1230px;
+  margin-bottom: 20px;
   display: grid;
-  grid-template-columns: 155px auto 155px;
+  grid-template-columns: 155px auto 200px;
 }
