@@ -1,39 +1,36 @@
 <p-toolbar>
   <div class="p-toolbar-group-left">
     <p-toggleButton
+      *ngFor="let btn of toggleButtonList.slice(0, 3); index as i"
+      [onIcon]="btn.onIcon"
+      [offIcon]="btn.offIcon"
+      [(ngModel)]="btn.active"
       (onChange)="handleChange($event)"
-      [(ngModel)]="toggleState['placePinPoint']"
-      onIcon="i i-marker"
-      offIcon="i i-marker"
-    ></p-toggleButton>
-    <p-toggleButton
-      class="p-toolbar-separator"
-      (onChange)="handleChange($event)"
-      [(ngModel)]="toggleState['movePinPoint']"
-      onIcon="i i-move"
-      offIcon="i i-move"
-    ></p-toggleButton>
-    <p-toggleButton
-      (onChange)="handleChange($event)"
-      [(ngModel)]="toggleState['connectPinPoints']"
-      onIcon="i i-connect"
-      offIcon="i i-connect"
-    ></p-toggleButton>
+      [pTooltip]="btn.toolTip"
+      [showDelay]="1000"
+      [class]="i % 2 === 0 ? 'p-toolbar-separator' : ''"
+    >
+    </p-toggleButton>
   </div>
 
   <div class="p-toolbar-group-right">
     <dnd-history-layer-checkbox
-    *ngFor="let key of getCheckBoxKeyList(); index as i"
-      [check]="checkBoxState[key]"
-      (checkChange)="checkBoxToggled($event, i+1)"
-      [layer]="i+1"
+      *ngFor="let checkBox of checkBoxList; index as i"
+      [active]="checkBox.active"
+      (activeChange)="onLayerToggled($event, i)"
+      [layer]="i"
     ></dnd-history-layer-checkbox>
     <p-toggleButton
-      (onChange)="toggleAllCheckBoxes($event)"
-      [(ngModel)]="toggleState['toggleAllCheckBoxes']"
-      onIcon="i i-eye-closed"
-      offIcon="i i-eye-open"
-      pTooltip="toggle on/off all layers"
+      (onChange)="
+        toggleAllLayers({
+          active: $event.checked,
+          originalEvent: $event.originalEvent
+        })
+      "
+      [(ngModel)]="toggleButtons['toggleAllLayers'].active"
+      [onIcon]="toggleButtons['toggleAllLayers'].onIcon"
+      [offIcon]="toggleButtons['toggleAllLayers'].offIcon"
+      [pTooltip]="toggleButtons['toggleAllLayers'].toolTip"
       [showDelay]="1000"
     ></p-toggleButton>
   </div>

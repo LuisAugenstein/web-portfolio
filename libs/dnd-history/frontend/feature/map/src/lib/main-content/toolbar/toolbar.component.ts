@@ -1,46 +1,71 @@
 import { Component } from '@angular/core';
 
+interface ToggleButton {
+  toolTip: string;
+  onIcon: string;
+  offIcon: string;
+  active: boolean;
+}
+
 @Component({
   selector: 'dnd-history-toolbar',
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss'],
 })
 export class ToolbarComponent {
-  toggleState: { [key: string]: boolean } = {
-    placePinPoint: false,
-    movePinPoint: false,
-    connectPinPoints: false,
-    toggleAllCheckBoxes: false,
+  toggleButtons: { [key: string]: ToggleButton } = {
+    placePinPoint: {
+      toolTip: 'place a new pin point',
+      onIcon: 'i i-marker',
+      offIcon: 'i i-marker',
+      active: false,
+    },
+    movePinPoint: {
+      toolTip: 'move a pin point',
+      onIcon: 'i i-move',
+      offIcon: 'i i-move',
+      active: false,
+    },
+    connectPinPoints: {
+      toolTip: 'connect two pin points',
+      onIcon: 'i i-connect',
+      offIcon: 'i i-connect',
+      active: false,
+    },
+    toggleAllLayers: {
+      toolTip: `toggle all layers on or off`,
+      onIcon: 'i i-eye-closed',
+      offIcon: 'i i-eye-open',
+      active: false,
+    },
   };
+  toggleButtonList = Object.values(this.toggleButtons);
 
-  checkBoxState: { [key: string]: boolean } = {
-    layer1: true,
-    layer2: true,
-    layer3: true,
-    layer4: true,
-    layer5: true,
+  checkBoxes: { [key: string]: { active: boolean } } = {
+    layer0: { active: true },
+    layer1: { active: true },
+    layer2: { active: true },
+    layer3: { active: true },
+    layer4: { active: true },
   };
-
-  getCheckBoxKeyList() {
-    return Object.keys(this.checkBoxState);
-  }
+  checkBoxList = Object.values(this.checkBoxes);
 
   constructor() {}
 
   handleChange(event: any) {
-    //
+    console.log(event);
   }
 
-  toggleAllCheckBoxes(event: { checked: boolean; originalEvent: MouseEvent }) {
-    Object.keys(this.checkBoxState).forEach(
-      (key) => (this.checkBoxState[key] = !event.checked)
+  toggleAllLayers(event: { active: boolean; originalEvent: MouseEvent }) {
+    for(const checkBox of this.checkBoxList){
+      checkBox.active = !event.active;
+    }
+  }
+
+  onLayerToggled(active: boolean, layer: number) {
+    this.checkBoxList[layer].active = active;
+    this.toggleButtons['toggleAllLayers'].active = this.checkBoxList.every(
+      (checkBox) => !checkBox.active
     );
-  }
-
-  checkBoxToggled(checked: boolean, layer: number) {
-    this.checkBoxState[`layer${layer}`] = checked;
-    this.toggleState['toggleAllCheckBoxes'] = Object.values(
-      this.checkBoxState
-    ).every((v) => !v);
   }
 }

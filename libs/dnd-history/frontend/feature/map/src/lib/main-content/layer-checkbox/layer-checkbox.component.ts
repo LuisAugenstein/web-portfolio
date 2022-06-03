@@ -10,16 +10,16 @@ export class LayerCheckboxComponent {
   layer!: number;
 
   @Input()
-  check = true;
+  active = true;
   @Output()
-  checkChange: EventEmitter<boolean> = new EventEmitter();
+  activeChange: EventEmitter<boolean> = new EventEmitter();
 
   toggle(){
-    this.check = !this.check;
-    this.emit(this.check);
+    this.active = !this.active;
+    this.emit(this.active);
   }
 
-  emit(check: boolean){
-    this.checkChange.emit(check);
+  emit(active: boolean){
+    this.activeChange.emit(active);
   }
 }
