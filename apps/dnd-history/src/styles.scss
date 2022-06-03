@@ -21,13 +21,28 @@ img {
   user-select: none;
 }
 
+input {
+  cursor: text !important;
+}
+
+// primeng overrides
+
 .p-component,
 .p-inputtext {
   font-family: 'Vollkorn', serif;
 }
 
-input {
-  cursor: text !important;
+.p-togglebutton.p-button.p-highlight:hover,
+.p-togglebutton.p-button:focus.p-highlight:hover {
+  background: #d9d8d9;
+}
+
+.p-togglebutton.p-button:focus {
+  background: #ffffff;
+}
+
+.p-togglebutton.p-button:focus.p-highlight{
+  background: #e0e0e1;
 }
 
 // Icon class definitions
