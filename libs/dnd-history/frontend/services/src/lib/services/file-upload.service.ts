@@ -8,6 +8,9 @@ const url = 'https://api.imgbb.com/1/upload';
 @Injectable({
   providedIn: 'root',
 })
+/**
+ * wrapper around httpClient that can only upload files to imgbb
+ */
 export class FileUploadService {
   constructor(private readonly http: HttpClient) {}
   /**

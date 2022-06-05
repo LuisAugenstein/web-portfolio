@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FileUploadService } from '@dnd-history/frontend-services';
+import { FileUploadService, UserPreferenceService } from '@dnd-history/frontend-services';
 import { Map } from '@dnd-history/shared-interfaces';
-import { HTTPMapService } from '../services/http-map.service';
-import { SelectionService } from '../services/selection.service';
+import { take } from 'rxjs';
+import { HTTPMapService } from '@dnd-history/frontend-services';
 
 @Component({
   selector: 'dnd-history-image-carousel',
@@ -16,12 +16,15 @@ export class ImageCarouselComponent implements OnInit {
   constructor(
     private readonly fileUploadService: FileUploadService,
     private readonly httpMapService: HTTPMapService,
-    private readonly selectionService: SelectionService
+    private readonly userPreferenceService: UserPreferenceService
   ) {}
 
   ngOnInit(): void {
     this.httpMapService.read().subscribe((maps) => {
       this.maps = maps.sort((a, b) => a.id - b.id);
+      if(!this.userPreferenceService.get<Map>('selectedMap') && this.maps.length > 0){
+        this.selectMap(this.maps[0]);
+      }
     });
   }
 
@@ -33,12 +36,11 @@ export class ImageCarouselComponent implements OnInit {
       })
       .subscribe((newMap) => {
         this.maps.push(newMap);
-        //maybe directly select the new map?
       });
     this.chosenFilesToUpload = [];
   }
 
   selectMap(map: Map) {
-    this.selectionService.setMap(map);
+    this.userPreferenceService.set<Map>('selectedMap', map);
   }
 }

@@ -1,20 +1,20 @@
 import { HttpClient } from '@angular/common/http';
-import { Adventure, AdventureDTO } from '@dnd-history/shared-interfaces';
+import { Adventure, AdventureDTO, Session } from '@dnd-history/shared-interfaces';
 import { Observable } from 'rxjs';
-import { environment, SessionService } from '@dnd-history/frontend-services';
+import { environment, UserPreferenceService } from '@dnd-history/frontend-services';
 import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class AdventureService {
   constructor(
     private readonly http: HttpClient,
-    private readonly sessionService: SessionService
+    private readonly userPreferenceService: UserPreferenceService
   ) {}
 
   readAdventures(): Observable<Adventure[]> {
     return this.http.get<Adventure[]>(
       `${environment.backendUrl}/session/${
-        this.sessionService.getCurrentSession().id
+        this.userPreferenceService.get<Session>('selectedSession')?.id
       }/adventure`
     );
   }
@@ -22,7 +22,7 @@ export class AdventureService {
   createAdventure(adventureDTO: AdventureDTO): Observable<Adventure> {
     return this.http.post(
       `${environment.backendUrl}/session/${
-        this.sessionService.getCurrentSession().id
+        this.userPreferenceService.get<Session>('selectedSession')?.id
       }/adventure`,
       adventureDTO
     ) as Observable<Adventure>;

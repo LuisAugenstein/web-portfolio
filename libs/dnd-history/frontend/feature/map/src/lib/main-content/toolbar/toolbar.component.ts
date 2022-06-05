@@ -1,10 +1,16 @@
 import { Component } from '@angular/core';
 
+interface ToggleButtonEvent {
+  active: boolean;
+  originalEvent: MouseEvent;
+}
+
 interface ToggleButton {
   toolTip: string;
   onIcon: string;
   offIcon: string;
   active: boolean;
+  onChange: (event: ToggleButtonEvent) => void;
 }
 
 @Component({
@@ -19,24 +25,36 @@ export class ToolbarComponent {
       onIcon: 'i i-marker',
       offIcon: 'i i-marker',
       active: false,
+      onChange: (event: ToggleButtonEvent) => {
+        return;
+      },
     },
     movePinPoint: {
       toolTip: 'move a pin point',
       onIcon: 'i i-move',
       offIcon: 'i i-move',
       active: false,
+      onChange: (event: ToggleButtonEvent) => {
+        return;
+      },
     },
     connectPinPoints: {
       toolTip: 'connect two pin points',
       onIcon: 'i i-connect',
       offIcon: 'i i-connect',
       active: false,
+      onChange: (event: ToggleButtonEvent) => {
+        return;
+      },
     },
     toggleAllLayers: {
       toolTip: `toggle all layers on or off`,
       onIcon: 'i i-eye-closed',
       offIcon: 'i i-eye-open',
       active: false,
+      onChange: (event: ToggleButtonEvent) => {
+        return;
+      },
     },
   };
   toggleButtonList = Object.values(this.toggleButtons);
@@ -52,12 +70,12 @@ export class ToolbarComponent {
 
   constructor() {}
 
-  handleChange(event: any) {
+  toolBarButton(event: any) {
     console.log(event);
   }
 
   toggleAllLayers(event: { active: boolean; originalEvent: MouseEvent }) {
-    for(const checkBox of this.checkBoxList){
+    for (const checkBox of this.checkBoxList) {
       checkBox.active = !event.active;
     }
   }

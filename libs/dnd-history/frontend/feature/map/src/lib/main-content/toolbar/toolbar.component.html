@@ -5,7 +5,10 @@
       [onIcon]="btn.onIcon"
       [offIcon]="btn.offIcon"
       [(ngModel)]="btn.active"
-      (onChange)="handleChange($event)"
+      (onChange)="btn.onChange({
+        active: $event.checked,
+        originalEvent: $event.originalEvent
+      })"
       [pTooltip]="btn.toolTip"
       [showDelay]="1000"
       [class]="i % 2 === 0 ? 'p-toolbar-separator' : ''"

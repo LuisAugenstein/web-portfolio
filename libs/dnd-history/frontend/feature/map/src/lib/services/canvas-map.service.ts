@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { UserPreferenceService } from '@dnd-history/frontend-services';
 import { Map } from '@dnd-history/shared-interfaces';
-import { SelectionService } from './selection.service';
 
 @Injectable({ providedIn: 'root' })
 export class CanvasMapService {
@@ -8,8 +8,8 @@ export class CanvasMapService {
   canvas!: HTMLCanvasElement;
   map!: Map;
 
-  constructor(readonly selectionService: SelectionService) {
-    selectionService.map.subscribe((map: Map) => {
+  constructor(readonly userPreferenceService: UserPreferenceService) {
+    userPreferenceService.subscribe<Map>('selectedMap', (map: Map) => {
       this.map = map;
       this.update();
     });
@@ -22,9 +22,13 @@ export class CanvasMapService {
     }
     this.context = context;
     this.canvas = canvas;
+    this.update();
   }
 
   update(): void {
+    if (!this.context) {
+      return;
+    }
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.drawBackgroundImage(this.map.src);
   }
@@ -44,9 +48,7 @@ export class CanvasMapService {
     //
   }
 
-  drawPinConnections(){
+  drawPinConnections() {
     //
   }
-  
-
 }
