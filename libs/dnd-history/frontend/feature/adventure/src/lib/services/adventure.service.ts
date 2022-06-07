@@ -11,7 +11,7 @@ export class AdventureService {
     private readonly userPreferenceService: UserPreferenceService
   ) {}
 
-  readAdventures(): Observable<Adventure[]> {
+  read(): Observable<Adventure[]> {
     return this.http.get<Adventure[]>(
       `${environment.backendUrl}/session/${
         this.userPreferenceService.get<Session>('selectedSession')?.id
@@ -19,7 +19,7 @@ export class AdventureService {
     );
   }
 
-  createAdventure(adventureDTO: AdventureDTO): Observable<Adventure> {
+  create(adventureDTO: AdventureDTO): Observable<Adventure> {
     return this.http.post(
       `${environment.backendUrl}/session/${
         this.userPreferenceService.get<Session>('selectedSession')?.id
@@ -28,7 +28,7 @@ export class AdventureService {
     ) as Observable<Adventure>;
   }
 
-  updateAdventure(updatedAdventure: Adventure) {
+  update(updatedAdventure: Adventure) {
     return this.http.put(
       `${environment.backendUrl}/adventure/${updatedAdventure.id}`,
       {

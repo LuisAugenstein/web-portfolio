@@ -43,9 +43,9 @@ export class UserPreferenceService {
     value: T
   ): void {
     this.userPreferences[key].value = value;
-      (this.userPreferences[key].subject as unknown as ReplaySubject<T>).next(
-        value
-      );
+    (this.userPreferences[key].subject as unknown as ReplaySubject<T>).next(
+      value
+    );
 
     const userPreferenceValues = Object.values(this.userPreferences).map(
       (userPreference) => userPreference.value
@@ -73,11 +73,21 @@ export class UserPreferenceService {
     const userPreferencesString = this.cookieService.get(
       'dnd-history-userPreferences'
     );
-    const userPreferences: {
-      [key in keyof UserPreferences]: UserPreferenceValue;
-    } = JSON.parse(userPreferencesString);
+
+    if (userPreferencesString === '') {
+      return;
+    }
+
+    let userPreferences;
+    try {
+      userPreferences = JSON.parse(userPreferencesString);;
+    } catch (e) {
+      console.log(e);
+      return;
+    }
+
     Object.entries(userPreferences).forEach(([key, value]) => {
-      this.set(key as keyof UserPreferences, value);
+      this.set(key as keyof UserPreferences, value as UserPreferenceValue);
     });
   }
 }

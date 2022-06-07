@@ -26,20 +26,20 @@ export class CanvasMapService {
   }
 
   update(): void {
-    if (!this.context) {
+    if (!this.context || !this.map) {
       return;
     }
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.drawBackgroundImage(this.map.src);
+    this.drawBackgroundImage(this.map.src, this.canvas.width, this.canvas.height);
   }
 
   //=============================================
   //=========== Draw Individual stuff ===========
   //=============================================
-  drawBackgroundImage(mapSrc: string): void {
+  drawBackgroundImage(mapSrc: string, width: number, height: number): void {
     const img = new Image();
     img.onload = () => {
-      this.context.drawImage(img, 0, 0, this.canvas.width, this.canvas.height);
+      this.context.drawImage(img, 0, 0, width, height);
     };
     img.src = mapSrc;
   }

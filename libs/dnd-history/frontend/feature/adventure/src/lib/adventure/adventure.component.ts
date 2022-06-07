@@ -21,14 +21,14 @@ export class AdventureComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.adventureService.readAdventures().subscribe((adventures) => {
+    this.adventureService.read().subscribe((adventures) => {
       this.adventures = adventures.sort((a,b) => a.id - b.id);
     });
   }
 
   async createAdventureCard() {
     this.adventureService
-      .createAdventure({
+      .create({
         title: '',
         content: '',
       })
@@ -45,7 +45,7 @@ export class AdventureComponent implements OnInit {
     reference.onClose.subscribe((updatedAdventure: Adventure) => {
       if (updatedAdventure) {
         this.adventureService
-          .updateAdventure(updatedAdventure)
+          .update(updatedAdventure)
           .subscribe();
         this.adventures = this.adventures.map((adventure) => {
           return adventure.id === updatedAdventure.id
