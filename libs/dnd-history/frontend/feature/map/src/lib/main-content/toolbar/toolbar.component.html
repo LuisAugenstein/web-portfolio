@@ -1,14 +1,11 @@
 <p-toolbar>
   <div class="p-toolbar-group-left">
     <p-toggleButton
-      *ngFor="let btn of toggleButtonList.slice(0, 3); index as i"
+      *ngFor="let btn of getToolBarButtons(); index as i"
       [onIcon]="btn.onIcon"
       [offIcon]="btn.offIcon"
       [(ngModel)]="btn.active"
-      (onChange)="btn.onChange({
-        active: $event.checked,
-        originalEvent: $event.originalEvent
-      })"
+      (onChange)=" onToolBarButtonChange($event, i)"
       [pTooltip]="btn.toolTip"
       [showDelay]="1000"
       [class]="i % 2 === 0 ? 'p-toolbar-separator' : ''"
@@ -18,22 +15,17 @@
 
   <div class="p-toolbar-group-right">
     <dnd-history-layer-checkbox
-      *ngFor="let checkBox of checkBoxList; index as i"
+      *ngFor="let checkBox of getCheckBoxes(); index as i"
       [active]="checkBox.active"
-      (activeChange)="onLayerToggled($event, i)"
+      (activeChange)="toggleSingleLayer($event, i)"
       [layer]="i"
     ></dnd-history-layer-checkbox>
     <p-toggleButton
-      (onChange)="
-        toggleAllLayers({
-          active: $event.checked,
-          originalEvent: $event.originalEvent
-        })
-      "
-      [(ngModel)]="toggleButtons['toggleAllLayers'].active"
-      [onIcon]="toggleButtons['toggleAllLayers'].onIcon"
-      [offIcon]="toggleButtons['toggleAllLayers'].offIcon"
-      [pTooltip]="toggleButtons['toggleAllLayers'].toolTip"
+      (onChange)="toggleAllLayers($event)"
+      [(ngModel)]="getToggleAllLayersButton().active"
+      [onIcon]="getToggleAllLayersButton().onIcon"
+      [offIcon]="getToggleAllLayersButton().offIcon"
+      [pTooltip]="getToggleAllLayersButton().toolTip"
       [showDelay]="1000"
     ></p-toggleButton>
   </div>

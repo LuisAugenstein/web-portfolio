@@ -1,17 +1,6 @@
 import { Component } from '@angular/core';
-
-interface ToggleButtonEvent {
-  active: boolean;
-  originalEvent: MouseEvent;
-}
-
-interface ToggleButton {
-  toolTip: string;
-  onIcon: string;
-  offIcon: string;
-  active: boolean;
-  onChange: (event: ToggleButtonEvent) => void;
-}
+import { CheckBox, LayerService } from '../../services/layer.service';
+import { PaletteService, ToggleButton, ToolBarButton } from '../../services/palette.service';
 
 @Component({
   selector: 'dnd-history-toolbar',
@@ -19,71 +8,40 @@ interface ToggleButton {
   styleUrls: ['./toolbar.component.scss'],
 })
 export class ToolbarComponent {
-  toggleButtons: { [key: string]: ToggleButton } = {
-    placePinPoint: {
-      toolTip: 'place a new pin point',
-      onIcon: 'i i-marker',
-      offIcon: 'i i-marker',
-      active: false,
-      onChange: (event: ToggleButtonEvent) => {
-        return;
-      },
-    },
-    movePinPoint: {
-      toolTip: 'move a pin point',
-      onIcon: 'i i-move',
-      offIcon: 'i i-move',
-      active: false,
-      onChange: (event: ToggleButtonEvent) => {
-        return;
-      },
-    },
-    connectPinPoints: {
-      toolTip: 'connect two pin points',
-      onIcon: 'i i-connect',
-      offIcon: 'i i-connect',
-      active: false,
-      onChange: (event: ToggleButtonEvent) => {
-        return;
-      },
-    },
-    toggleAllLayers: {
-      toolTip: `toggle all layers on or off`,
-      onIcon: 'i i-eye-closed',
-      offIcon: 'i i-eye-open',
-      active: false,
-      onChange: (event: ToggleButtonEvent) => {
-        return;
-      },
-    },
-  };
-  toggleButtonList = Object.values(this.toggleButtons);
+  constructor(
+    private readonly paletteService: PaletteService,
+    private readonly layerService: LayerService
+  ) {}
 
-  checkBoxes: { [key: string]: { active: boolean } } = {
-    layer0: { active: true },
-    layer1: { active: true },
-    layer2: { active: true },
-    layer3: { active: true },
-    layer4: { active: true },
-  };
-  checkBoxList = Object.values(this.checkBoxes);
+  //============================================
+  //== Manage toggleButtons of the palette =====
+  //============================================
 
-  constructor() {}
-
-  toolBarButton(event: any) {
-    console.log(event);
+  getToolBarButtons(): ToolBarButton[] {
+    return this.paletteService.getToolBarButtons();
   }
 
-  toggleAllLayers(event: { active: boolean; originalEvent: MouseEvent }) {
-    for (const checkBox of this.checkBoxList) {
-      checkBox.active = !event.active;
-    }
+  onToolBarButtonChange(event: { checked: boolean }, toggleButtonId: number) {
+    this.paletteService.toggleToolBarButton(event.checked, toggleButtonId);
   }
 
-  onLayerToggled(active: boolean, layer: number) {
-    this.checkBoxList[layer].active = active;
-    this.toggleButtons['toggleAllLayers'].active = this.checkBoxList.every(
-      (checkBox) => !checkBox.active
-    );
+  //=======================================================
+  //== Manage CheckBoxes for showing different layers =====
+  //=======================================================
+
+  getCheckBoxes(): CheckBox[] {
+    return this.layerService.getCheckBoxes();
+  }
+
+  getToggleAllLayersButton(): ToggleButton {
+    return this.layerService.getToggleAllLayersButton();
+  }
+
+  toggleAllLayers(event: { checked: boolean }) {
+    this.layerService.toggleAllLayers(event.checked);
+  }
+
+  toggleSingleLayer(active: boolean, layer: number) {
+    this.layerService.toggleSingleLayer(active, layer);
   }
 }

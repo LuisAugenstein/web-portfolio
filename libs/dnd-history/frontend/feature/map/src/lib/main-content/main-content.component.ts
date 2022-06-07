@@ -5,7 +5,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { CanvasMapService } from '../services/canvas-map.service';
+import { CanvasDrawingService } from '../services/canvas-drawing.service';
 
 @Component({
   selector: 'dnd-history-main-content',
@@ -29,10 +29,10 @@ export class MainContentComponent implements OnInit, AfterViewInit {
     },
   ];
 
-  constructor(private readonly canvasMapService: CanvasMapService) {}
+  constructor(private readonly canvasDrawingService: CanvasDrawingService) {}
 
   ngAfterViewInit(): void {
-    this.canvasMapService.setCanvas(this.mapCanvas.nativeElement);
+    this.canvasDrawingService.setCanvas(this.mapCanvas.nativeElement);
   }
 
   ngOnInit(): void {}

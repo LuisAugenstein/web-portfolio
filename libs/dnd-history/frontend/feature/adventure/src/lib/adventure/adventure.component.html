@@ -4,7 +4,7 @@
   <div class="flex justify-content-center">
     <div id="grid" style="max-width: 80rem">
       <p-card
-        *ngFor="let data of adventures"
+        *ngFor="let data of getAdventures()"
         [subheader]="datePipe.transform(data.lastChangedAt, 'dd-MM-yyyy') || ''"
         [style]="{ 'border-radius': '15px' }"
         (click)="showLargeCard(data)" 

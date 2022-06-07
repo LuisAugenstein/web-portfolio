@@ -1,7 +1,6 @@
-export interface Session {
-  id: number;
-  name: string;
-}
+import { ID } from './id.interface';
+
+export interface Session extends SessionDTO, ID {}
 
 export interface SessionDTO {
   name: string;

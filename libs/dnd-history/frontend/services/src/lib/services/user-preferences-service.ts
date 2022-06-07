@@ -82,7 +82,7 @@ export class UserPreferenceService {
     try {
       userPreferences = JSON.parse(userPreferencesString);;
     } catch (e) {
-      console.log(e);
+      console.error(e);
       return;
     }
 

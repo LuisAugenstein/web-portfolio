@@ -1,5 +1,6 @@
-export interface Adventure extends AdventureDTO {
-    id: number;
+import { ID } from "./id.interface";
+
+export interface Adventure extends AdventureDTO, ID {
     lastChangedAt: Date;
 }
 

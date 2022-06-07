@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Session, SessionDTO } from '@dnd-history/shared-interfaces';
 import {
-  SessionService,
+  HttpSessionService,
   UserPreferenceService,
 } from '@dnd-history/frontend-services';
 
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private readonly sessionService: SessionService,
+    private readonly sessionService: HttpSessionService,
     private readonly userPreferenceService: UserPreferenceService
   ) {}
 
