@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { CheckBox, LayerService } from '../../services/layer.service';
-import { PaletteService, ToggleButton, ToolBarButton } from '../../services/palette.service';
+import { PaletteService } from '../../services/toolbar/palette.service';
+import { PlacePinPointButton } from '../../services/toolbar/tool-bar-buttons/place-pin-point-button';
+import {
+  ToggleButton,
+  ToolBarButton,
+} from '../../services/toolbar/palette.service';
 
 @Component({
   selector: 'dnd-history-toolbar',
@@ -9,9 +14,12 @@ import { PaletteService, ToggleButton, ToolBarButton } from '../../services/pale
 })
 export class ToolbarComponent {
   constructor(
+    private readonly layerService: LayerService,
     private readonly paletteService: PaletteService,
-    private readonly layerService: LayerService
-  ) {}
+    placePinPointButton: PlacePinPointButton
+  ) {
+    paletteService.register(placePinPointButton);
+  }
 
   //============================================
   //== Manage toggleButtons of the palette =====

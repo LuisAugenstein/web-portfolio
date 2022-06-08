@@ -4,7 +4,7 @@
       *ngFor="let btn of getToolBarButtons(); index as i"
       [onIcon]="btn.onIcon"
       [offIcon]="btn.offIcon"
-      [(ngModel)]="btn.active"
+      [ngModel]="btn.active"
       (onChange)=" onToolBarButtonChange($event, i)"
       [pTooltip]="btn.toolTip"
       [showDelay]="1000"

@@ -5,7 +5,8 @@ export interface Drawable {
 }
 
 @Injectable({ providedIn: 'root' })
-export class CanvasUpdateService {
+export class CanvasDrawingService {
+
   private context!: CanvasRenderingContext2D;
   private canvas!: HTMLCanvasElement;
 
@@ -33,6 +34,7 @@ export class CanvasUpdateService {
     if (!this.context) {
       return;
     }
+    console.log('draw')
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     for (const [, drawable] of this.drawables) {
       drawable.draw(this.context);

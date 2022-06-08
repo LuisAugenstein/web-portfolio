@@ -5,6 +5,8 @@ import { SessionModule } from '@dnd-history/backend-session';
 import { AdventureEntity, MapEntity, PinConnectionEntity, PinPointEntity, SessionEntity } from '@dnd-history/backend-entities';
 import { AdventureModule } from '@dnd-history/backend-adventure';
 import { MapModule} from '@dnd-history/backend-map';
+import { PinPointModule } from '@dnd-history/backend-pin-point';
+import { PinConnectionModule } from '@dnd-history/backend-pin-connection';
 
 @Module({
   imports: [
@@ -15,8 +17,8 @@ import { MapModule} from '@dnd-history/backend-map';
     SessionModule,
     AdventureModule,
     MapModule,
-    PinPointEntity,
-    PinConnectionEntity
+    PinPointModule,
+    PinConnectionModule
   ],
   controllers: [],
   providers: [],

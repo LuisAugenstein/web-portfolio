@@ -1,20 +1,23 @@
 import { Injectable } from '@angular/core';
 import { UserPreferenceService } from '@dnd-history/frontend-services';
 import { Map } from '@dnd-history/shared-interfaces';
-import { CanvasUpdateService, Drawable } from './canvas-update.service';
-
+import { CanvasDrawingService, Drawable } from '../canvas-drawing.service';
 
 @Injectable({ providedIn: 'root' })
 export class MapBackgroundDrawable implements Drawable {
-  map!: Map;
+  private map!: Map;
+
+  private width!: number;
+  private height!: number;
+  
 
   constructor(
     userPreferenceService: UserPreferenceService,
-    private readonly canvasUpdataService: CanvasUpdateService
+    private readonly canvasDrawingService: CanvasDrawingService
   ) {
+    const canvas = this.canvasDrawingService.getCanvas();
     userPreferenceService.subscribe<Map>('selectedMap', (map: Map) => {
       this.map = map;
-      canvasUpdataService.update();
     });
   }
 
@@ -24,7 +27,7 @@ export class MapBackgroundDrawable implements Drawable {
     }
     const img = new Image();
     img.onload = () => {
-      const canvas = this.canvasUpdataService.getCanvas();
+      const canvas = this.canvasDrawingService.getCanvas();
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     };
     img.src = this.map.src;

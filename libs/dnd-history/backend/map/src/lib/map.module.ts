@@ -9,5 +9,6 @@ import { MapService } from './map.service';
   imports: [TypeOrmModule.forFeature([MapEntity]), SessionModule],
   providers: [MapService],
   controllers: [MapController],
+  exports: [MapService]
 })
 export class MapModule {}

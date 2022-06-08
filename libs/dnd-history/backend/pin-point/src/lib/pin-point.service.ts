@@ -19,7 +19,8 @@ export class PinPointService {
     const pinPointEntity = new PinPointEntity();
     pinPointEntity.name = pinPointDTO.name;
     pinPointEntity.description = pinPointDTO.description;
-    pinPointEntity.location = pinPointDTO.location;
+    pinPointEntity.x = pinPointDTO.x;
+    pinPointEntity.y = pinPointDTO.y;
     pinPointEntity.map = map;
     return this.pinPointRepository.save(pinPointEntity);
   }
