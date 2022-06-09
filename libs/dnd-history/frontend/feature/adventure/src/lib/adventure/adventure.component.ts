@@ -20,7 +20,7 @@ export class AdventureComponent {
   ) {}
 
   getAdventures(): Adventure[] {
-    return this.adventureService.read().value;
+    return this.adventureService.getValue();
   }
 
   async createAdventureCard() {

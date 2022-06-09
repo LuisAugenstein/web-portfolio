@@ -1,11 +1,28 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Map, MapDTO } from '@dnd-history/shared-interfaces';
-import { HTTPMapService } from '../http-services/http-map.service';
+import { SelectedSessionService } from '../selection-services/selected-session.service';
 import { StateService } from './state.service';
 
 @Injectable({ providedIn: 'root' })
 export class MapService extends StateService<Map, MapDTO> {
-  constructor(httpMapService: HTTPMapService) {
-    super(httpMapService);
+  protected readUrl!: string;
+  protected createUrl!: string;
+  protected updateUrl!: string;
+
+  constructor(
+    http: HttpClient,
+    selectedSessionService: SelectedSessionService
+  ) {
+    super(http);
+    selectedSessionService.subscribe((selectedSession) => {
+      if(!selectedSession){
+        return;
+      }
+      this.readUrl = `session/${selectedSession.id}/map`;
+      this.createUrl = `session/${selectedSession.id}/map`;
+      this.updateUrl = 'map';
+      this.refresh();
+    });
   }
 }

@@ -4,7 +4,6 @@ import { SelectionService } from './selection.service';
 
 @Injectable({ providedIn: 'root' })
 export class SelectedSessionService extends SelectionService<Session> {
-  selectedSession$ = this.subject$;
   protected getCookieKey(): string {
     return 'dnd-history-selectedSession';
   }

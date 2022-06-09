@@ -12,8 +12,8 @@ export class HeaderComponent {
   @Input() backLink = '/login';
 
   constructor(selectedSessionService: SelectedSessionService) {
-    selectedSessionService.selectedSession$.subscribe((selectedSession) => {
-      this.sessionName = selectedSession.name;
+    selectedSessionService.subscribe((selectedSession) => {
+      this.sessionName = selectedSession?.name || '';
     });
   }
 }

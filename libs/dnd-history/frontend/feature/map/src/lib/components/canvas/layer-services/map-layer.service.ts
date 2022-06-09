@@ -7,17 +7,21 @@ import { Stage } from 'konva/lib/Stage';
 @Injectable({ providedIn: 'root' })
 export class MapLayerService {
   private konvaImage!: KonvaImage;
-  private mapSrc!: string;
+  private mapSrc = '';
 
   constructor(selectedMapService: SelectedMapService) {
-    selectedMapService.selectedMap$.subscribe((selectedMap) => {
-      this.mapSrc = selectedMap.src;
-      this.updateMap();
+    selectedMapService.subscribe((selectedMap) => {
+      this.mapSrc = selectedMap?.src || '';
+      this.update();
     });
   }
 
-  private updateMap(): void {
-    if (!this.konvaImage || !this.mapSrc) {
+  private update(): void {
+    if(!this.konvaImage){
+      return;
+    }
+    if (!this.mapSrc) {
+      this.konvaImage.image(new Image());
       return;
     }
     const img = new Image();
@@ -38,6 +42,6 @@ export class MapLayerService {
     });
     layer.add(this.konvaImage);
     stage.add(layer);
-    this.updateMap();
+    this.update();
   }
 }

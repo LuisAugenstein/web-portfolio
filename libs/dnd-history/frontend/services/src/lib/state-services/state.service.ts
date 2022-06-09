@@ -1,33 +1,40 @@
 import { Injectable } from '@angular/core';
-import { HttpService } from '../http-services/http.service';
 import { ID } from '@dnd-history/shared-interfaces';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
-
-const TEMPORARY_ID = -1;
+import { BehaviorSubject, Observable, Observer, Subscription, tap } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environment/environment';
 
 @Injectable({ providedIn: 'root' })
 export abstract class StateService<T extends ID, TDTO> {
-  private readonly stateObjects$ = new BehaviorSubject<T[]>([]);
+  protected abstract readUrl: string;
+  protected abstract createUrl: string;
+  protected abstract updateUrl: string;
+  protected readonly stateObjects$ = new BehaviorSubject<T[]>([]);
 
-  constructor(private readonly httpService: HttpService<T, TDTO>) {
-    this.httpService.read().subscribe((stateObjects) => {
-      this.stateObjects$.next(stateObjects.sort((a, b) => a.id - b.id));
+  constructor(private readonly http: HttpClient) {}
+
+  refresh(): void {
+    this.http.get<T[]>(`${environment.backendUrl}/${this.readUrl}`).subscribe((stateObjects) => {
+      const nextStateObjects = stateObjects.sort((a, b) => a.id - b.id);
+      this.stateObjects$.next(nextStateObjects);
     });
   }
 
-  read(): BehaviorSubject<T[]> {
-    return this.stateObjects$;
+  subscribe(
+    observer: (value: T[]) => void | Partial<Observer<T[]>>
+  ): Subscription {
+    return this.stateObjects$.subscribe(observer);
+  }
+
+  getValue(): T[] {
+    return this.stateObjects$.value;
   }
 
   create(dto?: TDTO): Observable<T> {
-    const tempT = { ...dto, id: TEMPORARY_ID } as T;
-    this.stateObjects$.value.push(tempT);
-    this.stateObjects$.next(this.stateObjects$.value);
-    return this.httpService.create(dto).pipe(
+    return (this.http.post(`${environment.backendUrl}/${this.createUrl}`, dto) as Observable<T>).pipe(
       tap((stateObject) => {
-        const updatedStateObjects = this.stateObjects$.value.filter((stateObject) => stateObject.id !== TEMPORARY_ID);
-        updatedStateObjects.push(stateObject);
-        this.stateObjects$.next(updatedStateObjects);
+        this.stateObjects$.value.push(stateObject);
+        this.stateObjects$.next(this.stateObjects$.value);
       })
     );
   }
@@ -39,6 +46,6 @@ export abstract class StateService<T extends ID, TDTO> {
         : stateObject;
     });
     this.stateObjects$.next(updatedStateObjects);
-    return this.httpService.update(updatedStateObject);
+    return this.http.put(`${environment.backendUrl}/${this.updateUrl}/${updatedStateObject.id}`, updatedStateObject);
   }
 }

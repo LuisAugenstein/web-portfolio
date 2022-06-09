@@ -1,36 +1,52 @@
 import { Injectable } from '@angular/core';
 import { ID } from '@dnd-history/shared-interfaces';
 import { CookieService } from 'ngx-cookie-service';
-import { ReplaySubject } from 'rxjs';
+import { BehaviorSubject, Observer, Subscription } from 'rxjs';
+
+export type Maybe<T> = T | undefined;
 
 @Injectable({ providedIn: 'root' })
 export abstract class SelectionService<T extends ID> {
-  protected subject$: ReplaySubject<T> = new ReplaySubject(1);
-  value!: T;
+  private subject$: BehaviorSubject<Maybe<T>> = new BehaviorSubject(
+    undefined as any
+  );
 
   constructor(private cookieService: CookieService) {
     this.loadStateIntoSubjects();
-    this.setupStoringSubscriptions();
+    this.subject$.subscribe((value) => {
+      this.cookieService.set(this.getCookieKey(), JSON.stringify(value));
+    });
   }
 
   protected abstract getCookieKey(): string;
 
-  private loadStateIntoSubjects(): void {
-    const stateString = this.cookieService.get(this.getCookieKey());
-    if (stateString === '') {
+  next(value: T): void {
+    if (this.subject$.value && this.subject$.value.id === value.id) {
       return;
     }
-    this.value = JSON.parse(stateString);
-    this.subject$.next(this.value);
+    this.subject$.next(value);
   }
 
-  private setupStoringSubscriptions() {
-    this.subject$.subscribe((value) => {
-      if (this.value && value.id === this.value.id) {
-        return;
-      }
-      this.value = value;
-      this.cookieService.set(this.getCookieKey(), JSON.stringify(value));
-    });
+  reset(): void {
+    this.subject$.next(undefined);
+  }
+
+  subscribe(
+    observer: (value: Maybe<T>) => void | Partial<Observer<Maybe<T>>>
+  ): Subscription {
+    return this.subject$.subscribe(observer);
+  }
+
+  getValue(): Maybe<T> {
+    return this.subject$.value;
+  }
+
+  protected loadStateIntoSubjects(): void {
+    const stateString = this.cookieService.get(this.getCookieKey());
+    if (stateString === '' || stateString === 'undefined') {
+      return;
+    }
+    const value = JSON.parse(stateString) as T;
+    this.next(value);
   }
 }

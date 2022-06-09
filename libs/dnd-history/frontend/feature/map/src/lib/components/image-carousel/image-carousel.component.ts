@@ -21,9 +21,9 @@ export class ImageCarouselComponent implements OnInit {
     private readonly selectedMapService: SelectedMapService
   ) {}
   ngOnInit(): void {
-    this.mapService.read().subscribe((maps) => {
+    this.mapService.subscribe((maps) => {
       this.maps = maps;
-      if (!this.selectedMapService.value && maps.length > 0) {
+      if (!this.selectedMapService.getValue() && maps.length > 0) {
         this.selectMap(maps[0]);
       }
     });
@@ -42,6 +42,6 @@ export class ImageCarouselComponent implements OnInit {
   }
 
   selectMap(map: Map) {
-    this.selectedMapService.selectedMap$.next(map);
+    this.selectedMapService.next(map);
   }
 }

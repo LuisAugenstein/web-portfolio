@@ -22,19 +22,17 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.selectedSessionService.selectedSession$.subscribe(
-      (selectedSession) => {
-        this.sessionName = selectedSession.name;
-      }
-    );
-    this.sessionService
-      .read()
-      .subscribe((sessions) => (this.sessions = sessions));
+    this.selectedSessionService.subscribe((selectedSession) => {
+      this.sessionName = selectedSession?.name || '';
+    });
+    this.sessionService.subscribe((sessions) => {
+      this.sessions = sessions;
+    });
   }
 
   submit(sessionDTO: SessionDTO): void {
     const next = (session: Session) => {
-      this.selectedSessionService.selectedSession$.next(session);
+      this.selectedSessionService.next(session);
       this.router.navigate(['/home']);
     };
     const session = this.sessions.find((s) => s.name === sessionDTO.name);
