@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpService } from '@dnd-history/frontend-services';
+import { HttpService } from '../http-services/http.service';
 import { ID } from '@dnd-history/shared-interfaces';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 

@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { ToggleButton } from './toolbar/palette.service';
+
+export interface ToggleButton {
+  toolTip: string;
+  onIcon: string;
+  offIcon: string;
+  active: boolean;
+}
 
 export interface CheckBox {
   active: boolean;

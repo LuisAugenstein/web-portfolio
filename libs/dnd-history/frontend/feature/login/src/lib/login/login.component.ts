@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Session, SessionDTO } from '@dnd-history/shared-interfaces';
 import {
-  HttpSessionService,
-  UserPreferenceService,
+  SelectedSessionService,
+  SessionService,
 } from '@dnd-history/frontend-services';
 
 @Component({
@@ -17,31 +17,33 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private readonly sessionService: HttpSessionService,
-    private readonly userPreferenceService: UserPreferenceService
+    private readonly sessionService: SessionService,
+    private readonly selectedSessionService: SelectedSessionService
   ) {}
 
   ngOnInit(): void {
-    this.sessionName = this.userPreferenceService.get<Session>('selectedSession')?.name || '';
-    this.sessionService.read().subscribe((sessions) => {
-      this.sessions = sessions.sort((a, b) => a.id - b.id);
-    });
+    this.selectedSessionService.selectedSession$.subscribe(
+      (selectedSession) => {
+        this.sessionName = selectedSession.name;
+      }
+    );
+    this.sessionService
+      .read()
+      .subscribe((sessions) => (this.sessions = sessions));
   }
 
   submit(sessionDTO: SessionDTO): void {
     const next = (session: Session) => {
-      this.userPreferenceService.set<Session>('selectedSession', session);
+      this.selectedSessionService.selectedSession$.next(session);
       this.router.navigate(['/home']);
     };
     const session = this.sessions.find((s) => s.name === sessionDTO.name);
     if (session) {
       next(session);
     } else {
-      this.sessionService
-        .create(sessionDTO)
-        .subscribe((session: Session) => {
-          next(session);
-        });
+      this.sessionService.create(sessionDTO).subscribe((session: Session) => {
+        next(session);
+      });
     }
   }
 

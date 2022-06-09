@@ -3,7 +3,8 @@ import { Adventure } from '@dnd-history/shared-interfaces';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AdventureDialogComponent } from '../adventure-dialog/adventure-dialog.component';
 import { DatePipe } from '@angular/common';
-import { AdventureService } from '../../../../../services/src/lib/state-services/adventure.service';
+import { AdventureService } from '@dnd-history/frontend-services';
+
 
 @Component({
   selector: 'dnd-history-adventure',

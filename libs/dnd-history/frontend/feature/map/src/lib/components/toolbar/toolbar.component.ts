@@ -1,11 +1,5 @@
 import { Component } from '@angular/core';
-import { CheckBox, LayerService } from '../../services/layer.service';
-import { PaletteService } from '../../services/toolbar/palette.service';
-import { PlacePinPointButton } from '../../services/toolbar/tool-bar-buttons/place-pin-point-button';
-import {
-  ToggleButton,
-  ToolBarButton,
-} from '../../services/toolbar/palette.service';
+import { CheckBox, LayerService, ToggleButton } from '../../services/layer.service';
 
 @Component({
   selector: 'dnd-history-toolbar',
@@ -15,22 +9,23 @@ import {
 export class ToolbarComponent {
   constructor(
     private readonly layerService: LayerService,
-    private readonly paletteService: PaletteService,
-    placePinPointButton: PlacePinPointButton
+    // private readonly paletteService: PaletteService,
+    // placePinPointButton: PlacePinPointButton
   ) {
-    paletteService.register(placePinPointButton);
+    // paletteService.register(placePinPointButton);
   }
 
   //============================================
   //== Manage toggleButtons of the palette =====
   //============================================
 
-  getToolBarButtons(): ToolBarButton[] {
-    return this.paletteService.getToolBarButtons();
+  getToolBarButtons(): [] {
+    return [];
+    // return this.paletteService.getToolBarButtons();
   }
 
   onToolBarButtonChange(event: { checked: boolean }, toggleButtonId: number) {
-    this.paletteService.toggleToolBarButton(event.checked, toggleButtonId);
+    // this.paletteService.toggleToolBarButton(event.checked, toggleButtonId);
   }
 
   //=======================================================

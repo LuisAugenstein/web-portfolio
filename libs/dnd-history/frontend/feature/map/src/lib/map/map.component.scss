@@ -8,7 +8,8 @@
 }
 
 main {
-  width: 1230px;
+  min-width: 1230px;
+  height: calc(100vh - 100px);
   margin-bottom: 20px;
   display: grid;
   grid-template-columns: 155px auto 200px;

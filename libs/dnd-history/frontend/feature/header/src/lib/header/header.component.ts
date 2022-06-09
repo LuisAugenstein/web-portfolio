@@ -1,20 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { UserPreferenceService } from '@dnd-history/frontend-services';
-import { Session } from '@dnd-history/shared-interfaces';
+import { Component, Input } from '@angular/core';
+import { SelectedSessionService } from '@dnd-history/frontend-services';
 
 @Component({
   selector: 'dnd-history-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   sessionName = '';
 
   @Input() backLink = '/login';
 
-  constructor(private userPreferenceService: UserPreferenceService) {}
-
-  ngOnInit(): void {
-    this.sessionName = this.userPreferenceService.get<Session>('selectedSession')?.name || '';
+  constructor(selectedSessionService: SelectedSessionService) {
+    selectedSessionService.selectedSession$.subscribe((selectedSession) => {
+      this.sessionName = selectedSession.name;
+    });
   }
 }

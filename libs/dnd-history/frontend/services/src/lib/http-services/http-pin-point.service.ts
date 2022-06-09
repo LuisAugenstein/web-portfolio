@@ -1,25 +1,30 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Map, PinPoint, PinPointDTO } from '@dnd-history/shared-interfaces';
+import { PinPoint, PinPointDTO } from '@dnd-history/shared-interfaces';
 import { HttpService, UrlType } from './http.service';
-import { UserPreferenceService } from '../services/user-preferences-service';
+import { SelectedMapService } from '../selection-services/selected-map.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpPinPointService extends HttpService<PinPoint, PinPointDTO> {
+
+  private currentMapId!: number;
+
   constructor(
     http: HttpClient,
-    private readonly userPreferencesService: UserPreferenceService
+    selectedMapService: SelectedMapService
   ) {
     super(http);
+    selectedMapService.selectedMap$.subscribe(selectedMap => {
+      this.currentMapId = selectedMap.id;
+    });
   }
 
   getEndpoint(type: UrlType): string {
-    const mapId = this.userPreferencesService.get<Map>('selectedMap')?.id;
     const urls = {
-      read: `map/${mapId}/pinPoint`,
-      create: `map/${mapId}/pinPoint`,
+      read: `map/${this.currentMapId}/pinPoint`,
+      create: `map/${this.currentMapId}/pinPoint`,
       update: 'map',
     };
     return urls[type];
