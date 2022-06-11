@@ -12,7 +12,7 @@ const MARKER_ICON_PATH = '/assets/icons/marker.svg';
 const ICON_SIZE = 32;
 
 @Injectable({ providedIn: 'root' })
-export class MapMarkerLayerService {
+export class MapMarkerDrawingService {
   private layer!: Layer;
   private mapMarkers: MapMarker[] = [];
 

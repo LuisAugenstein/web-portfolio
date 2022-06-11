@@ -5,7 +5,7 @@ import { Image as KonvaImage } from 'konva/lib/shapes/Image';
 import { Stage } from 'konva/lib/Stage';
 
 @Injectable({ providedIn: 'root' })
-export class MapLayerService {
+export class MapDrawingService {
   private konvaImage!: KonvaImage;
   private mapSrc = '';
 

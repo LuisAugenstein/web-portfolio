@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import Konva from 'konva';
 import { StageConfig } from 'konva/lib/Stage';
-import { MapLayerService } from './layer-services/map-layer.service';
-import { MapMarkerLayerService } from './layer-services/map-marker-layer.service';
+import { MapDrawingService } from './drawing-services/map-drawing.service';
+import { MapMarkerDrawingService } from './drawing-services/map-marker-drawing.service';
 
 @Component({
   selector: 'dnd-history-canvas',
@@ -14,8 +14,8 @@ export class MainContentComponent implements AfterViewInit {
   konvaContainer!: ElementRef<HTMLDivElement>;
 
   constructor(
-    private readonly mapLayerService: MapLayerService,
-    private readonly mapMarkerLayerService: MapMarkerLayerService
+    private readonly mapDrawingService: MapDrawingService,
+    private readonly mapMarkerDrawingService: MapMarkerDrawingService
   ) {}
 
   ngAfterViewInit(): void {
@@ -27,7 +27,7 @@ export class MainContentComponent implements AfterViewInit {
       container: this.konvaContainer.nativeElement,
     };
     const stage = new Konva.Stage(stageConfig);
-    this.mapLayerService.registerOn(stage);
-    this.mapMarkerLayerService.registerOn(stage);
+    this.mapDrawingService.registerOn(stage);
+    this.mapMarkerDrawingService.registerOn(stage);
   }
 }
