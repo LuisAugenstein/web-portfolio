@@ -17,6 +17,7 @@ export class AdventureService extends StateService<Adventure, AdventureDTO> {
     super(http);
     selectedSessionService.subscribe((selectedSession) => {
       if(!selectedSession){
+        this.reset();
         return;
       }
       this.readUrl = `session/${selectedSession.id}/adventure`;

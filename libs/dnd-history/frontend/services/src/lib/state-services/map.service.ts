@@ -17,6 +17,7 @@ export class MapService extends StateService<Map, MapDTO> {
     super(http);
     selectedSessionService.subscribe((selectedSession) => {
       if(!selectedSession){
+        this.reset();
         return;
       }
       this.readUrl = `session/${selectedSession.id}/map`;

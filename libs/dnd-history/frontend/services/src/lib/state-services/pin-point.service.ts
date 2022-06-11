@@ -14,6 +14,7 @@ export class PinPointService extends StateService<PinPoint, PinPointDTO> {
     super(http);
     selectedMapService.subscribe((selectedMap) => {
       if(!selectedMap){
+        this.reset();
         return;
       }
       this.readUrl = `map/${selectedMap.id}/pinPoint`;

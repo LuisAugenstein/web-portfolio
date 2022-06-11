@@ -13,11 +13,22 @@ export abstract class StateService<T extends ID, TDTO> {
 
   constructor(private readonly http: HttpClient) {}
 
+  /**
+   * update the current stateObjects with data from the current url.
+   * TODO: consider giving the readurl as a function parameter.
+   */
   refresh(): void {
     this.http.get<T[]>(`${environment.backendUrl}/${this.readUrl}`).subscribe((stateObjects) => {
       const nextStateObjects = stateObjects.sort((a, b) => a.id - b.id);
       this.stateObjects$.next(nextStateObjects);
     });
+  }
+
+  /**
+   * resets the stateObjects to an empty list.
+   */
+  reset(): void {
+    this.stateObjects$.next([]);
   }
 
   subscribe(
