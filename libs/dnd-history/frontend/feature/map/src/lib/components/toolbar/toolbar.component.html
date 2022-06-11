@@ -12,21 +12,4 @@
     >
     </p-toggleButton> -->
   </div>
-
-  <div class="p-toolbar-group-right">
-    <dnd-history-layer-checkbox
-      *ngFor="let checkBox of getCheckBoxes(); index as i"
-      [active]="checkBox.active"
-      (activeChange)="toggleSingleLayer($event, i)"
-      [layer]="i"
-    ></dnd-history-layer-checkbox>
-    <p-toggleButton
-      (onChange)="toggleAllLayers($event)"
-      [(ngModel)]="getToggleAllLayersButton().active"
-      [onIcon]="getToggleAllLayersButton().onIcon"
-      [offIcon]="getToggleAllLayersButton().offIcon"
-      [pTooltip]="getToggleAllLayersButton().toolTip"
-      [showDelay]="1000"
-    ></p-toggleButton>
-  </div>
 </p-toolbar>

@@ -22,11 +22,11 @@
         "libs/dnd-history/backend/entities/src/index.ts"
       ],
       "@dnd-history/backend-map": ["libs/dnd-history/backend/map/src/index.ts"],
-      "@dnd-history/backend-pin-connection": [
-        "libs/dnd-history/backend/pin-connection/src/index.ts"
+      "@dnd-history/backend-map-marker-connection": [
+        "libs/dnd-history/backend/map-marker-connection/src/index.ts"
       ],
-      "@dnd-history/backend-pin-point": [
-        "libs/dnd-history/backend/pin-point/src/index.ts"
+      "@dnd-history/backend-map-marker": [
+        "libs/dnd-history/backend/map-marker/src/index.ts"
       ],
       "@dnd-history/backend-session": [
         "libs/dnd-history/backend/session/src/index.ts"

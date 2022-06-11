@@ -10,4 +10,4 @@ export * from './lib/state-services/state.service';
 export * from './lib/state-services/session.service';
 export * from './lib/state-services/adventure.service';
 export * from './lib/state-services/map.service';
-export * from './lib/state-services/pin-point.service';
+export * from './lib/state-services/map-marker.service';

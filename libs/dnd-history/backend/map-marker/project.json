@@ -1,0 +1,22 @@
+{
+  "sourceRoot": "libs/dnd-history/backend/map-marker/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/dnd-history/backend/map-marker/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/dnd-history/backend/map-marker"],
+      "options": {
+        "jestConfig": "libs/dnd-history/backend/map-marker/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

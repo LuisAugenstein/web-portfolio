@@ -4,7 +4,7 @@
 
 Map <--> PinGraph________
             |           |
-         PinPoints   PinConnections
+         MapMarkers   MapMarkerConnections
 
 
 This project was generated using [Nx](https://nx.dev).
@@ -31,9 +31,9 @@ PUT  character/:id
 GET  session/:id/map           (returned alle maps der gewählten session)
 POST session/:id/map           (erstellt neue map)
 
-GET  map/:id/pinPoint          (returned alle pinPoints der gewählten map)
-POST map/:id/pinPoint          (erstellt neuen pinPoint)
-PUT  pinPoint/:id              (Änderung eines pinPoints)
+GET  map/:id/mapMarker          (returned alle mapMarkers der gewählten map)
+POST map/:id/mapMarker          (erstellt neuen mapMarker)
+PUT  mapMarker/:id              (Änderung eines mapMarkers)
 
 GET  map/:id/connection        (returned alle connections der gewählten map. client kann connections selbst in layer    
                                sortieren, falls nötig. Connection: | id | sourcePinId | dstPinId | layer |)

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CheckBox, LayerService, ToggleButton } from '../../services/layer.service';
 
 @Component({
   selector: 'dnd-history-toolbar',
@@ -8,11 +7,10 @@ import { CheckBox, LayerService, ToggleButton } from '../../services/layer.servi
 })
 export class ToolbarComponent {
   constructor(
-    private readonly layerService: LayerService,
     // private readonly paletteService: PaletteService,
-    // placePinPointButton: PlacePinPointButton
+    // placeMapMarkerButton: PlaceMapMarkerButton
   ) {
-    // paletteService.register(placePinPointButton);
+    // paletteService.register(placeMapMarkerButton);
   }
 
   //============================================
@@ -26,25 +24,5 @@ export class ToolbarComponent {
 
   onToolBarButtonChange(event: { checked: boolean }, toggleButtonId: number) {
     // this.paletteService.toggleToolBarButton(event.checked, toggleButtonId);
-  }
-
-  //=======================================================
-  //== Manage CheckBoxes for showing different layers =====
-  //=======================================================
-
-  getCheckBoxes(): CheckBox[] {
-    return this.layerService.getCheckBoxes();
-  }
-
-  getToggleAllLayersButton(): ToggleButton {
-    return this.layerService.getToggleAllLayersButton();
-  }
-
-  toggleAllLayers(event: { checked: boolean }) {
-    this.layerService.toggleAllLayers(event.checked);
-  }
-
-  toggleSingleLayer(active: boolean, layer: number) {
-    this.layerService.toggleSingleLayer(active, layer);
   }
 }

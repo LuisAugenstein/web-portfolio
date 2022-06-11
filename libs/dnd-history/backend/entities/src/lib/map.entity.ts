@@ -6,8 +6,8 @@ import {
   OneToMany,
   PrimaryGeneratedColumn
 } from 'typeorm';
-import { PinPointEntity } from './pin-point.entity';
-import { PinConnectionEntity } from './pin-connection.entity';
+import { MapMarkerEntity } from './map-marker.entity';
+import { MapMarkerConnectionEntity } from './map-marker-connection.entity';
 
 @Entity()
 export class MapEntity {
@@ -17,11 +17,11 @@ export class MapEntity {
   @Column({ nullable: false })
   src: string;
 
-  @OneToMany(() => PinPointEntity, pinPoint => pinPoint.map)
-  pinPoints: PinPointEntity[];
+  @OneToMany(() => MapMarkerEntity, mapMarker => mapMarker.map)
+  mapMarkers: MapMarkerEntity[];
 
-  @OneToMany(() => PinConnectionEntity, pinConnection => pinConnection.map)
-  pinConnections: PinConnectionEntity[];
+  @OneToMany(() => MapMarkerConnectionEntity, mapMarkerConnection => mapMarkerConnection.map)
+  mapMarkerConnections: MapMarkerConnectionEntity[];
 
   @ManyToOne(() => SessionEntity, (session) => session.maps)
   session: SessionEntity;
