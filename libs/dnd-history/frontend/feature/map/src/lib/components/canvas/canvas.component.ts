@@ -9,7 +9,7 @@ import { MapMarkerDrawingService } from './drawing-services/map-marker-drawing.s
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss'],
 })
-export class MainContentComponent implements AfterViewInit {
+export class CanvasComponent implements AfterViewInit {
   @ViewChild('konvaContainer')
   konvaContainer!: ElementRef<HTMLDivElement>;
 

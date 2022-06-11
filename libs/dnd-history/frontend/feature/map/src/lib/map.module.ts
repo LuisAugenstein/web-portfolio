@@ -6,8 +6,7 @@ import { MapComponent } from './map/map.component';
 import { HeaderModule } from '@dnd-history/frontend-header';
 import { ImageCarouselComponent } from './components/image-carousel/image-carousel.component';
 import { MapMarkerSidebarComponent } from './components/map-marker-sidebar/map-marker-sidebar.component';
-import { MainContentComponent } from './components/canvas/canvas.component';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { CanvasComponent } from './components/canvas/canvas.component';
 
 import { FileUploadModule } from 'primeng/fileupload';
 import { ToolbarModule } from 'primeng/toolbar';
@@ -30,8 +29,7 @@ import { TooltipModule } from 'primeng/tooltip';
     MapComponent,
     ImageCarouselComponent,
     MapMarkerSidebarComponent,
-    MainContentComponent,
-    ToolbarComponent,
+    CanvasComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
