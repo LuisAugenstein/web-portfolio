@@ -27,7 +27,11 @@ export class PinPointLayerService {
   }
 
   private update(): void {
-    if (!this.layer || this.pinPoints.length === 0) {
+    if (!this.layer) {
+      return;
+    }
+    if(this.pinPoints.length === 0){
+      this.layer.destroyChildren();
       return;
     }
     const img = new Image();

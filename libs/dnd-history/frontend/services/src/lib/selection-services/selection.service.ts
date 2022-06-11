@@ -7,9 +7,7 @@ export type Maybe<T> = T | undefined;
 
 @Injectable({ providedIn: 'root' })
 export abstract class SelectionService<T extends ID> {
-  private subject$: BehaviorSubject<Maybe<T>> = new BehaviorSubject(
-    undefined as any
-  );
+  private subject$ = new BehaviorSubject<Maybe<T>>(undefined);
 
   constructor(private cookieService: CookieService) {
     this.loadStateIntoSubjects();
