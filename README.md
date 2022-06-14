@@ -1,12 +1,26 @@
+# TODO
+
+- rename state services to entity services. does it make sense to let selection services depend on stateservices, so that they can emit the whole entity while only storing the Id in the cookies? On the other hand some services probably only need the id so emitting always the full entity might be overkill.
+- backend controller/services find() method. what happens for example when sessionId doesnt exist ?
+
+# general consistency rules
+
+- write 'Id' not 'ID'.
+
+# Backend
+
+## Architecture Decisions:
+
+- own entities module because otherwise we would have circular dependencies.
+- in services the "child" adds the parent entity to itself. e.g. set map.session = session in map-entity. not session.maps = maps in session-entity.
+  
+# Frontend
+
+- selection services only store the id in cookies not the whole entity because when userB deletes the entity, it is still stored in the cookies of userA and could be falsely displayed. 
+- entity services also need updatable observables so that entities update on changes, e.g., adding a map marker to a map should trigger the mapService. 
 
 
 # WebPortfolio
-
-Map <--> PinGraph________
-            |           |
-         MapMarkers   MapMarkerConnections
-
-
 This project was generated using [Nx](https://nx.dev).
 
 <p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
@@ -22,25 +36,21 @@ PUT  /session/:id   (Änderung einer session z.B. Name ändern)
 
 GET  session/:id/adventure     (returned alle adventures der gewählten session)
 POST session/:id/adventure     (erstellt neues adventure)
-PUT  adventure/:id             (Änderung eines adventures)
+PATCH  adventure/:id             (Änderung eines adventures)
 
 GET  session/:id/character
 POST session/:id/character
-PUT  character/:id
+PATCH  character/:id
 
-GET  session/:id/map           (returned alle maps der gewählten session)
-POST session/:id/map           (erstellt neue map)
+GET   session/:id/map             (returned alle maps der gewählten session inclusive mapMarkern und 
+                                   mapMarkerConnections)
+POST  session/:id/map             (erstellt neue map mit gegebenem src aber leeren mapMarkern, mapMarkerConnections)
+PATCH map/:id                     (ändere existierende mapMarker oder mapMarkerConnections)
+POST  map/:id/mapMarker           (erstellt neuen mapMarker für gegebene map)
+POST  map/:id/mapMarkerConnection 
 
-GET  map/:id/mapMarker          (returned alle mapMarkers der gewählten map)
-POST map/:id/mapMarker          (erstellt neuen mapMarker)
-PUT  mapMarker/:id              (Änderung eines mapMarkers)
-
-GET  map/:id/connection        (returned alle connections der gewählten map. client kann connections selbst in layer    
-                               sortieren, falls nötig. Connection: | id | sourcePinId | dstPinId | layer |)
-POST map/:id/connection        (erstellt neue connection)
-PUT  connection/:id            (Änderung einer connection)
-
-
+1. user öffnet map und lädt mit einem http get request alle maps und mit einem weiteren alle mapGraphs
+2. cookie speichert nur die id der aktuell gewählten map/session
 
 responsiveness:
 header: 80px;

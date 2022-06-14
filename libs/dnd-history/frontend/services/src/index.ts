@@ -6,8 +6,6 @@ export * from './lib/services/file-upload.service';
 export * from './lib/selection-services/selected-session.service';
 export * from './lib/selection-services/selected-map.service';
 
-export * from './lib/state-services/state.service';
-export * from './lib/state-services/session.service';
-export * from './lib/state-services/adventure.service';
-export * from './lib/state-services/map.service';
-export * from './lib/state-services/map-marker.service';
+export * from './lib/entity-services/session.service';
+export * from './lib/entity-services/adventure.service';
+export * from './lib/entity-services/map.service';

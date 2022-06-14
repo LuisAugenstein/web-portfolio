@@ -1,2 +1,2 @@
 export * from './lib/map.module';
-export * from './lib/map.service';
+export * from './lib/services/map.service';

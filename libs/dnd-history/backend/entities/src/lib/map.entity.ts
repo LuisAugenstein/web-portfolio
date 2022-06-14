@@ -1,13 +1,13 @@
-import { SessionEntity } from './session.entity';
 import {
   Column,
   Entity,
   ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { MapMarkerEntity } from './map-marker.entity';
 import { MapMarkerConnectionEntity } from './map-marker-connection.entity';
+import { SessionEntity } from './session.entity';
 
 @Entity()
 export class MapEntity {
@@ -17,10 +17,13 @@ export class MapEntity {
   @Column({ nullable: false })
   src: string;
 
-  @OneToMany(() => MapMarkerEntity, mapMarker => mapMarker.map)
+  @OneToMany(() => MapMarkerEntity, (mapMarker) => mapMarker.map)
   mapMarkers: MapMarkerEntity[];
 
-  @OneToMany(() => MapMarkerConnectionEntity, mapMarkerConnection => mapMarkerConnection.map)
+  @OneToMany(
+    () => MapMarkerConnectionEntity,
+    (mapMarkerConnection) => mapMarkerConnection.map
+  )
   mapMarkerConnections: MapMarkerConnectionEntity[];
 
   @ManyToOne(() => SessionEntity, (session) => session.maps)

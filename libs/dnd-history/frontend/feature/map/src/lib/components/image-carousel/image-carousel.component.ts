@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FileUploadService,
   MapService,
   SelectedMapService,
+  SelectedSessionService,
 } from '@dnd-history/frontend-services';
 import { Map } from '@dnd-history/shared-interfaces';
 
@@ -16,15 +17,18 @@ export class ImageCarouselComponent implements OnInit {
   chosenFilesToUpload: File[] = [];
 
   constructor(
+    private readonly selectedSessionService: SelectedSessionService,
     private readonly fileUploadService: FileUploadService,
     private readonly mapService: MapService,
     private readonly selectedMapService: SelectedMapService
   ) {}
+
   ngOnInit(): void {
-    this.mapService.subscribe((maps) => {
+    const sessionId = this.selectedSessionService.getId() as number;
+    this.mapService.getAll(sessionId).subscribe((maps) => {
       this.maps = maps;
-      if (!this.selectedMapService.getValue() && maps.length > 0) {
-        this.selectMap(maps[0]);
+      if (!this.selectedMapService.getId() && maps.length > 0) {
+        this.selectMap(maps[0].id);
       }
     });
   }
@@ -32,8 +36,10 @@ export class ImageCarouselComponent implements OnInit {
   async createMap(event: { files: File[] }) {
     const url = await this.fileUploadService.upload(event.files[0]);
     this.mapService
-      .create({
+      .create(this.selectedSessionService.getId() as number, {
         src: url,
+        mapMarkers: [],
+        mapMarkerConnections: [],
       })
       .subscribe((newMap) => {
         this.maps.push(newMap);
@@ -41,7 +47,7 @@ export class ImageCarouselComponent implements OnInit {
     this.chosenFilesToUpload = [];
   }
 
-  selectMap(map: Map) {
-    this.selectedMapService.next(map);
+  selectMap(id: number | undefined) {
+    id ? this.selectedMapService.next({ id }) : this.selectedMapService.reset();
   }
 }

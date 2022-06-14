@@ -1,5 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { SelectedSessionService } from '@dnd-history/frontend-services';
+import { Router } from '@angular/router';
+import {
+  SelectedSessionService as SelectedSessionService,
+  SessionService,
+} from '@dnd-history/frontend-services';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'dnd-history-header',
@@ -11,9 +16,22 @@ export class HeaderComponent {
 
   @Input() backLink = '/login';
 
-  constructor(selectedSessionService: SelectedSessionService) {
-    selectedSessionService.subscribe((selectedSession) => {
-      this.sessionName = selectedSession?.name || '';
-    });
+  constructor(
+    private router: Router,
+    selectedSessionIdService: SelectedSessionService,
+    sessionService: SessionService
+  ) {
+    selectedSessionIdService
+      .id()
+      .pipe(
+        switchMap((selectedSessionId) => sessionService.get(selectedSessionId))
+      )
+      .subscribe((selectedSession) => {
+        if (!selectedSession) {
+          this.router.navigate(['/login']);
+          return;
+        }
+        this.sessionName = selectedSession.name;
+      });
   }
 }

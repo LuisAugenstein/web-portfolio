@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Session, SessionDTO } from '@dnd-history/shared-interfaces';
 import {
+  SelectedMapService,
   SelectedSessionService,
   SessionService,
 } from '@dnd-history/frontend-services';
@@ -18,23 +19,31 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private readonly sessionService: SessionService,
-    private readonly selectedSessionService: SelectedSessionService
+    private readonly selectedSessionService: SelectedSessionService,
+    private readonly selectedMapService: SelectedMapService
   ) {}
 
   ngOnInit(): void {
-    this.selectedSessionService.subscribe((selectedSession) => {
-      this.sessionName = selectedSession?.name || '';
-    });
-    this.sessionService.subscribe((sessions) => {
-      this.sessions = sessions;
+    this.sessionService.getAll().subscribe((sessions) => {
+      const selectedSessionId = this.selectedSessionService.getId();
+      this.sessionService
+        .get(selectedSessionId)
+        .subscribe((selectedSession) => {
+          this.sessionName = selectedSession?.name || '';
+          this.sessions.push(...sessions);
+        });
     });
   }
 
   submit(sessionDTO: SessionDTO): void {
     const next = (session: Session) => {
-      this.selectedSessionService.next(session);
+      if (this.selectedSessionService.getId() !== session.id) {
+        this.selectedMapService.reset();
+      }
+      this.selectedSessionService.next(session.id);
       this.router.navigate(['/home']);
     };
+    //TODO: don't filter sessions by name. check if p-dropdown can have id as value
     const session = this.sessions.find((s) => s.name === sessionDTO.name);
     if (session) {
       next(session);

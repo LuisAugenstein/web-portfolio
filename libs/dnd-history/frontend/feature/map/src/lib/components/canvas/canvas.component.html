@@ -1,1 +1,7 @@
-<div #konvaContainer></div>
+<div #konvaContainer (click)="openContextMenu($event)"></div>
+<p-contextMenu
+  *ngIf="contextMenuActive"
+  #contextMenu
+  [target]="konvaContainer"
+  [model]="getContextMenuItems()"
+></p-contextMenu>
