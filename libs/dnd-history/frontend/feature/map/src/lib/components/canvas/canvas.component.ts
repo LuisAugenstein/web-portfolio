@@ -9,15 +9,13 @@ import {
 import Konva from 'konva';
 import { StageConfig } from 'konva/lib/Stage';
 import { MenuItem } from 'primeng/api';
-import { ContextMenu } from 'primeng/contextmenu';
-import { ContextMenuService } from './services/context-menu.service';
 import { MapDrawingService } from './services/map-drawing.service';
 import { MapMarkerDrawable } from './services/drawables/map-marker-drawing.service';
 import {
   MapService,
   SelectedMapService,
   SelectedSessionService,
-} from '@dnd-history/frontend-services';
+} from '@dnd-history/frontend-state';
 import {
   combineLatest,
   forkJoin,
@@ -27,6 +25,12 @@ import {
   take,
   tap,
 } from 'rxjs';
+import { Maybe } from '@dnd-history/shared-interfaces';
+
+interface ContextMenu {
+  id: string;
+  items: MenuItem[];
+}
 
 @Component({
   selector: 'dnd-history-canvas',
@@ -52,19 +56,7 @@ export class CanvasComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.mapDrawingSubscription = combineLatest([
-      this.selectedSessionService.id(),
-      this.selectedMapService.id(),
-    ])
-      .pipe(
-        switchMap(([selectedSessionId, selectedMapID]) =>
-          this.mapService.get(selectedSessionId as number, selectedMapID)
-        )
-      )
-      .subscribe((map) => {
-        this.contextMenuActive = !!map;
-        this.mapDrawingService.update(map);
-      });
+    this.mapDrawingSubscription = this.createMapDrawingSubscription();
   }
 
   ngAfterViewInit(): void {
@@ -84,39 +76,48 @@ export class CanvasComponent implements OnInit, AfterViewInit, OnDestroy {
         icon: 'i i-marker',
         command: () => {
           this.contextMenuActive = false;
-          const func = (event: MouseEvent) => {
-            this.contextMenuActive = true;
-            forkJoin([
-              this.selectedSessionService.id().pipe(take(1)),
-              this.selectedMapService.id().pipe(take(1)),
-            ]).subscribe(([selectedSessionId, selectedMapID]) => {
-              this.mapService.createMapMarker(
-                selectedSessionId as number,
-                selectedMapID as number,
-                {
-                  x: event.offsetX,
-                  y: event.offsetY,
-                  name: '',
-                  description: '',
-                }
-              );
-            });
-          };
-          this.konvaContainer.nativeElement.addEventListener('click', func, {
-            once: true,
-          });
+          this.konvaContainer.nativeElement.addEventListener(
+            'click',
+            (event: MouseEvent) => {
+              this.contextMenuActive = true;
+              this.placeMapMarker(event.offsetX, event.offsetY);
+            },
+            {
+              once: true,
+            }
+          );
         },
-      },
-      {
-        label: 'Delete',
-        icon: 'pi pi-trash',
       },
     ];
   }
 
-  openContextMenu(event: MouseEvent): void {
-    event.stopPropagation();
-    event.preventDefault();
-    this.contextMenu?.show(event);
+  private async placeMapMarker(x: number, y: number): Promise<void> {
+    const selectedSessionId = this.selectedSessionService.value()?.id as number;
+    const selectedMapId = this.selectedMapService.value()?.id as number;
+    this.mapService.createMapMarker(selectedSessionId, selectedMapId, {
+      x,
+      y,
+      title: '',
+      description: '',
+    });
+  }
+
+  private createMapDrawingSubscription(): Subscription {
+    return combineLatest([
+      this.selectedSessionService.get(),
+      this.selectedMapService.get(),
+    ])
+      .pipe(
+        switchMap(([selectedSession, selectedMap]) =>
+          this.mapService.get(
+            selectedSession?.id as number,
+            selectedMap?.id as number
+          )
+        )
+      )
+      .subscribe((map) => {
+        this.contextMenuActive = !!map;
+        this.mapDrawingService.update(map);
+      });
   }
 }

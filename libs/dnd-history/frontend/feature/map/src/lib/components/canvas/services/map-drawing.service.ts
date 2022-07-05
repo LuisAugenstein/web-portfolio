@@ -3,7 +3,7 @@ import {
   MapService,
   SelectedMapService,
   SelectedSessionService,
-} from '@dnd-history/frontend-services';
+} from '@dnd-history/frontend-state';
 import { Map } from '@dnd-history/shared-interfaces';
 import Konva from 'konva';
 import { Stage, StageConfig } from 'konva/lib/Stage';

@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Adventure } from '@dnd-history/shared-interfaces';
+import { Adventure, AdventureDTO, Maybe } from '@dnd-history/shared-interfaces';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AdventureDialogComponent } from '../adventure-dialog/adventure-dialog.component';
 import { DatePipe } from '@angular/common';
 import {
   AdventureService,
   SelectedSessionService,
-} from '@dnd-history/frontend-services';
+} from '@dnd-history/frontend-state';
+import { EMPTY, filter, from, Observable, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'dnd-history-adventure',
@@ -24,27 +25,42 @@ export class AdventureComponent implements OnInit {
     public datePipe: DatePipe
   ) {}
   ngOnInit(): void {
-    const sessionId = this.selectedSessionService.getId() as number;
+    const sessionId = this.selectedSessionService.value()?.id as number;
     this.adventureService.getAll(sessionId).subscribe((adventures) => {
       this.adventures = adventures;
     });
   }
 
-  async createAdventureCard() {
-    const sessionId = this.selectedSessionService.getId() as number;
-    this.adventureService.create(sessionId).subscribe((newAdventure) => {
-      this.showLargeCard(newAdventure);
+  createAdventureCard(): void {
+    this.openAdventureCardDialog({
+      title: '',
+      content: '',
+    })
+      .pipe(
+        switchMap((adventureDTO: AdventureDTO) => {
+          return this.adventureService.create(
+            this.selectedSessionService.value()?.id as number,
+            adventureDTO
+          );
+        })
+      )
+      .subscribe();
+  }
+
+  updateAdventureCard({ id, ...curentAdventureDTO }: Adventure): void {
+    this.openAdventureCardDialog(curentAdventureDTO).subscribe((updatedAdventureDTO: AdventureDTO) => {
+      this.adventureService.update(id, updatedAdventureDTO);
     });
   }
 
-  showLargeCard(selectedAdventure: Adventure) {
+  private openAdventureCardDialog(
+    selectedAdventureDTO: AdventureDTO
+  ): Observable<AdventureDTO> {
     const reference = this.dialogService.open(AdventureDialogComponent, {
-      data: selectedAdventure,
+      data: selectedAdventureDTO,
     });
-    reference.onClose.subscribe((updatedAdventure: Adventure | undefined) => {
-      if (updatedAdventure) {
-        // this.adventureService.update(updatedAdventure);
-      }
-    });
+    return reference.onClose.pipe(
+      filter((adventureDTO?: AdventureDTO) => adventureDTO !== undefined)
+    ) as Observable<AdventureDTO>;
   }
 }

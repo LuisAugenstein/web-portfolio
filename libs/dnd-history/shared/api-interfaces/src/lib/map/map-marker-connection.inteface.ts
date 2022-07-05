@@ -1,6 +1,6 @@
-import { Id } from '../id.interface';
+import { ID } from '../id.interface';
 
-export interface MapMarkerConnection extends MapMarkerConnectionDTO, Id {}
+export interface MapMarkerConnection extends MapMarkerConnectionDTO, ID {}
 
 export interface MapMarkerConnectionDTO {
   layer: number;

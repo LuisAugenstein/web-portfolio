@@ -7,7 +7,7 @@
         *ngFor="let data of adventures"
         [subheader]="datePipe.transform(data.lastChangedAt, 'dd-MM-yyyy') || ''"
         [style]="{ 'border-radius': '15px' }"
-        (click)="showLargeCard(data)" 
+        (click)="updateAdventureCard(data)" 
       >
         <ng-template pTemplate="title">
           <div *ngIf="data.title; else titlePlaceholder">

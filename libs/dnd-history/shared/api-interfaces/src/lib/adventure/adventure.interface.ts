@@ -1,6 +1,6 @@
-import { Id } from "../id.interface";
+import { ID } from "../id.interface";
 
-export interface Adventure extends AdventureDTO, Id {
+export interface Adventure extends AdventureDTO, ID {
     lastChangedAt: Date;
 }
 

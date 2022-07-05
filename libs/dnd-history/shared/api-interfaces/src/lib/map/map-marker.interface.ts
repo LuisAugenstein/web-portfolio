@@ -1,9 +1,9 @@
-import { Id } from '../id.interface';
+import { ID } from '../id.interface';
 
-export interface MapMarker extends MapMarkerDTO, Id {}
+export interface MapMarker extends MapMarkerDTO, ID {}
 
 export interface MapMarkerDTO {
-  name: string;
+  title: string;
   description: string;
   x: number;
   y: number;

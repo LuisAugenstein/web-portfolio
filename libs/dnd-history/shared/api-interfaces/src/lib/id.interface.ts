@@ -1,3 +1,5 @@
-export interface Id {
-    id: number;
+export type NanoId = string;
+
+export interface ID {
+    id: NanoId;
 }

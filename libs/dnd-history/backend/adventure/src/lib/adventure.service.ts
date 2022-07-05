@@ -13,8 +13,8 @@ export class AdventureService {
 
   create(session: SessionEntity, adventureDTO: AdventureDTO): Promise<AdventureEntity> {
     const adventureEntity = new AdventureEntity();
-    adventureEntity.title = adventureDTO.title;
-    adventureEntity.content = adventureDTO.content;
+    adventureEntity.title = adventureDTO.title ?? '';
+    adventureEntity.content = adventureDTO.content ?? '';
     adventureEntity.session = session; 
     return this.adventureRepository.save(adventureEntity);
   }

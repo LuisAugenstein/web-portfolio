@@ -12,12 +12,13 @@
   <div class="flex justify-content-center">
     <form
       #loginForm="ngForm"
-      (ngSubmit)="submit(loginForm.value)"
+      (ngSubmit)="submit()"
       class="flex flex-column align-items-center"
     >
       <p-dropdown
-        [options]="sessions"
-        [(ngModel)]="sessionName"
+        [options]="(sessions$ | async) ?? []"
+        [ngModel]="sessionName"
+        (ngModelChange)="onSessionNameChange($event)"
         optionLabel="name"
         optionValue="name"
         name="name"
@@ -35,7 +36,7 @@
         [disabled]="!loginForm.valid"
         [style]="{ 'margin-top': '1rem' }"
       >
-        {{ loginOrCreate() }}
+        {{ isLoginOrCreate((sessions$ | async) ?? [], sessionName) }}
       </p-button>
     </form>
   </div>

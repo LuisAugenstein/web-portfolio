@@ -1,2 +1,2 @@
-export * from './lib/map.module';
-export * from './lib/map/map.component';
+// export * from './lib/map.module';
+// export * from './lib/map/map.component';

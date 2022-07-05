@@ -4,7 +4,7 @@ import {
   MapService,
   SelectedMapService,
   SelectedSessionService,
-} from '@dnd-history/frontend-services';
+} from '@dnd-history/frontend-state';
 import { Map } from '@dnd-history/shared-interfaces';
 
 @Component({
@@ -24,10 +24,10 @@ export class ImageCarouselComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const sessionId = this.selectedSessionService.getId() as number;
+    const sessionId = this.selectedSessionService.value()?.id as number;
     this.mapService.getAll(sessionId).subscribe((maps) => {
       this.maps = maps;
-      if (!this.selectedMapService.getId() && maps.length > 0) {
+      if (!this.selectedMapService.value() && maps.length > 0) {
         this.selectMap(maps[0].id);
       }
     });
@@ -36,7 +36,7 @@ export class ImageCarouselComponent implements OnInit {
   async createMap(event: { files: File[] }) {
     const url = await this.fileUploadService.upload(event.files[0]);
     this.mapService
-      .create(this.selectedSessionService.getId() as number, {
+      .create(this.selectedSessionService.value()?.id as number, {
         src: url,
         mapMarkers: [],
         mapMarkerConnections: [],

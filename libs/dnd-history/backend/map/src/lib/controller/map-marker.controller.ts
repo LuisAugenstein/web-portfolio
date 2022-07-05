@@ -26,7 +26,7 @@ export class MapMarkerController {
 
   @Patch('mapMarker/:mapMarkerId')
   update(
-    @Param('mapMarker') mapMarkerId: number,
+    @Param('mapMarkerId') mapMarkerId: number,
     @Body() mapMarkerDTO: Partial<MapMarkerDTO>
   ): Promise<UpdateResult> {
     return this.mapMarkerService.update(mapMarkerId, mapMarkerDTO);

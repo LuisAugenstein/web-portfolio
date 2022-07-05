@@ -9,7 +9,7 @@ import '@angular/platform-server/init';
 
 import { enableProdMode } from '@angular/core';
 
-import { environment } from '@dnd-history/frontend-services';
+import { environment } from '@dnd-history/frontend-state';
 
 if (environment.production) {
   enableProdMode();

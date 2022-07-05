@@ -19,6 +19,18 @@
 - selection services only store the id in cookies not the whole entity because when userB deletes the entity, it is still stored in the cookies of userA and could be falsely displayed. 
 - entity services also need updatable observables so that entities update on changes, e.g., adding a map marker to a map should trigger the mapService. 
 
+## selection mechanism
+selectedSession: loading
+selectedSession: {
+  id: '123'
+}
+selectedSession: undefined
+
+
+1. uninitialized (the cookie wasnt checked yet)
+2. value (the cookie was checked successfully and the value could be transfered into the state)
+3. not present (the user has no cookie => bring him to login page)
+
 
 # WebPortfolio
 This project was generated using [Nx](https://nx.dev).

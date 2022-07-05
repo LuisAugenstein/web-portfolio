@@ -42,8 +42,8 @@
           ],
           "fileReplacements": [
             {
-              "replace": "libs/dnd-history/frontend/services/src/environment/environment.ts",
-              "with": "libs/dnd-history/frontend/services/src/environment/environment.prod.ts"
+              "replace": "libs/dnd-history/frontend/state/src/environment/environment.ts",
+              "with": "libs/dnd-history/frontend/state/src/environment/environment.prod.ts"
             }
           ],
           "outputHashing": "all"
@@ -111,8 +111,8 @@
           "outputHashing": "media",
           "fileReplacements": [
             {
-              "replace": "libs/dnd-history/frontend/services/src/environment/environment.ts",
-              "with": "libs/dnd-history/frontend/services/src/environment/environment.prod.ts"
+              "replace": "libs/dnd-history/frontend/state/src/environment/environment.ts",
+              "with": "libs/dnd-history/frontend/state/src/environment/environment.prod.ts"
             }
           ]
         },

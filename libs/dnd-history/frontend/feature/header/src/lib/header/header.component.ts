@@ -1,10 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  SelectedSessionService as SelectedSessionService,
-  SessionService,
-} from '@dnd-history/frontend-services';
-import { switchMap } from 'rxjs';
+import { AppState } from '@dnd-history/frontend-state';
+import { Store } from '@ngrx/store';
+import { combineLatest, filter, map } from 'rxjs';
 
 @Component({
   selector: 'dnd-history-header',
@@ -12,26 +10,21 @@ import { switchMap } from 'rxjs';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  sessionName = '';
+  sessionName$ = combineLatest([
+    this.store.select((state) => state.selectedSession),
+    this.store.select((state) => state.sessions),
+  ]).pipe(
+    filter(([selectedSession, sessions]) => selectedSession.id !== 'loading' && sessions.length > 0),
+    map(([selectedSession, sessions]) => {
+      const session = sessions.find((s) => s.id === selectedSession.id);
+      if (session === undefined) {
+        this.router.navigate(['/login']);
+      }
+      return session?.name;
+    })
+  );
 
   @Input() backLink = '/login';
 
-  constructor(
-    private router: Router,
-    selectedSessionIdService: SelectedSessionService,
-    sessionService: SessionService
-  ) {
-    selectedSessionIdService
-      .id()
-      .pipe(
-        switchMap((selectedSessionId) => sessionService.get(selectedSessionId))
-      )
-      .subscribe((selectedSession) => {
-        if (!selectedSession) {
-          this.router.navigate(['/login']);
-          return;
-        }
-        this.sessionName = selectedSession.name;
-      });
-  }
+  constructor(private router: Router, private store: Store<AppState>) {}
 }

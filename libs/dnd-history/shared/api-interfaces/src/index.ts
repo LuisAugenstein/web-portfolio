@@ -1,6 +1,6 @@
 export * from './lib/id.interface';
-
-export * from './lib/session/session.interface';
+export * from './lib/selectable.interface';
+export * from './lib/session.interface';
 
 export * from './lib/adventure/adventure.interface';
 

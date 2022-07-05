@@ -43,8 +43,8 @@
       "@dnd-history/frontend-map": [
         "libs/dnd-history/frontend/feature/map/src/index.ts"
       ],
-      "@dnd-history/frontend-services": [
-        "libs/dnd-history/frontend/services/src/index.ts"
+      "@dnd-history/frontend-state": [
+        "libs/dnd-history/frontend/state/src/index.ts"
       ],
       "@dnd-history/shared-interfaces": [
         "libs/dnd-history/shared/api-interfaces/src/index.ts"
