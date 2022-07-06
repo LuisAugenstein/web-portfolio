@@ -3,14 +3,7 @@ import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { EMPTY, from } from 'rxjs';
 import { map, catchError, switchMap, concatMap, tap } from 'rxjs/operators';
-import {
-  addSession,
-  LOADED_SESSIONS,
-  loadSessions,
-  LOAD_SESSIONS,
-  selectSession,
-  SELECT_SESSION,
-} from '../actions/sessions.actions';
+import { SESSION_ACTIONS } from '../actions/sessions.actions';
 import { SessionSelectionService } from '../services/selection-services/session-selection.service';
 import { SessionsService } from '../services/session.service';
 
@@ -18,11 +11,11 @@ import { SessionsService } from '../services/session.service';
 export class SessionEffects implements OnInitEffects {
   loadSessions$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(loadSessions),
+      ofType(SESSION_ACTIONS.LOAD),
       switchMap(() =>
         this.sessionService.getAll().pipe(
           map((sessions) => ({
-            type: LOADED_SESSIONS,
+            type: SESSION_ACTIONS.LOADED.type,
             entities: sessions,
           })),
           // TODO: send error action '[Sessions API] Sessions Loaded Error'
@@ -35,7 +28,7 @@ export class SessionEffects implements OnInitEffects {
   addSession$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(addSession),
+        ofType(SESSION_ACTIONS.ADD),
         concatMap(({ entity }) => this.sessionService.post(entity))
       ),
     { dispatch: false }
@@ -44,7 +37,7 @@ export class SessionEffects implements OnInitEffects {
   selectSession$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(selectSession),
+        ofType(SESSION_ACTIONS.SELECT),
         map(({ id }) => this.sessionSelectionService.set({ id }))
       ),
     { dispatch: false }
@@ -55,8 +48,8 @@ export class SessionEffects implements OnInitEffects {
       ofType('[SessionEffects]: Init'),
       switchMap(() =>
         from([
-          { type: LOAD_SESSIONS },
-          { type: SELECT_SESSION, id: this.sessionSelectionService.get().id },
+          { type: SESSION_ACTIONS.LOAD.type },
+          { type: SESSION_ACTIONS.SELECT.type, id: this.sessionSelectionService.get().id },
         ])
       )
     )

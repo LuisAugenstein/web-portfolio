@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Adventure, AdventureDTO, Maybe } from '@dnd-history/shared-interfaces';
+import { Adventure } from '@dnd-history/shared-interfaces';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AdventureDialogComponent } from '../adventure-dialog/adventure-dialog.component';
 import { DatePipe } from '@angular/common';
 import {
-  AdventureService,
-  SelectedSessionService,
+  ADVENTURE_ACTIONS,
+  AppState,
 } from '@dnd-history/frontend-state';
-import { EMPTY, filter, from, Observable, of, switchMap } from 'rxjs';
+import { filter, map, Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { nanoid } from 'nanoid';
 
 @Component({
   selector: 'dnd-history-adventure',
@@ -16,51 +18,53 @@ import { EMPTY, filter, from, Observable, of, switchMap } from 'rxjs';
   providers: [DialogService],
 })
 export class AdventureComponent implements OnInit {
-  adventures: Adventure[] = [];
+  adventures$ = this.store.select((state) => state.adventures);
 
   constructor(
-    private readonly selectedSessionService: SelectedSessionService,
-    private readonly adventureService: AdventureService,
+    private readonly store: Store<AppState>,
     private readonly dialogService: DialogService,
     public datePipe: DatePipe
   ) {}
-  ngOnInit(): void {
-    const sessionId = this.selectedSessionService.value()?.id as number;
-    this.adventureService.getAll(sessionId).subscribe((adventures) => {
-      this.adventures = adventures;
-    });
-  }
+  ngOnInit(): void {}
 
   createAdventureCard(): void {
     this.openAdventureCardDialog({
+      id: nanoid(),
       title: '',
       content: '',
+      lastChangedAt: new Date(),
     })
       .pipe(
-        switchMap((adventureDTO: AdventureDTO) => {
-          return this.adventureService.create(
-            this.selectedSessionService.value()?.id as number,
-            adventureDTO
-          );
-        })
+        map((adventure: Adventure) =>
+          this.store.dispatch({
+            type: ADVENTURE_ACTIONS.ADD.type,
+            entity: adventure,
+          })
+        )
       )
       .subscribe();
   }
 
-  updateAdventureCard({ id, ...curentAdventureDTO }: Adventure): void {
-    this.openAdventureCardDialog(curentAdventureDTO).subscribe((updatedAdventureDTO: AdventureDTO) => {
-      this.adventureService.update(id, updatedAdventureDTO);
-    });
+  updateAdventureCard(adventure: Adventure): void {
+    this.openAdventureCardDialog(adventure).subscribe(
+      (updatedAdventure: Adventure) => {
+        this.store.dispatch({
+          type: ADVENTURE_ACTIONS.UPDATE.type,
+          entity: updatedAdventure,
+        });
+      }
+    );
   }
 
-  private openAdventureCardDialog(
-    selectedAdventureDTO: AdventureDTO
-  ): Observable<AdventureDTO> {
+  private openAdventureCardDialog(adventure: Adventure): Observable<Adventure> {
     const reference = this.dialogService.open(AdventureDialogComponent, {
-      data: selectedAdventureDTO,
+      data: adventure,
     });
     return reference.onClose.pipe(
-      filter((adventureDTO?: AdventureDTO) => adventureDTO !== undefined)
-    ) as Observable<AdventureDTO>;
+      filter(
+        (selectedAdventureData?: Adventure) =>
+          selectedAdventureData !== undefined
+      )
+    ) as Observable<Adventure>;
   }
 }

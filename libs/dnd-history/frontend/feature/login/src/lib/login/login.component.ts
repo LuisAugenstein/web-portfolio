@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Session } from '@dnd-history/shared-interfaces';
 import {
-  ADD_SESSION,
   AppState,
   selectSelectedSession,
-  SELECT_SESSION,
+  SESSION_ACTIONS,
 } from '@dnd-history/frontend-state';
 import { map, Observable, take } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -19,7 +18,11 @@ import { nanoid } from 'nanoid';
 export class LoginComponent implements OnInit {
   sessions$: Observable<Session[]> = this.store
     .select((state) => state.sessions)
-    .pipe(map((sessions) => [...sessions].sort((a,b) => a.name.localeCompare(b.name))));
+    .pipe(
+      map((sessions) =>
+        [...sessions].sort((a, b) => a.name.localeCompare(b.name))
+      )
+    );
   sessionName = '';
 
   constructor(private router: Router, private store: Store<AppState>) {}
@@ -39,7 +42,7 @@ export class LoginComponent implements OnInit {
           const existingSession = sessions.find(byName);
           if (existingSession) {
             this.store.dispatch({
-              type: SELECT_SESSION,
+              type: SESSION_ACTIONS.SELECT.type,
               id: existingSession.id,
             });
             return;
@@ -48,8 +51,14 @@ export class LoginComponent implements OnInit {
             id: nanoid(),
             name: this.sessionName,
           };
-          this.store.dispatch({ type: ADD_SESSION, entity: newSession });
-          this.store.dispatch({ type: SELECT_SESSION, id: newSession.id });
+          this.store.dispatch({
+            type: SESSION_ACTIONS.ADD.type,
+            entity: newSession,
+          });
+          this.store.dispatch({
+            type: SESSION_ACTIONS.SELECT.type,
+            id: newSession.id,
+          });
         })
       )
       .subscribe(() => this.router.navigate(['/home']));

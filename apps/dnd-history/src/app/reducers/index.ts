@@ -1,5 +1,6 @@
 import { ActionReducerMap } from '@ngrx/store';
 import {
+  adventuresReducer,
   selectedSessionReducer,
   sessionsReducer,
 } from '@dnd-history/frontend-state';
@@ -7,4 +8,5 @@ import {
 export const reducers: ActionReducerMap<unknown> = {
   sessions: sessionsReducer,
   selectedSession: selectedSessionReducer,
+  adventures: adventuresReducer
 };

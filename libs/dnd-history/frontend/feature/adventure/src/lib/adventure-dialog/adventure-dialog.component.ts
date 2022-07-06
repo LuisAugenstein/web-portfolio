@@ -22,11 +22,11 @@ export class AdventureDialogComponent implements OnInit {
   }
 
   submit(formData: { title: string; content: string }) {
-    const newAdventureData: Adventure = {
+    const newAdventure: Adventure = {
       id: this.config.data.id,
       lastChangedAt: this.config.data.lastChangedAt,
       ...formData,
     };
-    this.ref.close(newAdventureData);
+    this.ref.close(newAdventure);
   }
 }

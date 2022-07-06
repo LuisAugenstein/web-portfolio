@@ -4,10 +4,10 @@
   <div class="flex justify-content-center">
     <div id="grid" style="max-width: 80rem">
       <p-card
-        *ngFor="let data of adventures"
+        *ngFor="let data of adventures$ | async"
         [subheader]="datePipe.transform(data.lastChangedAt, 'dd-MM-yyyy') || ''"
         [style]="{ 'border-radius': '15px' }"
-        (click)="updateAdventureCard(data)" 
+        (click)="updateAdventureCard(data)"
       >
         <ng-template pTemplate="title">
           <div *ngIf="data.title; else titlePlaceholder">
@@ -32,11 +32,7 @@
       <div
         class="flex justify-content-center align-items-center w-24rem h-15rem"
       >
-        <p-button
-          (click)="createAdventureCard()"
-        >
-          Add New
-        </p-button>
+        <p-button (click)="createAdventureCard()"> Add New </p-button>
       </div>
     </div>
   </div>
