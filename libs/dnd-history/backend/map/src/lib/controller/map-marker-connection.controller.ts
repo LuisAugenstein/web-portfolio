@@ -30,11 +30,11 @@ export class MapMarkerConnectionController {
 
   @Put('mapMarkerConnection/:mapMarkerConnectionId')
   update(
-    @Param('mapMarker') mapMarkerId: NanoId,
+    @Param('mapMarkerConnectionId') mapMarkerConnectionId: NanoId,
     @Body() mapMarkerConnection: Partial<MapMarkerConnection>
   ): Promise<MapMarkerConnection> {
     return this.mapMarkerConnectionService.update(
-      mapMarkerId,
+      mapMarkerConnectionId,
       mapMarkerConnection
     );
   }
