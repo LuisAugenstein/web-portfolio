@@ -1,27 +1,20 @@
-import {
-    Column,
-    Entity,
-    ManyToOne,
-    PrimaryGeneratedColumn
-  } from 'typeorm';
-  import { MapEntity } from './map.entity';
-  
-  @Entity()
-  export class MapMarkerConnectionEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
-  
-    @Column()
-    sourceMapMarkerId: number;
+import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
+import { MapEntity } from './map.entity';
 
-    @Column()
-    destinationMapMarkerId: number;
+@Entity()
+export class MapMarkerConnectionEntity {
+  @PrimaryColumn()
+  id: string;
 
-    @Column()
-    layer: number
-  
-    @ManyToOne(() => MapEntity, (map) => map.mapMarkerConnections)
-    map: MapEntity;
-    
-  }
-  
+  @Column()
+  sourceMapMarkerId: string;
+
+  @Column()
+  destinationMapMarkerId: string;
+
+  @Column()
+  layer: number;
+
+  @ManyToOne(() => MapEntity, (map) => map.mapMarkerConnections)
+  map: MapEntity;
+}

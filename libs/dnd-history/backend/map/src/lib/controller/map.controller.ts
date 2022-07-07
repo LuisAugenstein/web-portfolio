@@ -1,7 +1,6 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { Map, MapDTO} from '@dnd-history/shared-interfaces';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Map, NanoId } from '@dnd-history/shared-interfaces';
 import { MapService } from '../services/map.service';
-
 import { SessionService } from '@dnd-history/backend-session';
 
 @Controller()
@@ -11,17 +10,19 @@ export class MapController {
     private readonly sessionService: SessionService
   ) {}
 
-  @Get('session/:sessionId/map')
-  async read(@Param('sessionId') sessionId: number): Promise<Map[]> {
+  @Get('maps')
+  async read(@Query('sessionId') sessionId: NanoId): Promise<Map[]> {
     const maps = (await this.sessionService.find(sessionId, ['maps'])).maps;
-    const mapPromises = maps.map(map => this.mapService.find(map.id, ['mapMarkers', 'mapMarkerConnections']));
+    const mapPromises = maps.map((map) =>
+      this.mapService.find(map.id, ['mapMarkers', 'mapMarkerConnections'])
+    );
     return Promise.all(mapPromises);
   }
 
-  @Post('session/:sessionId/map')
+  @Post('map')
   async create(
-    @Param('sessionId') sessionId: number,
-    @Body() mapDTO: MapDTO
+    @Query('sessionId') sessionId: NanoId,
+    @Body() mapDTO: Map
   ): Promise<Map> {
     const session = await this.sessionService.find(sessionId);
     return this.mapService.create(session, mapDTO);

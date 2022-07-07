@@ -1,8 +1,13 @@
-import { Body, Controller, Param, Patch, Post } from '@nestjs/common';
 import {
-  MapMarkerConnection,
-  MapMarkerConnectionDTO,
-} from '@dnd-history/shared-interfaces';
+  Body,
+  Controller,
+  Param,
+  Patch,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
+import { MapMarkerConnection, NanoId } from '@dnd-history/shared-interfaces';
 import { MapMarkerConnectionService } from '../services/map-marker-connection.service';
 import { UpdateResult } from 'typeorm';
 import { MapService } from '../services/map.service';
@@ -14,23 +19,23 @@ export class MapMarkerConnectionController {
     private readonly mapService: MapService
   ) {}
 
-  @Post('map/:mapId/mapMarkerConnection')
+  @Post('mapMarkerConnection')
   async create(
-    @Param('mapId') mapId: number,
-    @Body() mapMarkerConnectionDTO: MapMarkerConnectionDTO
+    @Query('mapId') mapId: NanoId,
+    @Body() mapMarkerConnection: MapMarkerConnection
   ): Promise<MapMarkerConnection> {
     const map = await this.mapService.find(mapId);
-    return this.mapMarkerConnectionService.create(map, mapMarkerConnectionDTO);
+    return this.mapMarkerConnectionService.create(map, mapMarkerConnection);
   }
 
-  @Patch('mapMarkerConnection/:mapMarkerConnectionId')
+  @Put('mapMarkerConnection/:mapMarkerConnectionId')
   update(
-    @Param('mapMarker') mapMarkerId: number,
-    @Body() mapMarkerConnectionDTO: Partial<MapMarkerConnectionDTO>
-  ): Promise<UpdateResult> {
+    @Param('mapMarker') mapMarkerId: NanoId,
+    @Body() mapMarkerConnection: Partial<MapMarkerConnection>
+  ): Promise<MapMarkerConnection> {
     return this.mapMarkerConnectionService.update(
       mapMarkerId,
-      mapMarkerConnectionDTO
+      mapMarkerConnection
     );
   }
 }

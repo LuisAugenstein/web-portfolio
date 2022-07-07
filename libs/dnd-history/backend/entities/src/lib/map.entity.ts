@@ -1,18 +1,12 @@
-import {
-  Column,
-  Entity,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from 'typeorm';
 import { MapMarkerEntity } from './map-marker.entity';
 import { MapMarkerConnectionEntity } from './map-marker-connection.entity';
 import { SessionEntity } from './session.entity';
 
 @Entity()
 export class MapEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryColumn()
+  id: string;
 
   @Column({ nullable: false })
   src: string;

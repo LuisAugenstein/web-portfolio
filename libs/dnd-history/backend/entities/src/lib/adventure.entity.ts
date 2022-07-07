@@ -1,11 +1,9 @@
-
 import { SessionEntity } from './session.entity';
 import {
   Column,
   Entity,
   ManyToOne,
   PrimaryColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()

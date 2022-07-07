@@ -1,7 +1,7 @@
-import { MapMarkerDTO } from '@dnd-history/shared-interfaces';
+import { MapMarker, NanoId } from '@dnd-history/shared-interfaces';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, UpdateResult } from 'typeorm';
+import { Repository } from 'typeorm';
 import { MapEntity, MapMarkerEntity } from '@dnd-history/backend-entities';
 
 @Injectable()
@@ -11,20 +11,24 @@ export class MapMarkerService {
     private mapMarkerRepository: Repository<MapMarkerEntity>
   ) {}
 
-  create(map: MapEntity, mapMarkerDTO: MapMarkerDTO): Promise<MapMarkerEntity> {
+  create(map: MapEntity, mapMarker: MapMarker): Promise<MapMarkerEntity> {
     const mapMarkerEntity = new MapMarkerEntity();
-    mapMarkerEntity.title = mapMarkerDTO.title;
-    mapMarkerEntity.description = mapMarkerDTO.description;
-    mapMarkerEntity.x = mapMarkerDTO.x;
-    mapMarkerEntity.y = mapMarkerDTO.y;
+    mapMarkerEntity.id = mapMarker.id;
+    mapMarkerEntity.title = mapMarker.title;
+    mapMarkerEntity.description = mapMarker.description;
+    mapMarkerEntity.x = mapMarker.x;
+    mapMarkerEntity.y = mapMarker.y;
     mapMarkerEntity.map = map;
     return this.mapMarkerRepository.save(mapMarkerEntity);
   }
 
-  update(
-    mapMarkerId: number,
-    mapMarkerDTO: Partial<MapMarkerDTO>
-  ): Promise<UpdateResult> {
-    return this.mapMarkerRepository.update(mapMarkerId, mapMarkerDTO);
+  async update(id: NanoId, mapMarker: Partial<MapMarker>): Promise<MapMarker> {
+    const query = await this.mapMarkerRepository
+      .createQueryBuilder()
+      .update(mapMarker)
+      .where({ id })
+      .returning('*')
+      .execute();
+    return query.raw[0];
   }
 }

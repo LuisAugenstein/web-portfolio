@@ -4,13 +4,13 @@ import { environment } from '../environments/environment';
 import { SessionModule } from '@dnd-history/backend-session';
 import {
   AdventureEntity,
-  // MapEntity,
-  // MapMarkerConnectionEntity,
-  // MapMarkerEntity,
+  MapEntity,
+  MapMarkerConnectionEntity,
+  MapMarkerEntity,
   SessionEntity,
 } from '@dnd-history/backend-entities';
 import { AdventureModule } from '@dnd-history/backend-adventure';
-// import { MapModule } from '@dnd-history/backend-map';
+import { MapModule } from '@dnd-history/backend-map';
 
 @Module({
   imports: [
@@ -19,14 +19,14 @@ import { AdventureModule } from '@dnd-history/backend-adventure';
       entities: [
         SessionEntity,
         AdventureEntity,
-        // MapEntity,
-        // MapMarkerEntity,
-        // MapMarkerConnectionEntity,
+        MapEntity,
+        MapMarkerEntity,
+        MapMarkerConnectionEntity,
       ],
     }),
     SessionModule,
     AdventureModule,
-    // MapModule,
+    MapModule,
   ],
   controllers: [],
   providers: [],
