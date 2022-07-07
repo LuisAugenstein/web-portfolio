@@ -9,21 +9,21 @@ import { SessionEntity } from '@dnd-history/backend-entities';
 export class SessionController {
   constructor(private readonly sessionService: SessionService) {}
 
-  @Get('session')
+  @Get('sessions')
   getSessions(): Promise<SessionEntity[]> {
     return this.sessionService.findAllSessions();
   }
 
   @Post('session')
-  async create(@Body() session: Session): Promise<void> {
-    this.sessionService.createSession(session);
+  create(@Body() session: Session): Promise<Session> {
+    return this.sessionService.createSession(session);
   }
 
   @Put('session/:sessionId')
   update(
     @Param('sessionId') sessionId: string,
     @Body() session: Partial<Session>,
-  ): Promise<UpdateResult> {
+  ): Promise<Session> {
     return this.sessionService.updateSession(sessionId, session);
   }
 }

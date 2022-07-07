@@ -10,6 +10,7 @@ export abstract class SelectionService {
     const objectString = this.cookieService.get(this.getCookieKey());
     if (objectString === '') {
       return {
+        loaded: true,
         id: undefined,
       };
     }

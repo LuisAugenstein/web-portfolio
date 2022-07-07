@@ -4,11 +4,12 @@ import { Session } from '@dnd-history/shared-interfaces';
 import {
   AppState,
   selectSelectedSession,
-  SESSION_ACTIONS,
+  SessionService,
 } from '@dnd-history/frontend-state';
-import { map, Observable, take } from 'rxjs';
-import { Store } from '@ngrx/store';
+import { map, Observable, of, switchMap, take, tap } from 'rxjs';
 import { nanoid } from 'nanoid';
+import { Store } from '@ngrx/store';
+import { SELECT_SESSION } from '@dnd-history/frontend-state';
 
 @Component({
   selector: 'dnd-history-login',
@@ -16,16 +17,14 @@ import { nanoid } from 'nanoid';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  sessions$: Observable<Session[]> = this.store
-    .select((state) => state.sessions)
-    .pipe(
-      map((sessions) =>
-        [...sessions].sort((a, b) => a.name.localeCompare(b.name))
-      )
-    );
+  sessions$: Observable<Session[]> = this.sessionService.entities$;
   sessionName = '';
 
-  constructor(private router: Router, private store: Store<AppState>) {}
+  constructor(
+    private router: Router,
+    private sessionService: SessionService,
+    private store: Store<AppState>
+  ) {}
 
   ngOnInit() {
     this.store.select(selectSelectedSession).subscribe((selectedSession) => {
@@ -37,29 +36,21 @@ export class LoginComponent implements OnInit {
     this.sessions$
       .pipe(
         take(1),
-        map((sessions) => {
-          const byName = (s: Session) => s.name === this.sessionName;
-          const existingSession = sessions.find(byName);
-          if (existingSession) {
-            this.store.dispatch({
-              type: SESSION_ACTIONS.SELECT.type,
-              id: existingSession.id,
-            });
-            return;
-          }
-          const newSession: Session = {
-            id: nanoid(),
-            name: this.sessionName,
-          };
+        map((sessions) => sessions.find((s) => s.name === this.sessionName)),
+        switchMap((session) =>
+          session
+            ? of(session)
+            : this.sessionService.add({
+                id: nanoid(),
+                name: this.sessionName,
+              })
+        ),
+        map((session) =>
           this.store.dispatch({
-            type: SESSION_ACTIONS.ADD.type,
-            entity: newSession,
-          });
-          this.store.dispatch({
-            type: SESSION_ACTIONS.SELECT.type,
-            id: newSession.id,
-          });
-        })
+            type: SELECT_SESSION.type,
+            id: session.id,
+          })
+        ),
       )
       .subscribe(() => this.router.navigate(['/home']));
   }

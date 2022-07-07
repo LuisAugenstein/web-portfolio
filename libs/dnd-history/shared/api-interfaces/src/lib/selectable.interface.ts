@@ -1,5 +1,13 @@
 import { NanoId } from "./id.interface";
 
-export interface Selectable {
-    id: NanoId | undefined | 'loading';
+export type Selectable = LoadedSelectable | LoadingSelectable;
+ 
+export interface LoadedSelectable {
+    loaded: true;
+    id: NanoId | undefined;
+}
+
+export interface LoadingSelectable {
+    loaded: false;
+    id: undefined;
 }

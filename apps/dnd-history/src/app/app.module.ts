@@ -6,16 +6,17 @@ import { AppRoutingModule } from './router/app-routing.module';
 
 import { LoginModule } from '@dnd-history/frontend-login';
 import { HomeModule } from '@dnd-history/frontend-home';
-import { AdventureModule } from '@dnd-history/frontend-adventure';
-import { CharactersModule } from '@dnd-history/frontend-characters';
+// import { AdventureModule } from '@dnd-history/frontend-adventure';
+// import { CharactersModule } from '@dnd-history/frontend-characters';
 // import { MapModule } from '@dnd-history/frontend-map';
-import { StateModule } from '@dnd-history/frontend-state';
+import { environment, StateModule } from '@dnd-history/frontend-state';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EffectsModule } from '@ngrx/effects';
+import { DefaultDataServiceConfig, EntityDataModule } from '@ngrx/data';
+import { entityConfig } from './metadata/entity-metadata';
 import { reducers } from './reducers';
-
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,14 +26,22 @@ import { reducers } from './reducers';
     AppRoutingModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([]),
+    EntityDataModule.forRoot(entityConfig),
     StateModule,
     LoginModule,
     HomeModule,
-    AdventureModule,
-    CharactersModule,
+    // AdventureModule,
+    // CharactersModule,
     // MapModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: DefaultDataServiceConfig,
+      useValue: {
+        root: environment.backendUrl,
+      },
+    },
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
