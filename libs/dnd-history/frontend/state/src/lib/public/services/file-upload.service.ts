@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
-import { environment } from '../../environment/environment';
+import { environment } from '../../../environment/environment';
 
 const url = 'https://api.imgbb.com/1/upload';
 

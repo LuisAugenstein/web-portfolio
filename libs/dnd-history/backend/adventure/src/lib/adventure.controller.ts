@@ -5,11 +5,10 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
-import { Adventure, AdventureDTO } from '@dnd-history/shared-interfaces';
+import { Adventure } from '@dnd-history/shared-interfaces';
 import { AdventureService } from './adventure.service';
-
-import { UpdateResult } from 'typeorm';
 import { SessionService } from '@dnd-history/backend-session';
 
 @Controller()
@@ -19,9 +18,9 @@ export class AdventureController {
     private readonly sessionService: SessionService
   ) {}
 
-  @Get('session/:sessionId/adventure')
+  @Get('adventures')
   async read(
-    @Param('sessionId') sessionId: number
+    @Query('sessionId') sessionId: string 
   ): Promise<Adventure[]> {
     const session = await this.sessionService.find(sessionId, [
       'adventures',
@@ -29,20 +28,20 @@ export class AdventureController {
     return session.adventures;
   }
 
-  @Post('session/:sessionId/adventure')
+  @Post('adventure')
   async create(
-    @Param('sessionId') sessionId: number,
-    @Body() adventureDTO: AdventureDTO
+    @Query('sessionId') sessionId: string,
+    @Body() adventure: Adventure
   ): Promise<Adventure> {
     const session = await this.sessionService.find(sessionId);
-    return this.adventureService.create(session, adventureDTO);
+    return this.adventureService.create(session, adventure);
   }
 
   @Put('adventure/:adventureId')
   update(
-    @Param('adventureId') adventureId: number,
-    @Body() adventureDTO: AdventureDTO
-  ): Promise<UpdateResult> {
-    return this.adventureService.update(adventureId, adventureDTO);
+    @Param('adventureId') adventureId: string,
+    @Body() adventure: Adventure
+  ): Promise<Adventure> {
+    return this.adventureService.update(adventureId, adventure);
   }
 }

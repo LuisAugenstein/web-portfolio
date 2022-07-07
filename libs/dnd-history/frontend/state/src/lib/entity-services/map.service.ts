@@ -24,7 +24,7 @@ import {
 import { environment } from '../../environment/environment';
 
 @Injectable({ providedIn: 'root' })
-export class MapService {
+class MapService {
   private maps = new BehaviorSubject<Map[]>([]);
   private sessionId?: number;
 

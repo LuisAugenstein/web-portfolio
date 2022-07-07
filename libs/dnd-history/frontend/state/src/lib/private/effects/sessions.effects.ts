@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { SELECT_SESSION } from '../actions/selection.actions';
-import { SessionSelectionService } from '../services/selection-services/session-selection.service';
-import { SessionService } from '../services/session.service';
+import { SELECT_SESSION } from '../../public/actions/selection.actions';
+import { SessionService } from '../../public/services/entity.services';
+import { SessionSelectionService } from '../../public/services/selection.services';
 
 @Injectable()
 export class SessionEffects implements OnInitEffects {
@@ -12,7 +12,7 @@ export class SessionEffects implements OnInitEffects {
     () =>
       this.actions$.pipe(
         ofType(SELECT_SESSION),
-        map(({ id }) => this.sessionSelectionService.set({ id, loaded: true}))
+        map(({ id }) => this.sessionSelectionService.set({ id, loaded: true }))
       ),
     { dispatch: false }
   );

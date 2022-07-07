@@ -1,7 +1,7 @@
-import { AdventureDTO } from '@dnd-history/shared-interfaces';
+import { Adventure } from '@dnd-history/shared-interfaces';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, UpdateResult } from 'typeorm';
+import { Repository } from 'typeorm';
 import { AdventureEntity, SessionEntity } from '@dnd-history/backend-entities';
 
 @Injectable()
@@ -11,15 +11,25 @@ export class AdventureService {
     private adventureRepository: Repository<AdventureEntity>
   ) {}
 
-  create(session: SessionEntity, adventureDTO: AdventureDTO): Promise<AdventureEntity> {
+  create(
+    session: SessionEntity,
+    adventure: Adventure
+  ): Promise<AdventureEntity> {
     const adventureEntity = new AdventureEntity();
-    adventureEntity.title = adventureDTO.title ?? '';
-    adventureEntity.content = adventureDTO.content ?? '';
-    adventureEntity.session = session; 
+    adventureEntity.id = adventure.id;
+    adventureEntity.title = adventure.title ?? '';
+    adventureEntity.content = adventure.content ?? '';
+    adventureEntity.session = session;
     return this.adventureRepository.save(adventureEntity);
   }
 
-  update(adventureId: number, adventureDTO: AdventureDTO): Promise<UpdateResult> {
-    return this.adventureRepository.update(adventureId, adventureDTO);
+  async update(id: string, adventure: Adventure): Promise<Adventure> {
+    const query = await this.adventureRepository
+      .createQueryBuilder()
+      .update(adventure)
+      .where({ id })
+      .returning('*')
+      .execute();
+    return query.raw[0];
   }
 }

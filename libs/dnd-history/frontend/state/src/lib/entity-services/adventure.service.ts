@@ -19,7 +19,7 @@ import {
 import { environment } from '../../environment/environment';
 
 @Injectable({ providedIn: 'root' })
-export class AdventureService {
+class AdventureService {
   private adventures = new BehaviorSubject<Adventure[]>([]);
   private sessionId?: number;
 

@@ -20,13 +20,13 @@ export class SessionService {
   }
 
   async updateSession(id: string, session: Partial<Session>): Promise<Session> {
-    const x = await this.sessionRepository
+    const query = await this.sessionRepository
       .createQueryBuilder()
       .update(session)
       .where({ id })
       .returning('*')
       .execute();
-    return x.raw[0];
+    return query.raw[0];
   }
 
   find(id: string, relations?: string[]): Promise<SessionEntity> {

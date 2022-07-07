@@ -6,8 +6,8 @@ import { AppRoutingModule } from './router/app-routing.module';
 
 import { LoginModule } from '@dnd-history/frontend-login';
 import { HomeModule } from '@dnd-history/frontend-home';
-// import { AdventureModule } from '@dnd-history/frontend-adventure';
-// import { CharactersModule } from '@dnd-history/frontend-characters';
+import { AdventureModule } from '@dnd-history/frontend-adventure';
+import { CharactersModule } from '@dnd-history/frontend-characters';
 // import { MapModule } from '@dnd-history/frontend-map';
 import { environment, StateModule } from '@dnd-history/frontend-state';
 
@@ -30,8 +30,8 @@ import { reducers } from './reducers';
     StateModule,
     LoginModule,
     HomeModule,
-    // AdventureModule,
-    // CharactersModule,
+    AdventureModule,
+    CharactersModule,
     // MapModule,
   ],
   providers: [

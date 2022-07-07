@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Session } from '@dnd-history/shared-interfaces';
 import {
@@ -6,7 +6,14 @@ import {
   selectSelectedSession,
   SessionService,
 } from '@dnd-history/frontend-state';
-import { map, Observable, of, switchMap, take, tap } from 'rxjs';
+import {
+  map,
+  Observable,
+  of,
+  Subscription,
+  switchMap,
+  take
+} from 'rxjs';
 import { nanoid } from 'nanoid';
 import { Store } from '@ngrx/store';
 import { SELECT_SESSION } from '@dnd-history/frontend-state';
@@ -16,9 +23,11 @@ import { SELECT_SESSION } from '@dnd-history/frontend-state';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   sessions$: Observable<Session[]> = this.sessionService.entities$;
   sessionName = '';
+
+  private subscription?: Subscription;
 
   constructor(
     private router: Router,
@@ -26,17 +35,25 @@ export class LoginComponent implements OnInit {
     private store: Store<AppState>
   ) {}
 
-  ngOnInit() {
-    this.store.select(selectSelectedSession).subscribe((selectedSession) => {
-      this.sessionName = selectedSession?.name || '';
-    });
+  ngOnInit(): void {
+    this.subscription = this.store
+      .select(selectSelectedSession)
+      .subscribe((selectedSession) => {
+        this.sessionName = selectedSession?.name || '';
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 
   submit(): void {
     this.sessions$
       .pipe(
         take(1),
-        map((sessions) => sessions.find((s) => s.name === this.sessionName.trim())),
+        map((sessions) =>
+          sessions.find((s) => s.name === this.sessionName.trim())
+        ),
         switchMap((session) =>
           session
             ? of(session)
@@ -50,7 +67,7 @@ export class LoginComponent implements OnInit {
             type: SELECT_SESSION.type,
             id: session.id,
           })
-        ),
+        )
       )
       .subscribe(() => this.router.navigate(['/home']));
   }
@@ -59,7 +76,9 @@ export class LoginComponent implements OnInit {
     sessions: Session[],
     sessionName: string
   ): 'Login' | 'Create' {
-    return sessions.find((s) => s.name === sessionName.trim()) ? 'Login' : 'Create';
+    return sessions.find((s) => s.name === sessionName.trim())
+      ? 'Login'
+      : 'Create';
   }
 
   onSessionNameChange(sessionName: string | null) {

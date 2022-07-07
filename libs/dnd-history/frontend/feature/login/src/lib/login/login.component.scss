@@ -11,6 +11,11 @@
   display: none !important;
 }
 
+::ng-deep {
+  .p-dropdown>.p-inputtext {
+    padding: 16px;
+  }
+}
 
 @media (max-width: 700px) {
   #header1 {

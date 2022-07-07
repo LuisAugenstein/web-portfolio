@@ -2,12 +2,12 @@ export * from './environment/environment';
 export * from './lib/state.module';
 export * from './lib/app.state';
 
-export * from './lib/actions/selection.actions';
+export * from './lib/public/actions/selection.actions';
 
-export * from './lib/reducers/selected-session.reducer';
+export * from './lib/public/reducers/selected-session.reducer';
 
-export * from './lib/selectors/selected-session.selector';
+export * from './lib/public/selectors/selected-session.selector';
 
-export * from './lib/services/session.service';
-
-// export * from './lib/util/file-upload.service';
+export * from './lib/public/services/entity.services';
+export * from './lib/public/services/selection.services';
+export * from './lib/public/services/selection.services';

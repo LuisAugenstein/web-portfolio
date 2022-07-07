@@ -3,13 +3,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { environment } from '../environments/environment';
 import { SessionModule } from '@dnd-history/backend-session';
 import {
-  // AdventureEntity,
+  AdventureEntity,
   // MapEntity,
   // MapMarkerConnectionEntity,
   // MapMarkerEntity,
   SessionEntity,
 } from '@dnd-history/backend-entities';
-// import { AdventureModule } from '@dnd-history/backend-adventure';
+import { AdventureModule } from '@dnd-history/backend-adventure';
 // import { MapModule } from '@dnd-history/backend-map';
 
 @Module({
@@ -18,14 +18,14 @@ import {
       ...environment.typeOrmModuleOptions,
       entities: [
         SessionEntity,
-        // AdventureEntity,
+        AdventureEntity,
         // MapEntity,
         // MapMarkerEntity,
         // MapMarkerConnectionEntity,
       ],
     }),
     SessionModule,
-    // AdventureModule,
+    AdventureModule,
     // MapModule,
   ],
   controllers: [],
