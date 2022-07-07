@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Session } from '@dnd-history/shared-interfaces';
 import {
   AppState,
-  selectSelectedSession,
+  selectSession,
   SessionService,
 } from '@dnd-history/frontend-state';
 import {
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.store
-      .select(selectSelectedSession)
+      .select(selectSession)
       .subscribe((selectedSession) => {
         this.sessionName = selectedSession?.name || '';
       });

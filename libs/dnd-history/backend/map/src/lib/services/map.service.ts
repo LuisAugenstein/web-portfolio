@@ -15,6 +15,7 @@ export class MapService {
 
   create(session: SessionEntity, map: Map): Promise<MapEntity> {
     const mapEntity = new MapEntity();
+    mapEntity.id = map.id;
     mapEntity.src = map.src;
     mapEntity.mapMarkers = [];
     mapEntity.mapMarkerConnections = [];

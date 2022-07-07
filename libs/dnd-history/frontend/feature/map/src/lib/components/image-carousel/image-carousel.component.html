@@ -1,5 +1,5 @@
 <div id="carousel">
-  <div *ngFor="let map of maps" class="carousel-item">
+  <div *ngFor="let map of maps$ | async" class="carousel-item">
     <img class="w-full h-full" [src]="map.src" [alt]="map.id"/>
     <div class="overlay w-full h-full" (click)="selectMap(map.id)"></div>
   </div>

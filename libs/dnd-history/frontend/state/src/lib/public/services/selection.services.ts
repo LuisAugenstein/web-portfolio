@@ -9,14 +9,14 @@ export class SessionSelectionService extends SelectionService {
 }
 
 @Injectable({ providedIn: 'root' })
-export class SelectedMapService extends SelectionService {
+export class MapSelectionService extends SelectionService {
   protected getCookieKey(): string {
     return 'dnd-history-selectedMap';
   }
 }
 
 @Injectable({ providedIn: 'root' })
-export class SelectedMapMarkerService extends SelectionService {
+export class MapMarkerSelectionService extends SelectionService {
   protected getCookieKey(): string {
     return 'dnd-history-selectedMapMarker';
   }

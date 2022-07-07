@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   MapService,
-  SelectedMapMarkerService,
-  SelectedMapService,
 } from '@dnd-history/frontend-state';
 import { Map, MapMarker } from '@dnd-history/shared-interfaces';
 import Konva from 'konva';
@@ -24,8 +22,11 @@ export class MapMarkerDrawable implements Drawable {
 
   constructor(
     private readonly mapService: MapService,
-    private readonly selectedMapMarkerService: SelectedMapMarkerService
   ) {}
+  
+  destroy(): void {
+    throw new Error('Method not implemented.');
+  }
 
   update(map: Map | undefined): void {
     if (!map || map.mapMarkers.length === 0) {
@@ -70,9 +71,9 @@ export class MapMarkerDrawable implements Drawable {
       konvaImage.draggable(active);
       konvaImage.shadowEnabled(active);
       konvaImage.y(konvaImage.y() - (active ? 3 : -3));
-      active
-        ? this.selectedMapMarkerService.next({ id: mapMarker.id })
-        : this.selectedMapMarkerService.reset();
+      // active
+      //   ? this.selectedMapMarkerService.next({ id: mapMarker.id })
+      //   : this.selectedMapMarkerService.reset();
     };
     konvaImage.on('click', () => {
       if (!konvaImage.draggable()) {
@@ -81,12 +82,12 @@ export class MapMarkerDrawable implements Drawable {
         setActive(false);
         mapMarker.x = konvaImage.x() + ICON_SIZE / 2;
         mapMarker.y = konvaImage.y() + ICON_SIZE;
-        this.mapService
-          .updateMapMarker(mapMarker.id, {
-            x: mapMarker.x,
-            y: mapMarker.y,
-          })
-          .subscribe();
+        // this.mapService
+        //   .updateMapMarker(mapMarker.id, {
+        //     x: mapMarker.x,
+        //     y: mapMarker.y,
+        //   })
+        //   .subscribe();
       }
     });
 

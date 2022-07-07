@@ -6,7 +6,7 @@ import { DatePipe } from '@angular/common';
 import {
   AdventureService,
   AppState,
-  selectSelectedSession,
+  selectSession,
 } from '@dnd-history/frontend-state';
 import { filter, map, Observable, of, Subscription, switchMap } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -29,7 +29,7 @@ export class AdventureComponent implements OnInit, OnDestroy {
   ) {}
   ngOnInit(): void {
     this.subscription = this.store
-      .select(selectSelectedSession)
+      .select(selectSession)
       .pipe(filter((selectedSession) => selectedSession !== undefined))
       .subscribe((selectedSession) => {
         this.adventureService.clearCache();

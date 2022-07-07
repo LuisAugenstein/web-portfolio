@@ -13,7 +13,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { CheckboxModule } from 'primeng/checkbox';
 import { TooltipModule } from 'primeng/tooltip';
-import {ContextMenuModule} from 'primeng/contextmenu';
+import { ContextMenuModule } from 'primeng/contextmenu';
 
 @NgModule({
   imports: [
@@ -25,7 +25,7 @@ import {ContextMenuModule} from 'primeng/contextmenu';
     ToggleButtonModule,
     CheckboxModule,
     TooltipModule,
-    ContextMenuModule
+    ContextMenuModule,
   ],
   declarations: [
     MapComponent,

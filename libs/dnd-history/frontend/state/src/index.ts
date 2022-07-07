@@ -4,10 +4,10 @@ export * from './lib/app.state';
 
 export * from './lib/public/actions/selection.actions';
 
-export * from './lib/public/reducers/selected-session.reducer';
+export * from './lib/public/reducers/selection.reducer';
 
-export * from './lib/public/selectors/selected-session.selector';
+export * from './lib/public/selectors/entity.selectors';
 
 export * from './lib/public/services/entity.services';
 export * from './lib/public/services/selection.services';
-export * from './lib/public/services/selection.services';
+export * from './lib/public/services/file-upload.service';

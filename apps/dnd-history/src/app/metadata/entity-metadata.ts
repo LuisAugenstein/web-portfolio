@@ -1,4 +1,4 @@
-import { Adventure, Session } from '@dnd-history/shared-interfaces';
+import { Adventure, Map, Session } from '@dnd-history/shared-interfaces';
 import { EntityMetadataMap } from '@ngrx/data';
 import { Comparer } from '@ngrx/entity';
 
@@ -21,6 +21,9 @@ const entityMetadata: EntityMetadataMap = {
   Adventure: {
     sortComparer: sortBy<Adventure>('createdAt')
   },
+  Map: {
+    sortComparer: sortBy<Map>('id')
+  }
 };
 
 export const entityConfig = {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Adventure, Session } from '@dnd-history/shared-interfaces';
+import { Adventure, Map, Session } from '@dnd-history/shared-interfaces';
 import {
   EntityCollectionServiceBase,
   EntityCollectionServiceElementsFactory,
@@ -16,5 +16,12 @@ export class SessionService extends EntityCollectionServiceBase<Session> {
 export class AdventureService extends EntityCollectionServiceBase<Adventure> {
   constructor(serviceElementsFactory: EntityCollectionServiceElementsFactory) {
     super('Adventure', serviceElementsFactory);
+  }
+}
+
+@Injectable({ providedIn: 'root' })
+export class MapService extends EntityCollectionServiceBase<Map> {
+  constructor(serviceElementsFactory: EntityCollectionServiceElementsFactory) {
+    super('Map', serviceElementsFactory);
   }
 }

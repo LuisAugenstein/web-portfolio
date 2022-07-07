@@ -5,7 +5,7 @@ import { DefaultDataService, HttpUrlGenerator } from '@ngrx/data';
 import { Store } from '@ngrx/store';
 import { filter, map, Observable, switchMap, take } from 'rxjs';
 import { AppState } from '../../../app.state';
-import { selectSelectedSession } from '../../../public/selectors/selected-session.selector';
+import { selectSession } from '../../../public/selectors/entity.selectors';
 
 @Injectable()
 export class AdventureDataService extends DefaultDataService<Adventure> {
@@ -25,7 +25,7 @@ export class AdventureDataService extends DefaultDataService<Adventure> {
         new Error(`No "${this.entityName}" entity to add`)
       );
     }
-    return this.store.select(selectSelectedSession).pipe(
+    return this.store.select(selectSession).pipe(
       take(1),
       filter((selectedSession) => selectedSession !== undefined),
       map(

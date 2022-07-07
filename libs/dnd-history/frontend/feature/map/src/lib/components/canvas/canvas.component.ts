@@ -6,31 +6,13 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import Konva from 'konva';
-import { StageConfig } from 'konva/lib/Stage';
 import { MenuItem } from 'primeng/api';
 import { MapDrawingService } from './services/map-drawing.service';
-import { MapMarkerDrawable } from './services/drawables/map-marker-drawing.service';
-import {
-  MapService,
-  SelectedMapService,
-  SelectedSessionService,
-} from '@dnd-history/frontend-state';
-import {
-  combineLatest,
-  forkJoin,
-  mergeMap,
-  Subscription,
-  switchMap,
-  take,
-  tap,
-} from 'rxjs';
-import { Maybe } from '@dnd-history/shared-interfaces';
-
-interface ContextMenu {
-  id: string;
-  items: MenuItem[];
-}
+import { AppState, MapService, selectMap } from '@dnd-history/frontend-state';
+import { filter, Observable, Subscription, take } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Map } from '@dnd-history/shared-interfaces';
+import { nanoid } from 'nanoid';
 
 @Component({
   selector: 'dnd-history-canvas',
@@ -44,29 +26,30 @@ export class CanvasComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('contextMenu')
   contextMenu!: any;
 
-  private mapDrawingSubscription!: Subscription;
+  private subscription?: Subscription;
 
   contextMenuActive = false;
 
   constructor(
     private readonly mapDrawingService: MapDrawingService,
-    private readonly selectedSessionService: SelectedSessionService,
-    private readonly selectedMapService: SelectedMapService,
-    private readonly mapService: MapService
+    private readonly mapService: MapService,
+    private readonly store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
-    this.mapDrawingSubscription = this.createMapDrawingSubscription();
+    this.subscription = this.store
+      .select(selectMap)
+      .subscribe((selectedMap) => {
+        this.contextMenuActive = !!selectedMap;
+      });
   }
 
   ngAfterViewInit(): void {
-    this.mapDrawingService.setupAfterViewInit(
-      this.konvaContainer.nativeElement
-    );
+    this.mapDrawingService.init(this.konvaContainer.nativeElement);
   }
 
   ngOnDestroy(): void {
-    this.mapDrawingSubscription.unsubscribe();
+    this.subscription?.unsubscribe();
   }
 
   getContextMenuItems(): MenuItem[] {
@@ -80,7 +63,7 @@ export class CanvasComponent implements OnInit, AfterViewInit, OnDestroy {
             'click',
             (event: MouseEvent) => {
               this.contextMenuActive = true;
-              this.placeMapMarker(event.offsetX, event.offsetY);
+              this.createMapMarker(event.offsetX, event.offsetY);
             },
             {
               once: true,
@@ -91,33 +74,25 @@ export class CanvasComponent implements OnInit, AfterViewInit, OnDestroy {
     ];
   }
 
-  private async placeMapMarker(x: number, y: number): Promise<void> {
-    const selectedSessionId = this.selectedSessionService.value()?.id as number;
-    const selectedMapId = this.selectedMapService.value()?.id as number;
-    this.mapService.createMapMarker(selectedSessionId, selectedMapId, {
-      x,
-      y,
-      title: '',
-      description: '',
-    });
-  }
-
-  private createMapDrawingSubscription(): Subscription {
-    return combineLatest([
-      this.selectedSessionService.get(),
-      this.selectedMapService.get(),
-    ])
-      .pipe(
-        switchMap(([selectedSession, selectedMap]) =>
-          this.mapService.get(
-            selectedSession?.id as number,
-            selectedMap?.id as number
-          )
-        )
-      )
-      .subscribe((map) => {
-        this.contextMenuActive = !!map;
-        this.mapDrawingService.update(map);
-      });
+  private createMapMarker(x: number, y: number): void {
+    const selectedMap$ = this.store.select(selectMap).pipe(
+      take(1),
+      filter((selectedMap) => selectedMap !== undefined)
+    ) as Observable<Map>;
+    selectedMap$.subscribe(({ mapMarkers, ...selectedMap }) =>
+      this.mapService.update({
+        ...selectedMap,
+        mapMarkers: [
+          ...mapMarkers,
+          {
+            id: nanoid(),
+            x,
+            y,
+            title: '',
+            description: '',
+          },
+        ],
+      })
+    );
   }
 }
