@@ -36,13 +36,13 @@ export class LoginComponent implements OnInit {
     this.sessions$
       .pipe(
         take(1),
-        map((sessions) => sessions.find((s) => s.name === this.sessionName)),
+        map((sessions) => sessions.find((s) => s.name === this.sessionName.trim())),
         switchMap((session) =>
           session
             ? of(session)
             : this.sessionService.add({
                 id: nanoid(),
-                name: this.sessionName,
+                name: this.sessionName.trim(),
               })
         ),
         map((session) =>
@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
     sessions: Session[],
     sessionName: string
   ): 'Login' | 'Create' {
-    return sessions.find((s) => s.name === sessionName) ? 'Login' : 'Create';
+    return sessions.find((s) => s.name === sessionName.trim()) ? 'Login' : 'Create';
   }
 
   onSessionNameChange(sessionName: string | null) {
