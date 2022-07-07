@@ -48,7 +48,7 @@ export class AdventureComponent implements OnInit, OnDestroy {
       id: nanoid(),
       title: '',
       content: '',
-      lastChangedAt: new Date(),
+      createdAt: new Date(),
     })
       .pipe(map((adventure: Adventure) => this.adventureService.add(adventure)))
       .subscribe();

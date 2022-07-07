@@ -19,8 +19,8 @@ export class AdventureEntity {
   @Column()
   content: string;
 
-  @UpdateDateColumn()
-  lastChangedAt: Date;
+  @Column()
+  createdAt: Date;
 
   @ManyToOne(() => SessionEntity, (session) => session.adventures)
   session: SessionEntity;

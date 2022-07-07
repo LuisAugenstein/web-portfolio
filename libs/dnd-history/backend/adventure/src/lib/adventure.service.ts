@@ -19,6 +19,7 @@ export class AdventureService {
     adventureEntity.id = adventure.id;
     adventureEntity.title = adventure.title ?? '';
     adventureEntity.content = adventure.content ?? '';
+    adventureEntity.createdAt = adventure.createdAt ?? new Date();
     adventureEntity.session = session;
     return this.adventureRepository.save(adventureEntity);
   }

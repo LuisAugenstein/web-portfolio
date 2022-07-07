@@ -24,7 +24,7 @@ export class AdventureDialogComponent implements OnInit {
   submit(formData: { title: string; content: string }) {
     const newAdventure: Adventure = {
       id: this.config.data.id,
-      lastChangedAt: this.config.data.lastChangedAt,
+      createdAt: this.config.data.createdAt,
       ...formData,
     };
     this.ref.close(newAdventure);
