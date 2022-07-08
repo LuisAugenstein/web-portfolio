@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import Konva from 'konva';
 import { Image as KonvaImage } from 'konva/lib/shapes/Image';
 import { Stage } from 'konva/lib/Stage';
-import { Subscription, tap } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Drawable } from '../map-drawing.service';
 
 @Injectable({ providedIn: 'root' })
@@ -16,6 +16,7 @@ export class BackgroundDrawable implements Drawable {
 
   registerOn(stage: Stage): void {
     const layer = new Konva.Layer();
+    stage.add(layer);
     const background = new Konva.Image({
       x: 0,
       y: 0,
@@ -24,7 +25,6 @@ export class BackgroundDrawable implements Drawable {
       image: new Image(),
     });
     layer.add(background);
-    stage.add(layer);
     this.subscription = this.store
       .select(selectMap)
       .subscribe((selectedMap) => this.draw(background, selectedMap));

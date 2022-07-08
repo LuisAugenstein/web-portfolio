@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Adventure, Map, Session } from '@dnd-history/shared-interfaces';
+import { Map, Session } from '@dnd-history/shared-interfaces';
 import { DefaultDataService, HttpUrlGenerator } from '@ngrx/data';
 import { Store } from '@ngrx/store';
 import { filter, map as mapOp, Observable, switchMap, take } from 'rxjs';

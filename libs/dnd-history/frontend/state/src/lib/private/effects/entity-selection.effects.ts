@@ -3,11 +3,11 @@ import { Actions } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import {
   SELECT_MAP,
+  SELECT_MAPMARKER,
   SELECT_SESSION,
 } from '../../public/actions/selection.actions';
 import { SessionService } from '../../public/services/entity.services';
-import { MapSelectionService, SessionSelectionService } from '../../public/services/selection.services';
-import { SelectionService } from '../services/selection/selection.service';
+import { MapMarkerSelectionService, MapSelectionService, SessionSelectionService } from '../../public/services/selection.services';
 import { SelectionEffects } from './selection.effects';
 
 @Injectable()
@@ -32,3 +32,11 @@ export class MapSelectionEffects extends SelectionEffects {
     super(SELECT_MAP, actions$, mapSelectionService);
   }
 }
+
+@Injectable()
+export class MapMarkerSelectionEffects extends SelectionEffects {
+  constructor(actions$: Actions, mapMarkerSelectionService: MapMarkerSelectionService) {
+    super(SELECT_MAPMARKER, actions$, mapMarkerSelectionService);
+  }
+}
+

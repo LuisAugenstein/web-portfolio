@@ -11,6 +11,7 @@ export type SelectionAction = ActionCreator<
 
 export const SELECT_SESSION = createSelectAction('Session');
 export const SELECT_MAP = createSelectAction('Map');
+export const SELECT_MAPMARKER = createSelectAction('MapMarker');
 
 
 function createSelectAction(entityName: string): SelectionAction {
