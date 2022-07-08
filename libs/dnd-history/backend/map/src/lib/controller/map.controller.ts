@@ -22,9 +22,9 @@ export class MapController {
   @Post('map')
   async create(
     @Query('sessionId') sessionId: NanoId,
-    @Body() mapDTO: Map
+    @Body() map: Map
   ): Promise<Map> {
     const session = await this.sessionService.find(sessionId);
-    return this.mapService.create(session, mapDTO);
+    return this.mapService.create(session, map);
   }
 }

@@ -17,6 +17,7 @@ export class MapService {
     const mapEntity = new MapEntity();
     mapEntity.id = map.id;
     mapEntity.src = map.src;
+    mapEntity.sortIndex = map.sortIndex;
     mapEntity.mapMarkers = [];
     mapEntity.mapMarkerConnections = [];
     mapEntity.session = session;

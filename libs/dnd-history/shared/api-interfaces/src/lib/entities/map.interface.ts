@@ -4,6 +4,7 @@ export interface Map extends ID {
   src: string;
   mapMarkers: MapMarker[];
   mapMarkerConnections: MapMarkerConnection[];
+  sortIndex: number;
 }
 
 export interface MapMarker extends ID {

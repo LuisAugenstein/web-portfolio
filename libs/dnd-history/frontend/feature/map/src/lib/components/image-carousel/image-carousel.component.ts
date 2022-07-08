@@ -6,10 +6,18 @@ import {
   selectSession,
   SELECT_MAP,
 } from '@dnd-history/frontend-state';
-import { NanoId, Session } from '@dnd-history/shared-interfaces';
+import { Map, NanoId, Session } from '@dnd-history/shared-interfaces';
+import { EntityCollection } from '@ngrx/data';
 import { Store } from '@ngrx/store';
 import { nanoid } from 'nanoid';
-import { filter, Subscription } from 'rxjs';
+import {
+  combineLatest,
+  filter,
+  Subscription,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs';
 
 @Component({
   selector: 'dnd-history-image-carousel',
@@ -19,7 +27,7 @@ import { filter, Subscription } from 'rxjs';
 export class ImageCarouselComponent implements OnInit, OnDestroy {
   maps$ = this.mapService.entities$;
   chosenFilesToUpload: File[] = [];
-  private subscription?: Subscription;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private readonly fileUploadService: FileUploadService,
@@ -28,7 +36,7 @@ export class ImageCarouselComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.store
+    const loadMaps = this.store
       .select(selectSession)
       .pipe(filter((selectedSession) => selectedSession !== undefined))
       .subscribe((selectedSession) => {
@@ -37,20 +45,34 @@ export class ImageCarouselComponent implements OnInit, OnDestroy {
           sessionId: (selectedSession as Session).id,
         });
       });
+
+    const defaultSelectMap = combineLatest([
+      this.maps$,
+      this.store.select((state) => state.selectedMap),
+    ]).subscribe(([maps, selectedMap]) => {
+      if (maps?.length !== 0 && maps.every((m) => m.id !== selectedMap?.id)) {
+        this.selectMap(maps[0].id);
+      }
+    });
+
+    this.subscriptions = [loadMaps, defaultSelectMap];
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.subscriptions.forEach((s) => s.unsubscribe());
   }
 
   async createMap(event: { files: File[] }): Promise<void> {
     this.chosenFilesToUpload = [];
     const url = await this.fileUploadService.upload(event.files[0]);
-    this.mapService.add({
-      id: nanoid(),
-      src: url,
-      mapMarkers: [],
-      mapMarkerConnections: [],
+    this.maps$.pipe(take(1)).subscribe((maps) => {
+      this.mapService.add({
+        id: nanoid(),
+        src: url,
+        sortIndex: maps.length,
+        mapMarkers: [],
+        mapMarkerConnections: [],
+      });
     });
   }
 

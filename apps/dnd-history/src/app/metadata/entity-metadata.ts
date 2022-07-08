@@ -22,7 +22,7 @@ const entityMetadata: EntityMetadataMap = {
     sortComparer: sortBy<Adventure>('createdAt')
   },
   Map: {
-    sortComparer: sortBy<Map>('id')
+    sortComparer: sortBy<Map>('sortIndex')
   }
 };
 

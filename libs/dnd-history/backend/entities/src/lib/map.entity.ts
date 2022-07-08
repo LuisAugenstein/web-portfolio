@@ -10,6 +10,8 @@ export class MapEntity {
 
   @Column({ nullable: false })
   src: string;
+  @Column({ nullable: false })
+  sortIndex: number;
 
   @OneToMany(() => MapMarkerEntity, (mapMarker) => mapMarker.map)
   mapMarkers: MapMarkerEntity[];
