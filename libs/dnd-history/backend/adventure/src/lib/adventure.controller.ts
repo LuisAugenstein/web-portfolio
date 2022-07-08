@@ -38,7 +38,7 @@ export class AdventureController {
   }
 
   @Put('adventure/:adventureId')
-  update(
+  async update(
     @Param('adventureId') adventureId: string,
     @Body() adventure: Adventure
   ): Promise<Adventure> {

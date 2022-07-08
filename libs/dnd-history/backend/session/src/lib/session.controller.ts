@@ -10,13 +10,13 @@ export class SessionController {
   constructor(private readonly sessionService: SessionService) {}
 
   @Get('sessions')
-  getSessions(): Promise<SessionEntity[]> {
-    return this.sessionService.findAllSessions();
+  async read(): Promise<Session[]> {
+    return this.sessionService.findAll();
   }
 
   @Post('session')
   create(@Body() session: Session): Promise<Session> {
-    return this.sessionService.createSession(session);
+    return this.sessionService.create(session);
   }
 
   @Put('session/:sessionId')
@@ -24,6 +24,6 @@ export class SessionController {
     @Param('sessionId') sessionId: string,
     @Body() session: Partial<Session>,
   ): Promise<Session> {
-    return this.sessionService.updateSession(sessionId, session);
+    return this.sessionService.update(sessionId, session);
   }
 }

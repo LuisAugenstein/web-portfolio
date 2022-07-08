@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, UpdateResult } from 'typeorm';
+import { Repository } from 'typeorm';
 import { SessionEntity } from '@dnd-history/backend-entities';
 import { Session } from '@dnd-history/shared-interfaces';
 
@@ -11,22 +11,23 @@ export class SessionService {
     private sessionRepository: Repository<SessionEntity>
   ) {}
 
-  findAllSessions(): Promise<SessionEntity[]> {
-    return this.sessionRepository.find();
-  }
-
-  createSession(session: Session): Promise<SessionEntity> {
+  async create(session: Session): Promise<Session> {
     return this.sessionRepository.save(session);
   }
 
-  async updateSession(id: string, session: Partial<Session>): Promise<Session> {
+  async update(id: string, session: Partial<Session>): Promise<Session> {
     const query = await this.sessionRepository
       .createQueryBuilder()
       .update(session)
       .where({ id })
       .returning('*')
       .execute();
+    console.log('query: ', query.raw[0]);
     return query.raw[0];
+  }
+
+  findAll(): Promise<SessionEntity[]> {
+    return this.sessionRepository.find();
   }
 
   find(id: string, relations?: string[]): Promise<SessionEntity> {

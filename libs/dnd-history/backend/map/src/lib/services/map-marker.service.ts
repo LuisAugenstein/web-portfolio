@@ -11,7 +11,7 @@ export class MapMarkerService {
     private mapMarkerRepository: Repository<MapMarkerEntity>
   ) {}
 
-  create(map: MapEntity, mapMarker: MapMarker): Promise<MapMarkerEntity> {
+  async create(map: MapEntity, mapMarker: MapMarker): Promise<MapMarker> {
     const mapMarkerEntity = new MapMarkerEntity();
     mapMarkerEntity.id = mapMarker.id;
     mapMarkerEntity.title = mapMarker.title;
@@ -19,7 +19,8 @@ export class MapMarkerService {
     mapMarkerEntity.x = mapMarker.x;
     mapMarkerEntity.y = mapMarker.y;
     mapMarkerEntity.map = map;
-    return this.mapMarkerRepository.save(mapMarkerEntity);
+    const {map: _, ...remainingMapMarker} = await this.mapMarkerRepository.save(mapMarkerEntity);
+    return remainingMapMarker;
   }
 
   async update(id: NanoId, mapMarker: Partial<MapMarker>): Promise<MapMarker> {
@@ -29,6 +30,8 @@ export class MapMarkerService {
       .where({ id })
       .returning('*')
       .execute();
-    return query.raw[0];
+     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+     const {mapId, ...remainingMapMarker} = query.raw[0];
+     return remainingMapMarker;
   }
 }
