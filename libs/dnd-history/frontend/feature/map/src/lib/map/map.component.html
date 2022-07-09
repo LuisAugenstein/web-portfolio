@@ -2,10 +2,13 @@
   <dnd-history-header backLink="/home"></dnd-history-header>
 
   <div class="flex-grow-1 flex justify-content-center">
-    <main>
+    <main *ngIf="(loaded$ | async); else loading">
       <dnd-history-image-carousel></dnd-history-image-carousel>
       <dnd-history-canvas></dnd-history-canvas>
       <dnd-history-map-marker-sidebar></dnd-history-map-marker-sidebar>
     </main>
+    <ng-template #loading>
+      <p-progressSpinner></p-progressSpinner>
+    </ng-template>
   </div>
 </div>

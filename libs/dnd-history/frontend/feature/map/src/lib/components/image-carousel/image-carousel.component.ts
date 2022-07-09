@@ -27,7 +27,7 @@ import {
 export class ImageCarouselComponent implements OnInit, OnDestroy {
   maps$ = this.mapService.entities$;
   chosenFilesToUpload: File[] = [];
-  private subscriptions: Subscription[] = [];
+  private subscription?: Subscription;
 
   constructor(
     private readonly fileUploadService: FileUploadService,
@@ -36,17 +36,7 @@ export class ImageCarouselComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    const loadMaps = this.store
-      .select(selectSession)
-      .pipe(filter((selectedSession) => selectedSession !== undefined))
-      .subscribe((selectedSession) => {
-        this.mapService.clearCache();
-        this.mapService.getWithQuery({
-          sessionId: (selectedSession as Session).id,
-        });
-      });
-
-    const defaultSelectMap = combineLatest([
+    this.subscription = combineLatest([
       this.maps$,
       this.store.select((state) => state.selectedMap),
     ]).subscribe(([maps, selectedMap]) => {
@@ -54,12 +44,10 @@ export class ImageCarouselComponent implements OnInit, OnDestroy {
         this.selectMap(maps[0].id);
       }
     });
-
-    this.subscriptions = [loadMaps, defaultSelectMap];
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach((s) => s.unsubscribe());
+    this.subscription?.unsubscribe();
   }
 
   async createMap(event: { files: File[] }): Promise<void> {
