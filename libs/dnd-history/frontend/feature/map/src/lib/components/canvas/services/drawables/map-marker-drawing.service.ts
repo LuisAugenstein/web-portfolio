@@ -44,7 +44,7 @@ export class MapMarkerDrawable implements Drawable {
     const img = new Image();
     img.onload = () => {
       const mapMarkersImages = selectedMap.mapMarkers.map((mapMarker) =>
-        this.createKonvaImage(img, mapMarker, selectedMap)
+        this.createKonvaImage(img, mapMarker)
       );
       layer.destroyChildren();
       layer.add(...mapMarkersImages);
@@ -54,8 +54,7 @@ export class MapMarkerDrawable implements Drawable {
 
   private createKonvaImage(
     image: HTMLImageElement,
-    mapMarker: MapMarker,
-    selectedMap: Map
+    mapMarker: MapMarker
   ): KonvaImage {
     // create konvaImage
     const konvaImage = new Konva.Image({
@@ -89,16 +88,10 @@ export class MapMarkerDrawable implements Drawable {
         setActive(true);
       } else {
         setActive(false);
-        const newMapMarker: MapMarker = {
+        this.mapService.updateMapMarker({
           ...mapMarker,
           x: konvaImage.x() + ICON_SIZE / 2,
           y: konvaImage.y() + ICON_SIZE,
-        };
-        this.mapService.update({
-          ...selectedMap,
-          mapMarkers: selectedMap.mapMarkers.map((m) =>
-            m.id === newMapMarker.id ? newMapMarker : m
-          ),
         });
       }
     });

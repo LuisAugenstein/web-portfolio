@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  AppState,
-  selectMapMarker,
-} from '@dnd-history/frontend-state';
+import { AppState, selectMapMarker } from '@dnd-history/frontend-state';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -13,9 +10,7 @@ import { Store } from '@ngrx/store';
 export class MapMarkerSidebarComponent implements OnInit {
   mapMarker$ = this.store.select(selectMapMarker);
 
-  constructor(
-    private readonly store: Store<AppState>
-  ) {}
+  constructor(private readonly store: Store<AppState>) {}
 
   ngOnInit(): void {}
 }

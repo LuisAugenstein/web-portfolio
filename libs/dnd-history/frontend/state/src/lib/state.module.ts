@@ -5,6 +5,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { EntityDataService } from '@ngrx/data';
 import { AdventureDataService } from './private/services/data/adventure-data.service';
 import {
+  MapMarkerSelectionEffects,
   MapSelectionEffects,
   SessionSelectionEffects,
 } from './private/effects/entity-selection.effects';
@@ -14,7 +15,7 @@ import { MapDataService } from './private/services/data/map-data.service.ts';
   imports: [
     CommonModule,
     HttpClientModule,
-    EffectsModule.forFeature([SessionSelectionEffects, MapSelectionEffects]),
+    EffectsModule.forFeature([SessionSelectionEffects, MapSelectionEffects, MapMarkerSelectionEffects]),
   ],
   providers: [AdventureDataService, MapDataService],
 })
