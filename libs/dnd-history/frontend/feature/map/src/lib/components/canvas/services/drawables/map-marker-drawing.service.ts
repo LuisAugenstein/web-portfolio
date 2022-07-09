@@ -3,14 +3,14 @@ import {
   AppState,
   MapService,
   selectMap,
+  selectMapMarker,
   SELECT_MAPMARKER,
 } from '@dnd-history/frontend-state';
-import { Map, MapMarker } from '@dnd-history/shared-interfaces';
+import { Map, MapMarker as IMapMarker } from '@dnd-history/shared-interfaces';
 import { Store } from '@ngrx/store';
 import Konva from 'konva';
-import { Image as KonvaImage } from 'konva/lib/shapes/Image';
 import { Stage } from 'konva/lib/Stage';
-import { combineLatest, filter, Subscription } from 'rxjs';
+import { combineLatest, filter, Observable, Subscription } from 'rxjs';
 import { Drawable } from '../map-drawing.service';
 import { MapPreferencesService } from '../map-preferences.service';
 
@@ -20,6 +20,7 @@ const ICON_SIZE = 32;
 @Injectable({ providedIn: 'root' })
 export class MapMarkerDrawable implements Drawable {
   private subscription?: Subscription;
+  private mapMarkerInstances: MapMarkerInstance[] = [];
   constructor(
     private readonly store: Store<AppState>,
     private readonly mapService: MapService,
@@ -46,25 +47,49 @@ export class MapMarkerDrawable implements Drawable {
   }
 
   destroy(): void {
+    this.resetMapMarkers();
     this.subscription?.unsubscribe();
   }
 
-  private draw(layer: Konva.Layer, mapMarkers: MapMarker[]): void {
+  private resetMapMarkers(): void {
+    this.mapMarkerInstances.forEach((m) => m.destroy());
+    this.mapMarkerInstances = [];
+  }
+
+  private draw(layer: Konva.Layer, mapMarkers: IMapMarker[]): void {
     const img = new Image();
     img.onload = () => {
-      const mapMarkersImages = mapMarkers.map((mapMarker) =>
-        this.createKonvaImage(img, mapMarker)
+      const mapMarkersInstances = mapMarkers.map(
+        (mapMarker) =>
+          new MapMarkerInstance(this.store, this.mapService, img, mapMarker)
       );
-      layer.destroyChildren();
-      layer.add(...mapMarkersImages);
+      this.resetMapMarkers();
+      this.mapMarkerInstances = mapMarkersInstances;
+      layer.add(...mapMarkersInstances.map((m) => m.getKonvaImage()));
     };
     img.src = MARKER_ICON_PATH;
   }
+}
 
-  private createKonvaImage(
+class MapMarkerInstance {
+  private konvaImage: Konva.Image;
+  private subscription?: Subscription;
+  private active = false;
+
+  constructor(
+    private store: Store<AppState>,
+    private mapService: MapService,
     image: HTMLImageElement,
-    mapMarker: MapMarker
-  ): KonvaImage {
+    mapMarker: IMapMarker
+  ) {
+    this.konvaImage = this.init(image, mapMarker);
+  }
+
+  getKonvaImage(): Konva.Image {
+    return this.konvaImage;
+  }
+
+  init(image: HTMLImageElement, mapMarker: IMapMarker): Konva.Image {
     // create konvaImage
     const konvaImage = new Konva.Image({
       image,
@@ -83,28 +108,37 @@ export class MapMarkerDrawable implements Drawable {
     konvaImage.on('mouseout', () => {
       document.body.style.cursor = 'default';
     });
-    // make marker draggable on click
-    const setActive = (active: boolean) => {
-      konvaImage.draggable(active);
-      konvaImage.shadowEnabled(active);
-      konvaImage.y(konvaImage.y() - (active ? 3 : -3));
-      active
-        ? this.store.dispatch({ type: SELECT_MAPMARKER.type, id: mapMarker.id })
-        : this.store.dispatch({ type: SELECT_MAPMARKER.type, id: undefined });
-    };
-    konvaImage.on('click', () => {
-      if (!konvaImage.draggable()) {
-        setActive(true);
-      } else {
-        setActive(false);
-        this.mapService.updateMapMarker({
-          ...mapMarker,
-          x: konvaImage.x() + ICON_SIZE / 2,
-          y: konvaImage.y() + ICON_SIZE,
-        });
-      }
-    });
-
+    // make marker selectable on click
+    this.subscription = this.store
+      .select(selectMapMarker)
+      .subscribe((selectedMapMarker) => {
+        const setActive = (active: boolean) => {
+          this.active = active;
+          konvaImage.draggable(this.active);
+          konvaImage.shadowEnabled(this.active);
+          konvaImage.y(konvaImage.y() - (this.active ? 3 : -3));
+        };
+        if (selectedMapMarker?.id === mapMarker.id && !this.active) {
+          setActive(true);
+        } else if (selectedMapMarker?.id !== mapMarker.id && this.active) {
+          setActive(false);
+          this.mapService.updateMapMarker({
+            ...mapMarker,
+            x: konvaImage.x() + ICON_SIZE / 2,
+            y: konvaImage.y() + ICON_SIZE,
+          });
+        }
+      });
+    konvaImage.on('click', () =>
+      konvaImage.draggable()
+        ? this.store.dispatch({ type: SELECT_MAPMARKER.type, id: undefined })
+        : this.store.dispatch({ type: SELECT_MAPMARKER.type, id: mapMarker.id })
+    );
     return konvaImage;
+  }
+
+  destroy(): void {
+    this.konvaImage.destroy();
+    this.subscription?.unsubscribe();
   }
 }
