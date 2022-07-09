@@ -13,6 +13,7 @@ import { filter, Observable, Subscription, take } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Map } from '@dnd-history/shared-interfaces';
 import { nanoid } from 'nanoid';
+import { MapPreferencesService } from './services/map-preferences.service';
 
 @Component({
   selector: 'dnd-history-canvas',
@@ -33,7 +34,8 @@ export class CanvasComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private readonly mapDrawingService: MapDrawingService,
     private readonly mapService: MapService,
-    private readonly store: Store<AppState>
+    private readonly store: Store<AppState>,
+    private readonly mapPreferncesService: MapPreferencesService
   ) {}
 
   ngOnInit(): void {
@@ -55,7 +57,7 @@ export class CanvasComponent implements OnInit, AfterViewInit, OnDestroy {
   getContextMenuItems(): MenuItem[] {
     return [
       {
-        label: 'new MapMarker',
+        label: 'Create',
         icon: 'i i-marker',
         command: () => {
           this.contextMenuActive = false;
@@ -70,6 +72,18 @@ export class CanvasComponent implements OnInit, AfterViewInit, OnDestroy {
             }
           );
         },
+      },
+      {
+        label: this.mapPreferncesService.showMapMarkers$.value
+          ? 'Hide'
+          : 'Show',
+        icon: this.mapPreferncesService.showMapMarkers$.value
+          ? 'i i-eye-open'
+          : 'i i-eye-closed',
+        command: () =>
+          this.mapPreferncesService.showMapMarkers$.next(
+            !this.mapPreferncesService.showMapMarkers$.value
+          ),
       },
     ];
   }

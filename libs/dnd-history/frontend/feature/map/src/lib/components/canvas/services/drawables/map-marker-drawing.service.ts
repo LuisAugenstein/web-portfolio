@@ -10,8 +10,9 @@ import { Store } from '@ngrx/store';
 import Konva from 'konva';
 import { Image as KonvaImage } from 'konva/lib/shapes/Image';
 import { Stage } from 'konva/lib/Stage';
-import { Subscription } from 'rxjs';
+import { combineLatest, filter, Subscription } from 'rxjs';
 import { Drawable } from '../map-drawing.service';
+import { MapPreferencesService } from '../map-preferences.service';
 
 const MARKER_ICON_PATH = '/assets/icons/marker.svg';
 const ICON_SIZE = 32;
@@ -21,29 +22,37 @@ export class MapMarkerDrawable implements Drawable {
   private subscription?: Subscription;
   constructor(
     private readonly store: Store<AppState>,
-    private readonly mapService: MapService
+    private readonly mapService: MapService,
+    private readonly mapPreferencesService: MapPreferencesService
   ) {}
 
   registerOn(stage: Stage): void {
     const layer = new Konva.Layer();
     stage.add(layer);
-    this.subscription = this.store
-      .select(selectMap)
-      .subscribe((selectedMap) => this.draw(layer, selectedMap));
+    this.subscription = combineLatest([
+      this.store.select(selectMap),
+      this.mapPreferencesService.showMapMarkers$,
+    ]).subscribe(([selectedMap, showMapMarkers]) => {
+      if (
+        !selectedMap ||
+        selectedMap.mapMarkers.length === 0 ||
+        !showMapMarkers
+      ) {
+        layer.destroyChildren();
+        return;
+      }
+      this.draw(layer, selectedMap.mapMarkers);
+    });
   }
 
   destroy(): void {
     this.subscription?.unsubscribe();
   }
 
-  private draw(layer: Konva.Layer, selectedMap?: Map): void {
-    if (!selectedMap || selectedMap.mapMarkers.length === 0) {
-      layer.destroyChildren();
-      return;
-    }
+  private draw(layer: Konva.Layer, mapMarkers: MapMarker[]): void {
     const img = new Image();
     img.onload = () => {
-      const mapMarkersImages = selectedMap.mapMarkers.map((mapMarker) =>
+      const mapMarkersImages = mapMarkers.map((mapMarker) =>
         this.createKonvaImage(img, mapMarker)
       );
       layer.destroyChildren();
