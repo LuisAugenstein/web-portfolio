@@ -1,1 +1,23 @@
-<dnd-history-header backLink="/home"></dnd-history-header>
+<div class="h-screen" id="character-content">
+  <dnd-history-header backLink="/home"></dnd-history-header>
+
+  <div class="flex justify-content-center w-full">
+    <p-table [value]="characters" id="p-table">
+      <ng-template pTemplate="caption">Characters</ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th *ngFor="let col of columns">
+            {{ col.header }}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-character>
+        <tr>
+          <td *ngFor="let col of columns">
+            {{ character[col.field] }}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
