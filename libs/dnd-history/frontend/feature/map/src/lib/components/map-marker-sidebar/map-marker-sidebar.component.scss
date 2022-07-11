@@ -1,3 +1,64 @@
 :host {
-    padding-left: 27px;
+  padding-left: 27px;
+}
+
+::ng-deep {
+  #map-marker-information-bar {
+    .p-button {
+      padding: 0 !important;
+      width: 21.2px !important;
+      height: 21.2px !important;
+    }
+    .p-inplace-display {
+      padding: 2px !important;
+      display: block;
+    }
+  }
+
+  #title {
+    min-height: 2rem;
+    h3 {
+      margin: 0;
+      text-align: center;
+      line-height: 1;
+    }
+    .p-inplace {
+      min-height: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .p-inplace-content {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    input {
+      width: calc(100% - 21.2px - 0.25rem);
+    }
+  }
+
+  #description {
+    .p-inplace {
+      margin-top: 0.5rem;
+    }
+    p {
+      margin: 0;
+    }
+    textarea {
+      width: 100%;
+      padding: 2px;
+      line-height: 1;
+    }
+    #description-container {
+      padding-left: 1px;
+      line-height: 1;
+    }
+    .p-inplace-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      align-items: flex-end;
+    }
+  }
 }

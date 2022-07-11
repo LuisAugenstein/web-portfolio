@@ -8,7 +8,13 @@ import {
 } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MapDrawingService } from './services/map-drawing.service';
-import { AppState, MapService, selectMap } from '@dnd-history/frontend-state';
+import {
+  AppState,
+  MapService,
+  selectMap,
+  selectMapMarker,
+  SELECT_MAPMARKER,
+} from '@dnd-history/frontend-state';
 import { filter, Observable, Subscription, take } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Map } from '@dnd-history/shared-interfaces';
@@ -80,10 +86,15 @@ export class CanvasComponent implements OnInit, AfterViewInit, OnDestroy {
         icon: this.mapPreferncesService.showMapMarkers$.value
           ? 'i i-eye-open'
           : 'i i-eye-closed',
-        command: () =>
+        command: () => {
+          this.store.dispatch({
+            type: SELECT_MAPMARKER.type,
+            value: undefined,
+          });
           this.mapPreferncesService.showMapMarkers$.next(
             !this.mapPreferncesService.showMapMarkers$.value
-          ),
+          );
+        },
       },
     ];
   }

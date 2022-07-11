@@ -1,3 +1,46 @@
-<div style="background-color: rgba(0, 0, 0, 0.1)" class="h-full">
-  {{(mapMarker$ | async)}}
+<div
+  id="map-marker-information-bar"
+  style="background-color: rgba(0, 0, 0, 0.1)"
+  class="h-full flex flex-column gap-1"
+>
+  <div *ngIf="mapMarker" class="m-1">
+    <!-- Title -->
+    <p-inplace
+      id="title"
+      [closable]="true"
+      closeIcon="pi pi-check"
+      (onDeactivate)="updateTitle($event)"
+    >
+      <ng-template pTemplate="display">
+        <h3>
+          {{ mapMarker.title || 'Title' }}
+        </h3>
+      </ng-template>
+      <ng-template pTemplate="content">
+        <input type="text" [value]="mapMarker.title" pInputText />
+      </ng-template>
+    </p-inplace>
+    <!-- Description -->
+    <p-inplace
+      id="description"
+      [closable]="true"
+      closeIcon="pi pi-check"
+      (onDeactivate)="updateDescription($event)"
+    >
+      <ng-template pTemplate="display">
+        <div id="description-container">
+          {{ mapMarker.description || 'Description' }}
+        </div>
+      </ng-template>
+      <ng-template pTemplate="content">
+        <textarea
+          pInputTextarea
+          [ngModel]="mapMarker.description"
+          [autoResize]="true"
+          [rows]="1"
+          [cols]="40"
+        ></textarea>
+      </ng-template>
+    </p-inplace>
+  </div>
 </div>

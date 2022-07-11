@@ -15,6 +15,8 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { TooltipModule } from 'primeng/tooltip';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import {InplaceModule} from 'primeng/inplace';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 
 @NgModule({
   imports: [
@@ -27,7 +29,9 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     CheckboxModule,
     TooltipModule,
     ContextMenuModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    InplaceModule,
+    InputTextareaModule
   ],
   declarations: [
     MapComponent,
