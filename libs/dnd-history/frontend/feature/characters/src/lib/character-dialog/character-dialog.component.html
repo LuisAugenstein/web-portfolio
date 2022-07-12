@@ -1,0 +1,36 @@
+<form #characterForm="ngForm" (ngSubmit)="submit(characterForm.value)">
+  <span class="p-float-label my-3">
+    <input
+      type="text"
+      id="inputtext"
+      name="name"
+      pInputText
+      [ngModel]="character.name"
+      style="width: 100%; max-width: 20rem"
+    />
+    <label for="inputtext">Name</label>
+  </span>
+  <span class="p-float-label">
+    <p-dropdown
+      [ngModel]="character?.type"
+      id="type"
+      name="type"
+      [options]="characterTypes"
+      placeholder="Select"
+    >
+    </p-dropdown>
+    <label for="type">Type</label>
+  </span>
+  <span class="p-float-label mt-3">
+    <textarea
+      id="textarea"
+      name="description"
+      rows="4"
+      style="resize: none; width: 100%"
+      [ngModel]="character.description"
+      pInputTextarea
+    ></textarea>
+    <label for="textarea">Description</label>
+  </span>
+  <p-button class="mt-2 flex" type="submit">Save</p-button>
+</form>

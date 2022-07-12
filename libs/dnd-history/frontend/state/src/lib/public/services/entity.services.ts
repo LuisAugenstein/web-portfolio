@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   Adventure,
+  Character,
   Map,
   MapMarker,
   Session,
@@ -25,6 +26,13 @@ export class SessionService extends EntityCollectionServiceBase<Session> {
 export class AdventureService extends EntityCollectionServiceBase<Adventure> {
   constructor(serviceElementsFactory: EntityCollectionServiceElementsFactory) {
     super('Adventure', serviceElementsFactory);
+  }
+}
+
+@Injectable({ providedIn: 'root' })
+export class CharacterService extends EntityCollectionServiceBase<Character> {
+  constructor(serviceElementsFactory: EntityCollectionServiceElementsFactory) {
+    super('Character', serviceElementsFactory);
   }
 }
 

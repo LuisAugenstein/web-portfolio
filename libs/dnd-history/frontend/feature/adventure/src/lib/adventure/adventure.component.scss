@@ -38,30 +38,37 @@ p {
 }
 
 ::ng-deep {
-  .p-card-title {
-    margin: 0 !important;
-    height: 1.8rem;
-    white-space: nowrap;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    scrollbar-width: none;
-  }
+  #grid {
+    .p-card {
+      background-color: transparent;
+    }
 
-  .p-card-subtitle {
-    margin: 0 !important;
-    font-size: small;
-  }
+    .p-card-title {
+      margin: 0 !important;
+      height: 1.8rem;
+      white-space: nowrap;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      scrollbar-width: none;
+    }
 
-  .p-card-body {
-    padding: 8px !important;
-    width: 370px;
-    height: 15rem;
-    border-radius: 15px;
-    cursor: pointer;
-    scrollbar-color: gray white;
-  }
+    .p-card-subtitle {
+      margin: 0 !important;
+      font-size: small;
+    }
 
-  .p-card-content {
-    padding: 0 !important;
+    .p-card-body {
+      padding: 8px !important;
+      width: 370px;
+      height: 15rem;
+      border-radius: 15px;
+      background-color: rgba($color: #fafafa, $alpha: 0.94);
+      cursor: pointer;
+      scrollbar-color: gray white;
+    }
+
+    .p-card-content {
+      padding: 0 !important;
+    }
   }
 }

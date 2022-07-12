@@ -13,8 +13,11 @@ h2,
 h3,
 h4,
 h5,
-.p-card-title {
+.p-card-title,
+.p-datatable-thead,
+.p-datatable-header {
   font-family: 'Spectral SC', serif;
+  margin: 0;
 }
 
 img {

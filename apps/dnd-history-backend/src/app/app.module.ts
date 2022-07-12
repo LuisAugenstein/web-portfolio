@@ -4,6 +4,7 @@ import { environment } from '../environments/environment';
 import { SessionModule } from '@dnd-history/backend-session';
 import {
   AdventureEntity,
+  CharacterEntity,
   MapEntity,
   MapMarkerConnectionEntity,
   MapMarkerEntity,
@@ -11,6 +12,7 @@ import {
 } from '@dnd-history/backend-entities';
 import { AdventureModule } from '@dnd-history/backend-adventure';
 import { MapModule } from '@dnd-history/backend-map';
+import { CharacterModule } from '@dnd-history/backend-character';
 
 @Module({
   imports: [
@@ -19,6 +21,7 @@ import { MapModule } from '@dnd-history/backend-map';
       entities: [
         SessionEntity,
         AdventureEntity,
+        CharacterEntity,
         MapEntity,
         MapMarkerEntity,
         MapMarkerConnectionEntity,
@@ -26,6 +29,7 @@ import { MapModule } from '@dnd-history/backend-map';
     }),
     SessionModule,
     AdventureModule,
+    CharacterModule,
     MapModule,
   ],
   controllers: [],

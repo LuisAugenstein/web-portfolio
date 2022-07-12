@@ -1,0 +1,31 @@
+::ng-deep {
+  .p-inputtext {
+    padding: 8px;
+  }
+
+  .p-dynamic-dialog {
+    width: 95%;
+    min-width: 370px;
+    max-width: 600px;
+  }
+
+  .p-dialog-header {
+    padding: 26px 26px 0 26px !important;
+  }
+
+  .p-inputtext,
+  .p-inputtextarea {
+    box-shadow: none !important;
+    border: 1.6px solid rgba(0, 0, 0, 0.38);
+  }
+
+  .p-inputtextarea {
+    padding: 5px;
+    scrollbar-width: thin !important;
+    scrollbar-color: gray white;
+  }
+}
+
+textarea:focus + label {
+  color: var(--primary-color);
+}
