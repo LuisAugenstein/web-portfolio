@@ -1,3 +1,18 @@
+# Get started
+download the repository and run the following two commands in two different terminals to start the application.
+```
+  nx run dnd-history-backend:serve
+  nx run dnd-history: serve
+```
+
+# Deployment 
+Whenever a commit on the `main` branch is made the backend is automatically deployed to `heroku` and the frontend to `netlify`. 
+Heroku uses some environment variables and the `Procfile` to start the dnd-history-backend server.
+
+
+# Change Database Credentials
+
+
 # TODO
 
 - rename state services to entity services. does it make sense to let selection services depend on stateservices, so that they can emit the whole entity while only storing the Id in the cookies? On the other hand some services probably only need the id so emitting always the full entity might be overkill.
