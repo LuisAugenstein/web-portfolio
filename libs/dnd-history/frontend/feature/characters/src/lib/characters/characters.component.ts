@@ -7,11 +7,6 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { filter, map, Observable, Subscription } from 'rxjs';
 import { CharacterDialogComponent } from '../character-dialog/character-dialog.component';
 
-interface Column {
-  field: string;
-  header: string;
-}
-
 @Component({
   selector: 'dnd-history-characters',
   templateUrl: './characters.component.html',
