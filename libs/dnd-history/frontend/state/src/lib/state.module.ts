@@ -10,6 +10,7 @@ import {
   SessionSelectionEffects,
 } from './private/effects/entity-selection.effects';
 import { MapDataService } from './private/services/data/map-data.service.ts';
+import { CharacterDataService } from './private/services/data/character-data.service';
 
 @NgModule({
   imports: [
@@ -17,15 +18,17 @@ import { MapDataService } from './private/services/data/map-data.service.ts';
     HttpClientModule,
     EffectsModule.forFeature([SessionSelectionEffects, MapSelectionEffects, MapMarkerSelectionEffects]),
   ],
-  providers: [AdventureDataService, MapDataService],
+  providers: [AdventureDataService, CharacterDataService, MapDataService],
 })
 export class StateModule {
   constructor(
     entityDataService: EntityDataService,
     adventureDataService: AdventureDataService,
+    characterDataService: CharacterDataService,
     mapDataService: MapDataService
   ) {
     entityDataService.registerService('Adventure', adventureDataService);
+    entityDataService.registerService('Character', characterDataService);
     entityDataService.registerService('Map', mapDataService);
   }
 }

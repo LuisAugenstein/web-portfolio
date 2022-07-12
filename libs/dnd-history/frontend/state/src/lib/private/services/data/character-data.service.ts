@@ -1,25 +1,25 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Map, Session } from '@dnd-history/shared-interfaces';
+import { Character, Session } from '@dnd-history/shared-interfaces';
 import { DefaultDataService, DefaultDataServiceConfig, HttpUrlGenerator } from '@ngrx/data';
 import { Store } from '@ngrx/store';
-import { filter, map as mapOp, Observable, switchMap, take } from 'rxjs';
+import { filter, map, Observable, switchMap, take } from 'rxjs';
 import { AppState } from '../../../app.state';
 import { selectSession } from '../../../public/selectors/entity.selectors';
 
 @Injectable()
-export class MapDataService extends DefaultDataService<Map> {
+export class CharacterDataService extends DefaultDataService<Character> {
   constructor(
     private store: Store<AppState>,
     http: HttpClient,
     httpUrlGenerator: HttpUrlGenerator,
     config?: DefaultDataServiceConfig
   ) {
-    super('Map', http, httpUrlGenerator, config);
+    super('Character', http, httpUrlGenerator, config);
   }
 
-  override add(map: Map): Observable<Map> {
-    if (map === undefined) {
+  override add(character: Character): Observable<Character> {
+    if (character === undefined) {
       return this.execute(
         'POST',
         this.entityUrl,
@@ -29,14 +29,14 @@ export class MapDataService extends DefaultDataService<Map> {
     return this.store.select(selectSession).pipe(
       take(1),
       filter((selectedSession) => selectedSession !== undefined),
-      mapOp(
+      map(
         (selectededSession) =>
           new HttpParams({
             fromObject: { sessionId: (selectededSession as Session).id },
           })
       ),
       switchMap((params) =>
-        this.execute('POST', this.entityUrl, map, { params })
+        this.execute('POST', this.entityUrl, character, { params })
       )
     );
   }

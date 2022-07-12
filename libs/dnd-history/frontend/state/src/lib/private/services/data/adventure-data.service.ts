@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Adventure, Session } from '@dnd-history/shared-interfaces';
-import { DefaultDataService, HttpUrlGenerator } from '@ngrx/data';
+import { DefaultDataService, DefaultDataServiceConfig, HttpUrlGenerator } from '@ngrx/data';
 import { Store } from '@ngrx/store';
 import { filter, map, Observable, switchMap, take } from 'rxjs';
 import { AppState } from '../../../app.state';
@@ -12,9 +12,10 @@ export class AdventureDataService extends DefaultDataService<Adventure> {
   constructor(
     private store: Store<AppState>,
     http: HttpClient,
-    httpUrlGenerator: HttpUrlGenerator
+    httpUrlGenerator: HttpUrlGenerator,
+    config?: DefaultDataServiceConfig
   ) {
-    super('Adventure', http, httpUrlGenerator);
+    super('Adventure', http, httpUrlGenerator, config);
   }
 
   override add(adventure: Adventure): Observable<Adventure> {
