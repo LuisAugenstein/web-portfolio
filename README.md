@@ -1,3 +1,8 @@
+# WebPortfolio Monorepo
+This project was generated using [Nx](https://nx.dev).
+
+<p style="text-align: center;"><img src="https://dnd-history.netlify.app/dist/dnd-history/browser/assets/d20.svg" width="450"></p>
+
 # Get started
 download the repository and run the following two commands in two different terminals to start the application.
 ```
