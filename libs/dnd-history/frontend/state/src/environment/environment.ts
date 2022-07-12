@@ -1,11 +1,10 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-declare const IMG_BB_API_KEY: string;
 export const environment = {
   production: false,
   backendUrl: 'http://localhost:3333/api',
-  imgBBApiKey: IMG_BB_API_KEY
+  imgBBApiKey: '87f33ed934a0f06f81da1649800a8b1d'
 };
 
 /*
