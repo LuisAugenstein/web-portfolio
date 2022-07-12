@@ -37,6 +37,11 @@ export class MapService {
   }
 
   find(id: NanoId, relations?: string[]): Promise<MapEntity> {
-    return this.mapRepository.findOne(id, { relations });
+    return this.mapRepository.findOne({
+      where: {
+        id,
+      },
+      relations,
+    });
   }
 }

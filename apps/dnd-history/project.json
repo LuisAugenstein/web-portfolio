@@ -4,9 +4,12 @@
   "prefix": "web-portfolio",
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular-builders/custom-webpack:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "customWebpackConfig": {
+          "path": "apps/dnd-history/custom-webpack.config.js"
+        },
         "outputPath": "dist/dnd-history/browser",
         "index": "apps/dnd-history/src/index.html",
         "main": "apps/dnd-history/src/main.ts",
@@ -32,7 +35,7 @@
             {
               "type": "initial",
               "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumError": "2mb"
             },
             {
               "type": "anyComponentStyle",
@@ -60,7 +63,7 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@angular-builders/custom-webpack:dev-server",
       "configurations": {
         "production": {
           "browserTarget": "dnd-history:build:production"

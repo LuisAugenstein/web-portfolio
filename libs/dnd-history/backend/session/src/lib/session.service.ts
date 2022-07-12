@@ -31,6 +31,11 @@ export class SessionService {
   }
 
   find(id: string, relations?: string[]): Promise<SessionEntity> {
-    return this.sessionRepository.findOne(id, { relations });
+    return this.sessionRepository.findOne({
+      where: {
+        id,
+      },
+      relations,
+    });
   }
 }
