@@ -1,9 +1,6 @@
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { Session } from '@dnd-history/shared-interfaces';
-
 import { SessionService } from './session.service';
-import { UpdateResult } from 'typeorm';
-import { SessionEntity } from '@dnd-history/backend-entities';
 
 @Controller()
 export class SessionController {
