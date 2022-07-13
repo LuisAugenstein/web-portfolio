@@ -22,7 +22,7 @@
             *ngIf="data.content; else contentPlaceholder"
             style="white-space: pre-wrap"
           >
-            {{ data.content }}
+            {{ data.content.split(' ').slice(0, 30).join(' ') + '...' }}
           </p>
           <ng-template #contentPlaceholder>
             <p style="color: gray">My awesome adventure ...</p>

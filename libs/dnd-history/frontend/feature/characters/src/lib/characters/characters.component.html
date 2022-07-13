@@ -49,7 +49,7 @@
         <tr (click)="updateCharacter(character)">
           <td>{{ character.name }}</td>
           <td>{{ character.type }}</td>
-          <td>{{ character.description }}</td>
+          <td>{{ character.description.split(' ').slice(0, 10).join(' ') + '...' }}</td>
         </tr>
       </ng-template>
     </p-table>
