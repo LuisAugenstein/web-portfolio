@@ -101,63 +101,6 @@
         "jestConfig": "apps/dnd-history/jest.config.js",
         "passWithNoTests": true
       }
-    },
-    "server": {
-      "executor": "@angular-devkit/build-angular:server",
-      "options": {
-        "outputPath": "dist/dnd-history/server",
-        "main": "apps/dnd-history/server.ts",
-        "tsConfig": "apps/dnd-history/tsconfig.server.json",
-        "inlineStyleLanguage": "scss"
-      },
-      "configurations": {
-        "production": {
-          "outputHashing": "media",
-          "fileReplacements": [
-            {
-              "replace": "libs/dnd-history/frontend/state/src/environment/environment.ts",
-              "with": "libs/dnd-history/frontend/state/src/environment/environment.prod.ts"
-            }
-          ]
-        },
-        "development": {
-          "optimization": false,
-          "sourceMap": true,
-          "extractLicenses": false
-        }
-      },
-      "defaultConfiguration": "production"
-    },
-    "serve-ssr": {
-      "executor": "@nguniversal/builders:ssr-dev-server",
-      "configurations": {
-        "development": {
-          "browserTarget": "dnd-history:build:development",
-          "serverTarget": "dnd-history:server:development"
-        },
-        "production": {
-          "browserTarget": "dnd-history:build:production",
-          "serverTarget": "dnd-history:server:production"
-        }
-      },
-      "defaultConfiguration": "development"
-    },
-    "prerender": {
-      "executor": "@nguniversal/builders:prerender",
-      "options": {
-        "routes": ["/"]
-      },
-      "configurations": {
-        "production": {
-          "browserTarget": "dnd-history:build:production",
-          "serverTarget": "dnd-history:server:production"
-        },
-        "development": {
-          "browserTarget": "dnd-history:build:development",
-          "serverTarget": "dnd-history:server:development"
-        }
-      },
-      "defaultConfiguration": "production"
     }
   },
   "tags": []

@@ -21,7 +21,7 @@ import { reducers } from './reducers';
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     StoreModule.forRoot(reducers),
