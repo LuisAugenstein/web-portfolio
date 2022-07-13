@@ -37,8 +37,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    console.log('environment: ', environment);
-
     this.subscription = this.store
       .select(selectSession)
       .subscribe((selectedSession) => {
