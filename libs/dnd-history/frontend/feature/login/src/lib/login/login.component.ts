@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Session } from '@dnd-history/shared-interfaces';
 import {
   AppState,
+  environment,
   selectSession,
   SessionService,
 } from '@dnd-history/frontend-state';
@@ -36,6 +37,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    console.log('environment backendUrl: ', environment.backendUrl);
     this.subscription = this.store
       .select(selectSession)
       .subscribe((selectedSession) => {
