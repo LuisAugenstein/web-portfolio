@@ -18,7 +18,8 @@
         "inlineStyleLanguage": "scss",
         "assets": [
           "apps/dnd-history/src/favicon.ico",
-          "apps/dnd-history/src/assets"
+          "apps/dnd-history/src/assets",
+          "apps/dnd-history/src/_redirects"
         ],
         "styles": [
           "node_modules/primeicons/primeicons.css",
