@@ -1,7 +1,7 @@
 <div class="h-screen" id="adventure-content">
   <dnd-history-header backLink="/home"></dnd-history-header>
 
-  <div class="flex justify-content-center">
+  <main class="flex justify-content-center">
     <div id="grid" style="max-width: 80rem">
       <p-card
         *ngFor="let data of adventures$ | async"
@@ -35,5 +35,5 @@
         <p-button (click)="createAdventureCard()"> Add New </p-button>
       </div>
     </div>
-  </div>
+  </main>
 </div>

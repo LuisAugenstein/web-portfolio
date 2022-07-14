@@ -14,6 +14,9 @@
     margin: 0.5rem;
     .p-datatable-header {
       border-radius: 10px 10px 0 0;
+      .pi-search {
+        left: 10px;
+      }
     }
     .p-datatable-wrapper {
       border-radius: 0 0 10px 10px;
