@@ -1,0 +1,55 @@
+<form #settingsForm="ngForm" (ngSubmit)="submit(settingsForm.value)">
+  <div class="h-5rem pt-2">
+    <div [style]="{ height: '48px' }" class="flex align-items-center">
+      <div
+        *ngIf="!sessionDeleted; else deleted"
+        class="flex align-items-center gap-2"
+      >
+        <span class="p-float-label">
+          <input
+            type="text"
+            id="inputtext"
+            name="title"
+            pInputText
+            [(ngModel)]="sessionName"
+            style="width: 100%; max-width: 20rem"
+          />
+          <label for="inputtext">Session</label>
+        </span>
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-trash"
+          class="p-button-rounded bg-red-600"
+          (click)="deleteSession()"
+        ></button>
+      </div>
+      <ng-template #deleted
+        >Click save to entirely delete this session
+      </ng-template>
+    </div>
+  </div>
+  <p-button class="mt-2 flex" type="submit">Save</p-button>
+</form>
+
+<!-- 
+<p-inplace>
+    <ng-template pTemplate="display">
+        <h3 id="session-name">{{sessionName}}</h3>
+        <label for="session-name"></label>
+    </ng-template>
+    <ng-template pTemplate="content">
+      <span class="p-float-label my-3">
+ <input
+        type="text"
+        id="inputtext"
+        name="title"
+        pInputText
+        [(ngModel)]="sessionName"
+        style="width: 100%; max-width: 20rem"
+      />
+        <label for="inputtext">SessionName</label>
+      </span>
+    </ng-template>
+  </p-inplace> -->

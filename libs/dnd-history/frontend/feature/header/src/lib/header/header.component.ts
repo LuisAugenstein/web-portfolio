@@ -4,7 +4,17 @@ import { AppState } from '@dnd-history/frontend-state';
 import { Session } from '@dnd-history/shared-interfaces';
 import { EntityCollection } from '@ngrx/data';
 import { Store } from '@ngrx/store';
-import { combineLatest, filter, map, tap } from 'rxjs';
+import { DialogService } from 'primeng/dynamicdialog';
+import {
+  combineLatest,
+  filter,
+  map,
+  Observable,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs';
+import { SettingsDialogComponent } from '../settings-dialog/settings-dialog.component';
 
 @Component({
   selector: 'dnd-history-header',
@@ -12,21 +22,47 @@ import { combineLatest, filter, map, tap } from 'rxjs';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  sessionName$ = combineLatest([
+  session$ = combineLatest([
     this.store.select((state) => state.selectedSession),
-    this.store.select((state) => state.entityCache['Session'] as EntityCollection<Session>),
+    this.store.select(
+      (state) => state.entityCache['Session'] as EntityCollection<Session>
+    ),
   ]).pipe(
-    filter(([selectedSession, sessions]) => selectedSession.loaded && sessions?.loaded),
+    filter(
+      ([selectedSession, sessions]) =>
+        selectedSession.loaded && sessions?.loaded
+    ),
     map(([selectedSession, sessions]) => {
-      const session = selectedSession.id ? sessions.entities[selectedSession.id] : undefined;
+      const session = selectedSession.id
+        ? sessions.entities[selectedSession.id]
+        : undefined;
       if (session === undefined) {
         this.router.navigate(['/login']);
       }
-      return session?.name;
+      return session;
     })
   );
 
   @Input() backLink = '/login';
 
-  constructor(private router: Router, private store: Store<AppState>) {}
+  constructor(
+    private router: Router,
+    private store: Store<AppState>,
+    private readonly dialogService: DialogService
+  ) {}
+
+  openSettingsDialog(): void {
+    this.session$
+      .pipe(
+        switchMap((session) => {
+          const reference = this.dialogService.open(SettingsDialogComponent, {
+            header: 'Settings',
+            data: session,
+          });
+          return reference.onClose;
+        }),
+        take(1)
+      )
+      .subscribe();
+  }
 }
