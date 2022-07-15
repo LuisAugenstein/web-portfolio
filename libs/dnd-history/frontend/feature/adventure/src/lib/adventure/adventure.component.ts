@@ -64,7 +64,6 @@ export class AdventureComponent implements OnInit, OnDestroy {
 
   private openAdventureCardDialog(adventure: Adventure): Observable<Adventure> {
     const reference = this.dialogService.open(AdventureDialogComponent, {
-      header: 'Add a new Adventure',
       data: adventure,
     });
     return reference.onClose.pipe(

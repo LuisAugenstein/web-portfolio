@@ -9,9 +9,9 @@ import { MapComponent } from '@dnd-history/frontend-map';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'adventure', component: AdventureComponent },
+  { path: 'adventures', component: AdventureComponent },
   { path: 'characters', component: CharactersComponent },
-  { path: 'map', component: MapComponent },
+  { path: 'maps', component: MapComponent },
   { path: '**', redirectTo: 'login' },
 ];
 

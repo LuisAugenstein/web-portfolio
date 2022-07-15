@@ -1,5 +1,6 @@
 <header class="flex align-items-center justify-content-between">
-  <a class="ml-4" [routerLink]="backLink">zurück</a>
+  <button pButton class="ml-4 p-button-rounded p-button-text" [routerLink]="backLink" icon="pi pi-arrow-left">
+  </button>
   <div>
     <h1>{{ 'DND' | titlecase }} {{ 'HISTORY' | titlecase }}</h1>
     <h3>{{ (session$ | async)?.name }}</h3>
