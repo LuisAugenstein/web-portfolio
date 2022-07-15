@@ -8,12 +8,15 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
   styleUrls: ['./character-dialog.component.scss'],
 })
 export class CharacterDialogComponent implements OnInit {
-  character!: Character;
+  character: Character = {
+    id: '',
+    name: '',
+    type: 'NPC',
+    description: '',
+  };
+  playerName = '';
 
-  characterTypes = [
-    'Player',
-    'NPC'
-  ];
+  characterTypes = ['Player', 'NPC'];
 
   constructor(
     private ref: DynamicDialogRef,
@@ -21,13 +24,24 @@ export class CharacterDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.character = this.config.data;
+    this.character = { ...this.config.data };
+    const playerRegex = /^Player \((.*)\)$/;
+    const match = playerRegex.exec(this.character.type);
+    if(match){
+      this.character.type = 'Player';
+      this.playerName = match[1];
+    }
   }
 
-  submit(formData: Omit<Character, 'id'>) {
+  submit({
+    playerName,
+    ...character
+  }: Omit<Character, 'id'> & { playerName: string }) {
     const updatedCharacter: Character = {
+      ...character,
       id: this.character.id,
-      ...formData,
+      type:
+        character.type === 'Player' ? `Player (${playerName})` : character.type,
     };
     this.ref.close(updatedCharacter);
   }

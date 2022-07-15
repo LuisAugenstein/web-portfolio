@@ -10,17 +10,31 @@
     />
     <label for="inputtext">Name</label>
   </span>
-  <span class="p-float-label">
-    <p-dropdown
-      [ngModel]="character?.type"
-      id="type"
-      name="type"
-      [options]="characterTypes"
-      placeholder="Select"
-    >
-    </p-dropdown>
-    <label for="type">Type</label>
-  </span>
+  <div class="flex align-items-center gap-2 h-2rem">
+    <span class="p-float-label">
+      <p-dropdown
+        [(ngModel)]="character.type"
+        id="type"
+        name="type"
+        [options]="characterTypes"
+        placeholder="Select"
+      >
+      </p-dropdown>
+      <label for="type">Type</label>
+    </span>
+    <span *ngIf="character.type === 'Player'" class="p-float-label my-3">
+      <input
+        type="text"
+        id="inputtext"
+        name="playerName"
+        pInputText
+        [ngModel]="playerName"
+        style="width: 100%; max-width: 20rem"
+      />
+      <label for="inputtext">Name in real life</label>
+    </span>
+  </div>
+
   <span class="p-float-label mt-3">
     <textarea
       id="textarea"
