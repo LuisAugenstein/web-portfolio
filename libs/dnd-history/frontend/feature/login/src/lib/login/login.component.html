@@ -1,16 +1,23 @@
 <div class="h-screen" id="login-content">
-  <header id="header1" class="flex align-items-center justify-content-center pt-8">
+  <header
+    id="header1"
+    class="flex align-items-center justify-content-center pt-8"
+  >
     <h1 class="w-5rem" style="text-align: right">DND</h1>
     <img class="m-4 w-10rem" src="assets/d20.svg" alt="d20" />
     <h1 class="w-5rem">HISTORY</h1>
   </header>
-  <header id="header2" class="flex-column align-items-center justify-content-center pt-8">
+  <header
+    id="header2"
+    class="flex-column align-items-center justify-content-center pt-8"
+  >
     <h1 class="w-15rem m-0">DND HISTORY</h1>
     <img class="m-4 w-10rem" src="assets/d20.svg" alt="d20" />
   </header>
 
   <div class="flex justify-content-center">
     <form
+      id="login-form"
       #loginForm="ngForm"
       (ngSubmit)="submit()"
       class="flex flex-column align-items-center"
