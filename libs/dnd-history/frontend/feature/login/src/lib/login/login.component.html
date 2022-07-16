@@ -22,21 +22,24 @@
       (ngSubmit)="submit()"
       class="flex flex-column align-items-center"
     >
-      <p-dropdown
-        [options]="(sessions$ | async) ?? []"
-        [ngModel]="sessionName"
-        (ngModelChange)="onSessionNameChange($event)"
-        optionLabel="name"
-        optionValue="name"
-        name="name"
-        placeholder="Select or create a session"
-        [editable]="true"
-        [required]="true"
-        [maxlength]="35"
-        pattern=".{3,}"
-        [style]="{ width: '20rem', backgroundColor: 'var(--surface-ground)' }"
-      >
-      </p-dropdown>
+      <span class="p-float-label">
+        <p-dropdown
+          id="login"
+          [options]="(sessions$ | async) ?? []"
+          [ngModel]="sessionName"
+          (ngModelChange)="onSessionNameChange($event)"
+          optionLabel="name"
+          optionValue="name"
+          name="name"
+          [editable]="true"
+          [required]="true"
+          [maxlength]="35"
+          pattern=".{3,}"
+          [style]="{ width: '20rem', backgroundColor: 'var(--surface-ground)' }"
+        >
+        </p-dropdown>
+        <label for="login">Create or Select Session</label>
+      </span>
 
       <p-button
         type="submit"
