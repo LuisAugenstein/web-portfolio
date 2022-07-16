@@ -66,6 +66,7 @@ export class CharactersComponent implements OnInit, OnDestroy {
     const reference = this.dialogService.open(CharacterDialogComponent, {
       header: 'Character Details',
       data: character,
+      styleClass: 'character-dialog'
     });
     return reference.onClose.pipe(
       filter((character?: Character) => character !== undefined)

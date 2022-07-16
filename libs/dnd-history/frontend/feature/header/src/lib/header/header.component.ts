@@ -58,6 +58,7 @@ export class HeaderComponent {
           const reference = this.dialogService.open(SettingsDialogComponent, {
             header: 'Settings',
             data: session,
+            styleClass: 'settings-dialog'
           });
           return reference.onClose;
         }),

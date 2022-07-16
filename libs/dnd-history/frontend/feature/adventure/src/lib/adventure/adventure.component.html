@@ -2,35 +2,19 @@
   <dnd-history-header backLink="/home"></dnd-history-header>
 
   <main class="flex justify-content-center">
-    <div id="grid" style="max-width: 80rem">
-      <p-card
-        *ngFor="let data of adventures$ | async"
-        [subheader]="datePipe.transform(data.createdAt, 'dd-MM-yyyy') || ''"
-        [style]="{ 'border-radius': '15px' }"
-        (click)="updateAdventureCard(data)"
-      >
-        <ng-template pTemplate="title">
-          <div *ngIf="data.title; else titlePlaceholder">
-            {{ data.title }}
-          </div>
-          <ng-template #titlePlaceholder>
-            <div style="color: gray">Title</div></ng-template
-          >
-        </ng-template>
-        <ng-template pTemplate="content">
-          <p
-            *ngIf="data.content; else contentPlaceholder"
-            style="white-space: pre-wrap"
-          >
-            {{ data.content.split(' ').slice(0, 30).join(' ') + '...' }}
-          </p>
-          <ng-template #contentPlaceholder>
-            <p style="color: gray">My awesome adventure ...</p>
-          </ng-template>
-        </ng-template>
-      </p-card>
+    <div id="grid">
+      <dnd-history-adventure-card
+        *ngFor="let adventure of adventures$ | async"
+        [title]="adventure.title"
+        [createdAt]="adventure.createdAt"
+        [content]="adventure.content"
+        [selected]="selectedAdventureId === adventure.id"
+        (cardClicked)="onAdventureCardClicked(adventure.id)"
+        (update)="updateAdventureCard(adventure)"
+      ></dnd-history-adventure-card>
       <div
-        class="flex justify-content-center align-items-center w-24rem h-15rem"
+        class="flex justify-content-center align-items-center"
+        style="width: 370px; height: 11rem"
       >
         <p-button (click)="createAdventureCard()"> Add New </p-button>
       </div>

@@ -12,67 +12,20 @@ main {
 }
 
 #grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, 370px);
-  grid-gap: 1rem;
-  width: 370px;
+  display: flex;
+  flex-wrap: wrap;
+  grid-gap: 15px;
+  max-width: 370px;
 }
 
 @media (min-width: 825px) {
   #grid {
-    width: 49rem;
+    max-width: calc(15px + 2*370px);
   }
 }
 @media (min-width: 1230px) {
   #grid {
-    width: 74rem;
-  }
-}
-
-p {
-  padding: 1px;
-  margin: 8px 0;
-  line-height: 1.2rem;
-  overflow: auto;
-  max-height: 11rem;
-  scrollbar-width: thin;
-  :first-of-type {
-    text-indent: -3px;
-  }
-}
-
-::ng-deep {
-  #grid {
-    .p-card {
-      background-color: transparent;
-    }
-
-    .p-card-title {
-      margin: 0 !important;
-      height: 1.8rem;
-      white-space: nowrap;
-      overflow-x: scroll;
-      overflow-y: hidden;
-      scrollbar-width: none;
-    }
-
-    .p-card-subtitle {
-      margin: 0 !important;
-      font-size: small;
-    }
-
-    .p-card-body {
-      padding: 8px !important;
-      width: 370px;
-      height: 11rem;
-      border-radius: 15px;
-      background-color: rgba($color: #fafafa, $alpha: 0.94);
-      cursor: pointer;
-      scrollbar-color: gray white;
-    }
-
-    .p-card-content {
-      padding: 0 !important;
-    }
+    max-width: calc(2*15px + 3*370px);
+  grid-template-columns: repeat(3, 1fr);
   }
 }

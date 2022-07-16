@@ -1,0 +1,80 @@
+.selected {
+  height: 33rem;
+  width: 100%;
+  min-width: 370px;
+}
+.unselected {
+  height: 11rem;
+  width: 370px;
+}
+
+@media (max-width: 825px) {
+  .selected {
+    height: 33rem;
+    width: 370px;
+  }
+}
+
+::ng-deep {
+  .selected .p-card-content {
+    padding: 0 8px 8px 0 !important;
+  }
+  .unselected .p-card-content {
+    padding: 0 !important;
+  }
+
+  .adventure-card {
+    background-color: transparent;
+    transition: 0.3s;
+    display: block;
+
+    .p-card {
+      height: 100%;
+      background-color: transparent;
+    }
+
+    .p-card-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 !important;
+      white-space: nowrap;
+
+      .card-title {
+        overflow-x: auto;
+        scrollbar-width: none;
+        width: calc(100% - 36px - 10px);
+      }
+
+      .p-button {
+        margin: 0 !important;
+        height: 36px;
+        width: 36px;
+        padding: 0;
+      }
+    }
+
+    .p-card-subtitle {
+      margin: 0 !important;
+      font-size: small;
+    }
+
+    .p-card-body {
+      padding: 8px !important;
+      min-height: 11rem;
+      height: 100%;
+      border-radius: 15px;
+      background-color: rgba($color: #fafafa, $alpha: 0.93);
+      cursor: pointer;
+      scrollbar-color: gray white;
+    }
+
+    .p-card-content {
+      margin-top: 4px;
+      line-height: 1.3rem;
+      overflow: auto;
+      height: calc(100% - 55px);
+      scrollbar-width: thin;
+    }
+  }
+}

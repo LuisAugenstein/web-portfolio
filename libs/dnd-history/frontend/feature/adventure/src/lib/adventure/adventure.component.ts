@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Adventure, Session } from '@dnd-history/shared-interfaces';
+import { Adventure, NanoId, Session } from '@dnd-history/shared-interfaces';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AdventureDialogComponent } from '../adventure-dialog/adventure-dialog.component';
 import { DatePipe } from '@angular/common';
@@ -20,6 +20,7 @@ import { nanoid } from 'nanoid';
 })
 export class AdventureComponent implements OnInit, OnDestroy {
   adventures$ = this.adventureService.entities$;
+  selectedAdventureId?: NanoId;
   private subscription?: Subscription;
   constructor(
     private readonly adventureService: AdventureService,
@@ -43,6 +44,10 @@ export class AdventureComponent implements OnInit, OnDestroy {
     this.subscription?.unsubscribe();
   }
 
+  onAdventureCardClicked(adventureId: NanoId){
+    this.selectedAdventureId = this.selectedAdventureId === adventureId ? undefined : adventureId;
+  }
+
   createAdventureCard(): void {
     this.openAdventureCardDialog({
       id: nanoid(),
@@ -64,7 +69,9 @@ export class AdventureComponent implements OnInit, OnDestroy {
 
   private openAdventureCardDialog(adventure: Adventure): Observable<Adventure> {
     const reference = this.dialogService.open(AdventureDialogComponent, {
+      header: 'Adventure Details',
       data: adventure,
+      styleClass: 'adventure-dialog'
     });
     return reference.onClose.pipe(
       filter((adventure?: Adventure) => adventure !== undefined)

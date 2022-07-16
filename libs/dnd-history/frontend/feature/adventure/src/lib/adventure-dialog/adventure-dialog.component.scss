@@ -1,12 +1,12 @@
 ::ng-deep {
+  .adventure-dialog {
+    width: 95%;
+    min-width: 370px;
+    max-width: calc(2 * 15px + 3 * 370px);
+    max-height: 33rem;
+
     .p-inputtext {
       padding: 8px;
-    }
-
-    .p-dynamic-dialog {
-      width: 95%;
-      min-width: 370px;
-      max-width: 800px;
     }
 
     .p-dialog-header {
@@ -24,6 +24,7 @@
       scrollbar-width: thin !important;
       scrollbar-color: gray white;
     }
+  }
 }
 
 textarea:focus + label {

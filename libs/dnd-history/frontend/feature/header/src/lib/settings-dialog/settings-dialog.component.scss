@@ -1,15 +1,14 @@
 ::ng-deep {
-  .p-dynamic-dialog {
+  .settings-dialog {
     width: 95%;
     min-width: 370px;
     max-width: 600px;
-  }
+    .p-dialog-header {
+      padding: 0.5rem 0.5rem 0 1.5rem !important;
+    }
 
-  .p-dialog-header {
-    padding: 0.5rem 0.5rem 0 1.5rem !important;
-  }
-
-  .p-inputtext {
-    padding: 8px;
+    .p-inputtext {
+      padding: 8px;
+    }
   }
 }

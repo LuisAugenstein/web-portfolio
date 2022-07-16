@@ -1,0 +1,29 @@
+<p-card
+  [class]="'adventure-card ' + (isActive() ? 'selected' : 'unselected')"
+  [subheader]="datePipe.transform(createdAt, 'dd-MM-yyyy') || ''"
+  [style]="{ 'border-radius': '15px' }"
+  (click)="onCardClicked()"
+>
+  <ng-template pTemplate="title">
+    <h4 *ngIf="title; else titlePlaceholder" class="card-title">
+      {{ title }}
+    </h4>
+    <ng-template #titlePlaceholder>
+      <div style="color: gray" class="card-title">Title</div></ng-template
+    >
+    <button
+      pButton
+      class="ml-4 p-button-rounded p-button-text"
+      icon="pi pi-pencil"
+      (click)="onUpdateButtonClicked($event)"
+    ></button>
+  </ng-template>
+  <ng-template pTemplate="content">
+    <div class="card-content" *ngIf="content; else contentPlaceholder" style="white-space: pre-wrap">
+      {{ isActive() ? content : content.split(' ').slice(0, 30).join(' ') + '...' }}
+    </div>
+    <ng-template #contentPlaceholder>
+      <p style="color: gray">My awesome adventure ...</p>
+    </ng-template>
+  </ng-template>
+</p-card>

@@ -13,6 +13,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ButtonModule } from 'primeng/button';
 
 import { AdventureDialogComponent } from './adventure-dialog/adventure-dialog.component';
+import { AdventureCardComponent } from './adventure-card/adventure-card.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,7 @@ import { AdventureDialogComponent } from './adventure-dialog/adventure-dialog.co
     DynamicDialogModule,
     InputTextModule,
   ],
-  declarations: [AdventureComponent, AdventureDialogComponent],
+  declarations: [AdventureComponent, AdventureDialogComponent, AdventureCardComponent],
   providers: [DatePipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
